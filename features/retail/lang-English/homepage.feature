@@ -2,7 +2,7 @@
 Feature: Homepage flows language English
 
   Background:
-    Given Login to App with Customer "HOMEPAGE_USER" using language "ENGLISH"
+    Given Login as "RETAIL" customer "HOMEPAGE_USER" using "ENGLISH" language
 
   Scenario: Go to My Assets from Homepage
     When Go to "My Assets" from Homepage

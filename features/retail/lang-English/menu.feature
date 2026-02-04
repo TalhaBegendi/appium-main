@@ -2,7 +2,7 @@
 Feature: Menu navigation flows language English
 
   Background:
-    When Login to App with Customer "MENU_MONEY_TRANSFER_USER" using language "ENGLISH"
+    Given Login as "RETAIL" customer "MENU_USER" using "ENGLISH" language
 
   Scenario: Go to Home from Menu
     When Go to "Home" from Menu

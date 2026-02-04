@@ -1,4 +1,4 @@
-@devices=15
+@devices=pixel7
 Feature: Login flows language Turkish
 
   Scenario: Success Login Scenario With Corporate User

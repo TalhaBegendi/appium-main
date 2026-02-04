@@ -1,33 +1,28 @@
 package org.halkKatilim.stepDefs;
 
 import io.cucumber.java.en.When;
-import org.halkKatilim.enums.TextSource;
-import org.halkKatilim.pages.BasePages;
-import org.halkKatilim.pages.homePage.HomePages;
+import org.halkKatilim.pages.Pages;
 
-import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.*;
-import static org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix.HOMEPAGE;
-
-public class HomepageSteps extends HomePages {
-
+public class HomepageSteps {
+    Pages pages = new Pages();
 
     @When("Go to {string} from Homepage")
     public void goToOptionFromHomepage(String option) {
-        goToOptionFromHomepagex(option);
+        pages.getHomePage().goToOptionFromHomepage(option);
     }
 
     @When("Go to Random Account from Homepage with assertion using {string}")
     public void goToRandomElementsCheckWithText(String order) {
-        goToRandomElementsCheckWithTextx(order);
+        pages.getHomePage().goToRandomElementsCheckWithText(order);
     }
 
     @When("Go to Random Last Transactions")
     public void goToRandomLastActivities() {
-        goToRandomLastActivitiesx();
+        pages.getHomePage().goToRandomLastActivities();
     }
 
     @When("Verify currency and amount change on My Assets from Homepage")
     public void verifyAssetsCurrencyToggle() {
-        verifyAssetsCurrencyTogglex();
+        pages.getHomePage().verifyAssetsCurrencyToggle();
     }
 }

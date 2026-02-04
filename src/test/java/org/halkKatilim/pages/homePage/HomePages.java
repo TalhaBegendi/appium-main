@@ -14,12 +14,12 @@ public  class HomePages extends BasePages {
 
     public HomePages() {}
 
-    public void goToOptionFromHomepagex(String option) {
+    public void goToOptionFromHomepage(String option) {
         appiumUtil.navigate(option, "pageTitleHomepage", null, HOMEPAGE);
         log.info(LOG_HOMEPAGE_NAVIGATE_OPTION, option);
     }
 
-    public void goToRandomElementsCheckWithTextx(String order) {
+    public void goToRandomElementsCheckWithText(String order) {
         TextSource source = order == null || order.isBlank() ? null : TextSource.valueOf(order);
 
         String actualText = appiumUtil.clickRandomElementGetText("accountListAvailableBalanceHomepageItem", source);
@@ -30,14 +30,14 @@ public  class HomePages extends BasePages {
         log.info(LOG_RANDOM_ACCOUNT_TEXT_CHECK, actualText, expectedText);
     }
 
-    public void goToRandomLastActivitiesx() {
+    public void goToRandomLastActivities() {
         appiumUtil.clickRandomElement("last10TransactionsTitleHomepage");
         LAST_TRANSACTIONS_SLIP.runAssertion();
 
         log.info(LOG_RANDOM_LAST_ACTIVITIES_OPENED);
     }
 
-    public void verifyAssetsCurrencyTogglex() {
+    public void verifyAssetsCurrencyToggle() {
         appiumUtil.verifyAssetsCurrencyToggle("myAssetsCurrentAmountText", "myAssetsCurrencyToggleButton");
         log.info(LOG_ASSETS_CURRENCY_TOGGLE_VERIFIED);
     }
