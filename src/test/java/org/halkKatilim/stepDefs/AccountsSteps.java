@@ -2,7 +2,6 @@ package org.halkKatilim.stepDefs;
 
 import io.cucumber.java.en.When;
 import org.halkKatilim.pages.Pages;
-import org.halkKatilim.pages.accountsPage.AccountsPages;
 
 public class AccountsSteps{
 
