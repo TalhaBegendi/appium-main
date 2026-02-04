@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.halkKatilim</groupId>
-    <artifactId>appium-main</artifactId>
+    <artifactId>cucumber</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -192,26 +192,6 @@
                         </property>
                     </properties>
                 </configuration>
-            </plugin>
-
-            <!-- Test report açıcı -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec.maven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>open-test-report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <classpathScope>test</classpathScope>
-                            <mainClass>org.halkKatilim.utility.OpenTestReport</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- Allure Maven Plugin -->

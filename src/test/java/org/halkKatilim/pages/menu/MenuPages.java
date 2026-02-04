@@ -20,19 +20,19 @@ public class MenuPages extends BasePages {
     public MenuPages() {
     }
 
-    public void goToMenux() {
+    public void goToMenu() {
         appiumUtil.clickElement("menuItem");
         MAIN_MENU.runAssertion();
         log.info(LOG_MENU_OPENED);
     }
 
-    public void goToOptionFromMenux(String option) {
-        goToMenux();
+    public void goToOptionFromMenu(String option) {
+        goToMenu();
         appiumUtil.navigate(option, "menuTitleItem", null, MENU);
     }
 
-    public void goToFromMenuUnifiedx(String path, String assertion, String assertionModeKey, String order) {
-        goToMenux();
+    public void goToFromMenuUnified(String path, String assertion, String assertionModeKey, String order) {
+        goToMenu();
         AppiumUtil.StepResult res = appiumUtil.navigateWithAssertion(
                 path, assertion, "menuTitleItem", "lastMenuOption", MENU);
 

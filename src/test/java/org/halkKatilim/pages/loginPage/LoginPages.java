@@ -19,7 +19,7 @@ public  class LoginPages extends BasePages {
 
     public LoginPages() {}
 
-    public void loginToAppx(String customerKey, String langKey, String userTypeKey) {
+    public void loginToApp(String customerKey, String langKey, String userTypeKey) {
 
         UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
         log.info(LOG_LOGIN_START, userType, customerKey, langKey);
@@ -93,13 +93,13 @@ public  class LoginPages extends BasePages {
         log.info(LOG_LOGIN_COMMON_FLOW_COMPLETED, lang);
     }
 
-    public void logoutFromAppx(String customerKey, String langKey, String userTypeKey) {
+    public void logoutFromApp(String customerKey, String langKey, String userTypeKey) {
 
         Language lang = Language.valueOf(langKey);
         log.info(LOG_LOGOUT_START, customerKey, lang, userTypeKey);
 
-        loginToAppx(customerKey, langKey, userTypeKey);
-        new MenuPages().goToMenux();
+        loginToApp(customerKey, langKey, userTypeKey);
+        new MenuPages().goToMenu();
 
         appiumUtil.clickElement("logoutButtonItem")
                 .clickByAnyText("logoutButtonItem", lang.getLogoutTexts());

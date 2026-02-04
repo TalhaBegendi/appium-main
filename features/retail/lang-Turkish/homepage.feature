@@ -2,7 +2,7 @@
 Feature: Homepage flows language Turkish
 
   Background:
-    Given Login to App with Customer "HOMEPAGE_USER" using language "TURKISH"
+    Given Login as "RETAIL" customer "HOMEPAGE_USER" using "TURKISH" language
 
   Scenario: Varlıklarım Sayfasına Git
     When Go to "Varlıklarım" from Homepage
