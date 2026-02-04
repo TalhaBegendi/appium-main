@@ -1,0 +1,299 @@
+[
+  {
+    "key": "makeFromSavedTransactionsItem",
+    "androidValue": "com.halkbank.mobil.dev:id/makeFromSavedTransactionsItem",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsList",
+    "androidValue": "//android.widget.FrameLayout[@resource-id=\"com.halkbank.mobil.dev:id/swipe_view\"]//android.view.ViewGroup",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsReceiverNameList",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/text2\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsReceiverAccountNumberList",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/text4\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPageReceiverIbanInputField",
+    "androidValue": "com.halkbank.mobil.dev:id/itemIban",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPageReceiverNameField",
+    "androidValue": "com.halkbank.mobil.dev:id/receiverName",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferContinueButton",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonConfirmItem",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPageSenderAccountNumber",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewAccountNumber",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPageSenderAccountBalance",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewAccountBalance",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPageTransactionDate",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewSelection'])[1]",
+    "androidType": "xpath"
+  },
+  {
+    "key": "ibanPageTransactionAmount",
+    "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPagePaymentType",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewSelection'])[2]",
+    "androidType": "xpath"
+  },
+  {
+    "key": "ibanPageTransactionDescription",
+    "androidValue": "//*[@resource-id='com.halkbank.mobil.dev:id/descriptionItem']//android.widget.EditText",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "ibanPageFirstTransactionAcceptButton",
+    "androidValue": "android:id/button1",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageReceiverInfo",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewToText",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageSenderInfo",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewFromText",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageTransactionDate",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[1]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageTransactionAmount",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewAmountText",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPagePaymentType",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[3]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageTransactionDescription",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[2]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageConfirmButton",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonApprove",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageSwitchPermission",
+    "androidValue": "com.halkbank.mobil.dev:id/itemSwitch",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageDialogAcceptButton",
+    "androidValue": "com.halkbank.mobil.dev:id/dialogButtonSendItem",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferSuccessMessage",
+    "androidValue": "com.halkbank.mobil.dev:id/textView",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferSentForApprovalInfoText",
+    "androidValue": "com.halkbank.mobil.dev:id/textView",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "differentCurrencyErrorMessage",
+    "androidValue": "com.halkbank.mobil.dev:id/textinput_error",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferFundWarningPopupMessage",
+    "androidValue": "android:id/message",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferReceiverAccountNumberInputField",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[1]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferReceiverAccountNumberSuffixInputField",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferToAccountDescriptionField",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[3]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferToAccountAmountField",
+    "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferToAccountReceiverNameField",
+    "androidValue": "com.halkbank.mobil.dev:id/receiverName",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferDatePickerMonthField",
+    "androidValue": "com.halkbank.mobil.dev:id/month_navigation_fragment_toggle",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferDatePickerNextMonthArrow",
+    "androidValue": "com.halkbank.mobil.dev:id/month_navigation_next",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferDatePickerOkButton",
+    "androidValue": "com.halkbank.mobil.dev:id/confirm_button",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferAcceptOrderButton",
+    "androidValue": "(//android.widget.Switch)[2]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "moneyTransferDatePickerDays",
+    "androidValue": " //android.widget.GridView[@resource-id=\"com.halkbank.mobil.dev:id/month_grid\"] //android.widget.TextView[@enabled='true']",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageReceiverInfoAccount",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewToText",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageSenderInfoAccount",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewFromText",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageTransactionDateAccount",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[1]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageTransactionAmountAccount",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewAmountText",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPagePaymentTypeAccount",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[3]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "confirmationPageTransactionDescriptionAccount",
+    "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[2]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  }
+]

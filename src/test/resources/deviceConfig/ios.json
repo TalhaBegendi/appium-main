@@ -1,0 +1,26 @@
+[
+  {
+    "appium:platformVersion": "18.6",
+    "appium:deviceName": "iPhone 16 Pro",
+    "appium:udid": "41AA9D82-A412-498D-A0C2-587822311A92",
+    "tag": "16pro"
+  },
+  {
+    "appium:platformVersion": "18.6",
+    "appium:deviceName": "iPhone 16 Plus",
+    "appium:udid": "0827C3C5-C31A-4EE3-8DE4-A2233707C768",
+    "tag": "16plus"
+  },
+  {
+    "appium:platformVersion": "18.6",
+    "appium:deviceName": "iPhone 16e",
+    "appium:udid": "8D13D607-28C0-4918-B5B1-5C5C2F114AB6",
+    "tag": "16e"
+  },
+  {
+    "appium:platformVersion": "18.6",
+    "appium:deviceName": "iPhone 16",
+    "appium:udid": "254BEF76-4275-477F-BA7E-FC94A034B108",
+    "tag": "16"
+  }
+]

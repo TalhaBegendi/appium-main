@@ -1,0 +1,22 @@
+[
+  {
+    "appium:platformVersion": "16.0",
+    "appium:deviceName": "Pixel_7",
+    "tag": "pixel7"
+  },
+  {
+    "appium:platformVersion": "16.0",
+    "appium:deviceName": "Pixel_8",
+    "tag": "pixel8"
+  },
+  {
+    "appium:platformVersion": "16.0",
+    "appium:deviceName": "Pixel_9",
+    "tag": "pixel9"
+  },
+  {
+    "appium:platformVersion": "16.0",
+    "appium:deviceName": "Pixel_6",
+    "tag": "pixel6"
+  }
+]

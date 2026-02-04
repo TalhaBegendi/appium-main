@@ -1,0 +1,129 @@
+[
+  {
+    "key": "openAccountButtonAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/openAccountItem",
+    "androidType": "id",
+    "iosValue": "BPermanentButton_PermanentButton",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "productNameAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/productName",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name='BAccountTypeInfoComponent']/XCUIElementTypeStaticText[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "moneyCurrencyButtonItemInvestmentAccounts",
+    "androidValue": "(//android.widget.FrameLayout[@resource-id='com.halkbank.mobil.dev:id/layoutSelectionContent'])[1]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name='BSelectionComponent_ValueLabel'])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "moneyCurrencyButtonItemAccounts",
+    "androidValue": "(//android.widget.FrameLayout[@resource-id='com.halkbank.mobil.dev:id/layoutSelectionContent'])[2]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name='BSelectionComponent_ValueLabel'])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "maturityDateButtonItemAccounts",
+    "androidValue": "(//android.widget.FrameLayout[@resource-id='com.halkbank.mobil.dev:id/layoutSelectionContent'])[3]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name='BSelectionComponent_ValueLabel'])[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "maturityPeriodButtonItemAccounts",
+    "androidValue": "(//android.widget.FrameLayout[@resource-id='com.halkbank.mobil.dev:id/layoutSelectionContent'])[4]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name='BSelectionComponent_ValueLabel'])[3]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "selectAccountOptionDropdown",
+    "androidValue": "//android.widget.FrameLayout[@resource-id='com.halkbank.mobil.dev:id/layoutContent']/android.widget.TextView",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name='BSelectionViewComponent_TitleLabel']",
+    "iosType": "xpath"
+  },
+
+  {
+    "key": "selectAccountOptionDropdownMaturityPeriod",
+    "androidValue": "//android.widget.FrameLayout[@resource-id='com.halkbank.mobil.dev:id/layoutContent']/android.widget.TextView",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name='BSelectionViewComponent_TitleLabel'])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "inputAccountNameAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/editText",
+    "androidType": "id",
+    "iosValue": "BTextFieldComponents_BTextField_standart",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "switchAccounts",
+    "androidValue": "android.widget.Switch",
+    "androidType": "class",
+    "iosValue": "BInformationTextComponent_BSwitch",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "continueButtonItemAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonItem",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name='BActionButtonComponent']/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "continueButtonItemInvestmentAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonOpenAccountItem",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name='BActionButtonComponent']/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "continueButtonMaturityItemAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonParticipationAccountItem",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name='BActionButtonComponent']/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "approveButtonItemAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonApprove",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name='BActionButtonComponent']/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "verifyTextValueAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/textViewValue",
+    "androidType": "id",
+    "iosValue": "BTitleValueComponent_ValueLabel",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "verifySuccessAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/textView",
+    "androidType": "id",
+    "iosValue": "(//XCUIElementTypeStaticText[@name='BInformationImageComponent_TitleLabel'])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "inputAmountAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
+    "androidType": "id",
+    "iosValue": "BTextFieldComponents_BTextField_n2",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "minAmountForMaturityAccounts",
+    "androidValue": "com.halkbank.mobil.dev:id/minimumBalanceFormatted",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name='BInformationTableViewCell']//XCUIElementTypeStaticText[3]",
+    "iosType": "xpath"
+  }
+]

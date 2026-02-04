@@ -1,0 +1,114 @@
+[
+  {
+    "key": "buttonLanguageItem",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonLanguageItem",
+    "androidType": "id",
+    "iosValue": "language_button",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "languageListItem",
+    "androidValue": "com.halkbank.mobil.dev:id/title",
+    "androidType": "id",
+    "iosValue": "BTitleImageInfoComponent_titleButton",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "corporateUserTab",
+    "androidValue": "//android.widget.HorizontalScrollView[@resource-id=\"com.halkbank.mobil.dev:id/tabLayout\"]/android.widget.LinearLayout/android.widget.LinearLayout[2]",
+    "androidType": "xpath",
+    "iosValue": "SegmentedControl_1",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "continueButtonItem",
+    "androidValue": "com.halkbank.mobil.dev:id/continueButtonItem",
+    "androidType": "id",
+    "iosValue": "Varsayılan Giriş",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "buttonLoginItem",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonLoginItem",
+    "androidType": "id",
+    "iosValue": "btn_login",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "loginPageButtonLoginItem",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonLoginItem",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent_enterButton\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "inputCustomerNumber",
+    "androidValue": "(//android.widget.EditText[@resource-id='com.halkbank.mobil.dev:id/editText'])[1]",
+    "androidType": "xpath",
+    "iosValue": "BTextFieldComponents_BTextField_number",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "inputMsisdnNumber",
+    "androidValue": "/(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "BTextFieldComponents_BTextField_tckn",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "inputPassword",
+    "androidValue": "com.halkbank.mobil.dev:id/editTextSecure",
+    "androidType": "id",
+    "iosValue": "BTextFieldComponents_BTextField_pin",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "buttonActivationItem",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonActivationItem",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent_enterButton\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "smsOtpComponent",
+    "androidValue": "com.halkbank.mobil.dev:id/topPanel",
+    "androidType": "id",
+    "iosValue": "//XCUIElementTypeSecureTextField[@name=\"BAlertView_BTextField\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "inputSmsOtp",
+    "androidValue": "com.halkbank.mobil.dev:id/editTextSecure",
+    "androidType": "id",
+    "iosValue": "BAlertView_BTextField",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "smsOtpButtonSendItem",
+    "androidValue": "com.halkbank.mobil.dev:id/buttonSendItem",
+    "androidType": "id",
+    "iosValue": "BAlertView_BButton_Ok",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "afterLoginPopup",
+    "androidValue": "android:id/button1",
+    "androidType": "id",
+    "iosValue": "BAlertView_BButton_Ok",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "okPopupMessage",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BAlertView_BButton_Ok",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "logoutButtonItem",
+    "androidValue": "//android.widget.LinearLayout[@resource-id='com.halkbank.mobil.dev:id/btLogoutMenu']//android.widget.Button",
+    "androidType": "xpath",
+    "iosValue": "safe_logout_button",
+    "iosType": "accessibilityId"
+  }
+]

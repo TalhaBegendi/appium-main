@@ -1,0 +1,65 @@
+[
+  {
+    "key": "pageTitleHomepage",
+    "androidValue": "com.halkbank.mobil.dev:id/expandableViewHeader",
+    "androidType": "id",
+    "iosValue": "DashBoardCardHeaderView_label",
+    "iosType": "name"
+  },
+  {
+    "key": "myAssetsTitleHomepage",
+    "androidValue": "com.halkbank.mobil.dev:id/mtvDate",
+    "androidType": "id",
+    "iosValue": "BDashBoardLastTransactionComponent_amountLabel",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "myAccountsTitleHomepage",
+    "androidValue": "com.halkbank.mobil.dev:id/amountView",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": "xpath"
+  },
+  {
+    "key": "last10TransactionsTitleHomepage",
+    "androidValue": "com.halkbank.mobil.dev:id/ivIcon",
+    "androidType": "id",
+    "iosValue": "receipt",
+    "iosType": "name"
+  },
+  {
+    "key": "accountListAvailableBalanceHomepageItem",
+    "androidValue": "com.halkbank.mobil.dev:id/tvUsableAmount",
+    "androidType": "id",
+    "iosValue": "(//XCUIElementTypeStaticText[@value='DashboardAccountAvailableAmount'])[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "accountAvailableBalanceItem",
+    "androidValue": "com.halkbank.mobil.dev:id/availableBalanceItem",
+    "androidType": "id",
+    "iosValue": "(//XCUIElementTypeStaticText[@value='AccountDetailAvailableAmount'])[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "last10TransactionsSlipHomepage",
+    "androidValue": "com.halkbank.mobil.dev:id/webViewItem",
+    "androidType": "id",
+    "iosValue": "Halk Katılım Bankası",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "myAssetsCurrencyToggleButton",
+    "androidValue": "com.halkbank.mobil.dev:id/ivIcon",
+    "androidType": "id",
+    "iosValue": "BDashBoardLastTransactionComponent_currencyButton",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "myAssetsCurrentAmountText",
+    "androidValue": "com.halkbank.mobil.dev:id/mtvDate",
+    "androidType": "id",
+    "iosValue": "BDashBoardLastTransactionComponent_amountLabel",
+    "iosType": "accessibilityId"
+  }
+]
