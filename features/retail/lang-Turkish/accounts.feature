@@ -2,7 +2,7 @@
 Feature: Accounts flows language Turkish
 
   Background:
-    Given Login to App with Customer "OPTION_USER" using language "TURKISH"
+    Given Login as "RETAIL" customer "OPTION_USER" using "TURKISH" language
 
   Scenario: Hesaplarım > Cari Hesap Aç - Türk Lirası
     When Go to "Hesaplar > Hesaplarım" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"

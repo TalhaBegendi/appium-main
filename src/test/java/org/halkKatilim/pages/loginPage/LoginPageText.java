@@ -2,8 +2,6 @@ package org.halkKatilim.pages.loginPage;
 
 final class LoginPageText {
 
-    private LoginPageText() {}
-
     static final String LOG_LOGIN_START = "Login started. UserType: {}, CustomerKey: {}, Language: {}";
     static final String LOG_LOGIN_RETAIL_FLOW = "Individual login flow started. CustomerKey: {}, Language: {}";
     static final String LOG_LOGIN_CORPORATE_FLOW = "Corporate login flow started. CustomerKey: {}, Language: {}";

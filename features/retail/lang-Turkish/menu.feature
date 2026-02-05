@@ -2,7 +2,7 @@
 Feature: Menu navigation flows language Turkish
 
   Background:
-    Given Login to App with Customer "MENU_USER" using language "TURKISH"
+    Given Login as "RETAIL" customer "MENU_USER" using "TURKISH" language
 
   Scenario: Ana Sayfaya Git
     When Go to "Ana Sayfa" from Menu

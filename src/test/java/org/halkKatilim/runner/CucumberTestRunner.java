@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CucumberOptions(
-        features = "featureTest",
+        features = "features/retail/lang-Turkish/login.feature",
         //name = "Hesaplarım > Yatırım Hesabı Aç  - Amerikan Doları",
         glue = {
                 "org.halkKatilim.stepDefs",

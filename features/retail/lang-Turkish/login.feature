@@ -1,4 +1,4 @@
-@devices=16e
+@devices=pixel7
 Feature: Login flows language Turkish
 
   Scenario: Login from App

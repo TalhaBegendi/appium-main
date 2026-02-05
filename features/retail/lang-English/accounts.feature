@@ -2,7 +2,7 @@
 Feature: Accounts flows language English
 
   Background:
-    Given Login to App with Customer "OPTION_USER" using language "ENGLISH"
+    Given Login as "RETAIL" customer "OPTION_USER" using "ENGLISH" language
 
   Scenario: Accounts > My Accounts - Turkish Lira
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"

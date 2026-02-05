@@ -2,9 +2,6 @@ package org.halkKatilim.pages.moneyTransfer.toAnotherAccount;
 
 final class ToAnotherAccountText {
 
-    private ToAnotherAccountText() {
-    }
-
     static final String TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE = "Para transferi işleminiz havale ile gerçekleşmiştir.";
     static final String TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT = "İşleminiz onaya gönderildi. İşlemin tamamlanması için Kurumsal > İşlemlerim ekranından onaylanması gerekmektedir.";
     static final String TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE = "Gönderen ve alıcı hesapların döviz türleri eşleşmemektedir.";
