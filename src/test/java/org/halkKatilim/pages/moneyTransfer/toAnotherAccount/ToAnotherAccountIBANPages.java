@@ -19,6 +19,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
+
+import static org.halkKatilim.enums.Platform.ANDROID;
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.debug;
 import static org.testng.AssertJUnit.assertEquals;
@@ -220,7 +222,7 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
     public void theDifferentCurrencyErrorMessageShouldBeDisplayed() {
         Platform platform = Driver.getPlatformForThread();
-        String message = platform == Platform.ANDROID
+        String message = platform == ANDROID
                 ? TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE
                 : TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS;
         assertEquals(message, appiumUtil.findElementSilent("differentCurrencyErrorMessage").getText());
@@ -250,9 +252,8 @@ public final class ToAnotherAccountIBANPages extends BasePages {
                 goToCorrectMonth(tranMonth);
                 selectDayFromPicker(day);
             }
-            case IOS -> {
-                selectDateFromIOSPicker(day, tranMonth, year);
-            }
+            case IOS -> selectDateFromIOSPicker(day, tranMonth, year);
+
         }
     }
 
