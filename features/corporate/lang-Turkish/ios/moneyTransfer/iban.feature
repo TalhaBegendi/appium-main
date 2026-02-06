@@ -1,9 +1,9 @@
-@devices=pixel7
+@devices=15
 Feature: Money Transfer flows language Turkish
 
   Background:
     Given Login as "CORPORATE" customer "STANDARD_USER_2" using "TURKISH" language
-    Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > IBAN" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST)" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
 
   Scenario: Kayıtlı İşlem ile Aynı Gün IBAN Transferinin Onaya Gönderilmesi
     When Click the make from saved transactions button

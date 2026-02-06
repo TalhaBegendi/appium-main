@@ -4,7 +4,6 @@ import org.halkKatilim.pages.BasePages;
 import org.openqa.selenium.WebElement;
 
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
-import static org.testng.AssertJUnit.assertEquals;
 
 public final class ToAnotherAccountAccountPages extends BasePages {
 
@@ -38,5 +37,9 @@ public final class ToAnotherAccountAccountPages extends BasePages {
         appiumUtil.findElementSilent("moneyTransferDatePickerOkButton").click();
         appiumUtil.findElementSilent("moneyTransferAcceptOrderButton").click();
 
+    }
+
+    public void clickAccountTab() {
+        appiumUtil.clickElement("moneyTransferAccountTab");
     }
 }

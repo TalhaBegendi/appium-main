@@ -10,7 +10,8 @@ import org.halkKatilim.utility.assertionUtil.enums.AssertionMode;
 import java.util.List;
 import java.util.Optional;
 
-import static org.halkKatilim.pages.menu.MenuText.*;
+import static org.halkKatilim.pages.menu.MenuText.LOG_MENU_OPENED;
+import static org.halkKatilim.pages.menu.MenuText.LOG_MENU_PATH_COMPLETED;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.MAIN_MENU;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix.MENU;
 

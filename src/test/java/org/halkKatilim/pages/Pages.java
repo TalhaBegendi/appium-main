@@ -2,8 +2,8 @@ package org.halkKatilim.pages;
 
 import lombok.Getter;
 import org.halkKatilim.pages.homePage.HomePages;
-import org.halkKatilim.pages.menu.MenuPages;
 import org.halkKatilim.pages.loginPage.LoginPages;
+import org.halkKatilim.pages.menu.MenuPages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountAccountPages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountIBANPages;
 

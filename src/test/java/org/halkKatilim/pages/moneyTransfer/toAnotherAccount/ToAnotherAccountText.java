@@ -5,6 +5,9 @@ final class ToAnotherAccountText {
     static final String TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE = "Para transferi işleminiz havale ile gerçekleşmiştir.";
     static final String TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT = "İşleminiz onaya gönderildi. İşlemin tamamlanması için Kurumsal > İşlemlerim ekranından onaylanması gerekmektedir.";
     static final String TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE = "Gönderen ve alıcı hesapların döviz türleri eşleşmemektedir.";
+    static final String TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS = "Gönderen ve alıcı hesap türü eşleşmemektedir.";
+    static final String TURKISH_FUND_WARNING_ERROR_MESSAGE ="Girdiğiniz IBAN size aittir. Kontrol ederek, tekrar deneyiniz.";
+    static final String TURKISH_FUND_WARNING_ERROR_MESSAGE_IOS ="Girilen IBAN sizin hesabınıza aittir. Kontrol ederek tekrar deneyiniz.";
     static final String RETAIL_CUSTOMER_RECEIVER_IBAN = "TR290021400000000100500003";
     static final String TRANSACTION_AMOUNT = "1";
     static final String TRANSACTION_DESCRIPTION = "Test";

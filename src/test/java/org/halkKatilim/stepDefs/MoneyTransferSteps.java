@@ -92,11 +92,6 @@ public class MoneyTransferSteps {
         pages.getToAnotherAccountIbanPage().enterFundTransactionDetailsForToday();
     }
 
-    @Then("Verify fund warning error as {string} is displayed")
-    public void verifyFundWarningErrorAsIsDisplayed(String errorMessage) {
-        pages.getToAnotherAccountIbanPage().verifyFundWarningErrorAsIsDisplayed(errorMessage);
-    }
-
     @When("Enter fund transaction details to account for today")
     public void enterFundTransactionDetailsToAccountForToday() {
         pages.getToAnotherAccountIbanPage().enterFundTransactionDetailsToAccountForToday();
@@ -106,5 +101,16 @@ public class MoneyTransferSteps {
     public void enterCustomerToAccountTransactionDetailsForDaysLater(String customerType, String nextDay) {
         pages.getToAnotherAccountAccountPage().enterTransactionDetailsForToday(customerType,nextDay);
 
+    }
+
+    @Then("Verify fund warning error should be displayed")
+    public void verifyFundWarningErrorShouldBeDisplayed() {
+        pages.getToAnotherAccountIbanPage().verifyFundWarningErrorAsIsDisplayed();
+
+    }
+
+    @And("Click account tab")
+    public void clickAccountTab() {
+        pages.getToAnotherAccountAccountPage().clickAccountTab();
     }
 }

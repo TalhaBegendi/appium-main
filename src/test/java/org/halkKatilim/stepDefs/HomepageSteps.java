@@ -1,6 +1,8 @@
 package org.halkKatilim.stepDefs;
 
 import io.cucumber.java.en.When;
+import org.halkKatilim.pages.homePage.HomePages;
+
 import org.halkKatilim.enums.TextSource;
 import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.pages.homePage.HomePages;
