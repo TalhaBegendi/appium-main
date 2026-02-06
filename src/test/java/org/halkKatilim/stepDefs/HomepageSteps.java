@@ -3,6 +3,13 @@ package org.halkKatilim.stepDefs;
 import io.cucumber.java.en.When;
 import org.halkKatilim.pages.homePage.HomePages;
 
+import org.halkKatilim.enums.TextSource;
+import org.halkKatilim.pages.BasePages;
+import org.halkKatilim.pages.homePage.HomePages;
+
+import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.*;
+import static org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix.HOMEPAGE;
+
 public class HomepageSteps extends HomePages {
 
 

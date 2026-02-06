@@ -1,12 +1,11 @@
 package org.halkKatilim.pages.accountPage;
 
 import org.halkKatilim.deviceConfig.DeviceContext;
-import org.halkKatilim.enums.StepsText;
 import org.halkKatilim.enums.retail.RetailCustomer;
+import org.halkKatilim.enums.StepsText;
 import org.halkKatilim.pages.BasePages;
 
 import java.util.List;
-
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ACCOUNTS;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.SUCCESS_ACCOUNTS;
 

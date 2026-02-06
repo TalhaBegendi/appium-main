@@ -19,8 +19,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
-
-import static org.halkKatilim.enums.Platform.ANDROID;
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.debug;
 import static org.testng.AssertJUnit.assertEquals;
