@@ -3,7 +3,7 @@
 
   "platforms": {
     "android": ["pixel7", "pixel8", "pixel9", "pixel6"],
-    "ios": ["16e", "16", "16plus", "16pro"]
+    "ios": ["16e", "16", "16plus", "16pro", "15"]
   },
 
   "groups": {

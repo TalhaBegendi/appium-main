@@ -15,96 +15,86 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.BUTTON_LO
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LOGIN;
 
 @Slf4j
-public  class LoginPages extends BasePages {
+public class LoginPages extends BasePages {
 
-    public LoginPages() {}
-
-    public void loginToApp(String customerKey, String langKey, String userTypeKey) {
+    public void loginToApplication(String customerKey, String langKey, String userTypeKey) {
 
         UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
         log.info(LOG_LOGIN_START, userType, customerKey, langKey);
 
         switch (userType) {
-            case RETAIL -> loginToAppWithRetailUser(customerKey, langKey);
-            case CORPORATE -> loginToAppWithCorporateUser(customerKey, langKey);
+            case RETAIL -> loginWithRetailCustomer(customerKey, langKey);
+            case CORPORATE -> loginWithCorporateCustomer(customerKey, langKey);
         }
     }
 
-    private void loginToAppWithRetailUser(String customerKey, String langKey) {
+    private void loginWithRetailCustomer(String customerKey, String langKey) {
 
-        RetailCustomer retailCustomer = RetailCustomer.valueOf(customerKey);
-        Language lang = Language.valueOf(langKey);
+        RetailCustomer customer = RetailCustomer.valueOf(customerKey);
+        Language language = Language.valueOf(langKey);
 
-        log.info(LOG_LOGIN_RETAIL_FLOW, customerKey, lang);
+        log.info(LOG_LOGIN_RETAIL_FLOW, customerKey, language);
 
-        loginCommonFlow(lang, () -> appiumUtil
-                .clearAndFillInputWithScroll("inputCustomerNumber", retailCustomer.getNumber())
-                .clearAndFillInputWithScroll("inputPassword", retailCustomer.getPassword()));
+        executeCommonLoginFlow(language, () -> appiumUtil
+                .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
+                .clearAndFillInputWithScroll("inputPassword", customer.getPassword())
+        );
 
-        completeOtpFlow(retailCustomer.getSmsCode());
+        completeOtpVerification(customer.getSmsCode());
     }
 
-    private void loginToAppWithCorporateUser(String customerKey, String langKey) {
+    private void loginWithCorporateCustomer(String customerKey, String langKey) {
 
-        CorporateCustomer corporateCustomer = CorporateCustomer.valueOf(customerKey);
-        Language lang = Language.valueOf(langKey);
+        CorporateCustomer customer = CorporateCustomer.valueOf(customerKey);
+        Language language = Language.valueOf(langKey);
+        log.info(LOG_LOGIN_CORPORATE_FLOW, customerKey, language);
 
-        log.info(LOG_LOGIN_CORPORATE_FLOW, customerKey, lang);
-
-        loginCommonFlow(lang, () -> appiumUtil
+        executeCommonLoginFlow(language, () -> appiumUtil
                 .clickElement("corporateUserTab")
-                .clearAndFillInputWithScroll("inputCustomerNumber", corporateCustomer.getNumber())
-                .clearAndFillInputWithScroll("inputMsisdnNumber", corporateCustomer.getMsisdn())
-                .clearAndFillInputWithEnter("inputPassword", corporateCustomer.getPassword())
-                .hideKeyboardIfNeeded());
-        completeOtpFlow(corporateCustomer.getSmsCode());
+                .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
+                .clearAndFillInputWithScroll("inputMsisdnNumber", customer.getMsisdn())
+                .clearAndFillInputWithEnter("inputPassword", customer.getPassword())
+                .hideKeyboardIfNeeded()
+        );
+
+        completeOtpVerification(customer.getSmsCode());
     }
 
-    private void completeOtpFlow(String smsCode) {
+    private void executeCommonLoginFlow(Language language, Runnable fillCredentials) {
+        DeviceContext.setLanguage(language);
+        appiumUtil
+                .clickElement("continueButtonItem")
+                .clickElement("buttonLanguageItem")
+                .clickByText("languageListItem", language.getDisplay())
+                .clickElement("buttonLoginItem");
+        fillCredentials.run();
+        appiumUtil
+                .clickElement("buttonActivationItem")
+                .waitUntilElementLoad("inputSmsOtp");
+        log.info(LOG_LOGIN_COMMON_FLOW_COMPLETED, language);
+    }
 
+    private void completeOtpVerification(String smsCode) {
         log.info(LOG_OTP_FLOW_START);
         appiumUtil
                 .waitUntilElementLoad("smsOtpComponent")
                 .clearAndFillInputWithScroll("inputSmsOtp", smsCode)
                 .clickElement("smsOtpButtonSendItem")
                 .autoHandleNavigationGates(NavigationGates.Context.LOGIN);
-
         LOGIN.runAssertion();
-
         log.info(LOG_OTP_FLOW_COMPLETED);
     }
 
-    private void loginCommonFlow(Language lang, Runnable fillUserFields) {
-
-        DeviceContext.setLanguage(lang);
-
+    public void logoutFromApplication(String customerKey, String langKey, String userTypeKey) {
+        Language language = Language.valueOf(langKey);
+        log.info(LOG_LOGOUT_START, customerKey, language, userTypeKey);
+        loginToApplication(customerKey, langKey, userTypeKey);
+        new MenuPages().openMainMenu();
         appiumUtil
-                .clickElement("continueButtonItem")
-                .clickElement("buttonLanguageItem")
-                .clickByText("languageListItem", lang.getDisplay())
-                .clickElement("buttonLoginItem");
+                .clickElement("logoutButtonItem")
+                .clickByAnyText("logoutButtonItem", language.getLogoutTexts());
 
-        fillUserFields.run();
-
-        appiumUtil
-                .clickElement("buttonActivationItem")
-                .waitUntilElementLoad("inputSmsOtp");
-
-        log.info(LOG_LOGIN_COMMON_FLOW_COMPLETED, lang);
-    }
-
-    public void logoutFromApp(String customerKey, String langKey, String userTypeKey) {
-
-        Language lang = Language.valueOf(langKey);
-        log.info(LOG_LOGOUT_START, customerKey, lang, userTypeKey);
-
-        loginToApp(customerKey, langKey, userTypeKey);
-        new MenuPages().goToMenu();
-
-        appiumUtil.clickElement("logoutButtonItem")
-                .clickByAnyText("logoutButtonItem", lang.getLogoutTexts());
         BUTTON_LOGIN_ITEM.runAssertion();
-
         log.info(LOG_LOGOUT_COMPLETED);
     }
 }

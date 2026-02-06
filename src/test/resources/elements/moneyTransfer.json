@@ -3,95 +3,99 @@
     "key": "makeFromSavedTransactionsItem",
     "androidValue": "com.halkbank.mobil.dev:id/makeFromSavedTransactionsItem",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeCell[@name=\"BAddSavedTransactionComponent\"]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsList",
     "androidValue": "//android.widget.FrameLayout[@resource-id=\"com.halkbank.mobil.dev:id/swipe_view\"]//android.view.ViewGroup",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeCell[@name=\"BSavedTransactionComponent\"]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsReceiverNameList",
     "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/text2\"]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BSavedTransactionComponent_RecevierNameLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsReceiverAccountNumberList",
     "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/text4\"]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BSavedTransactionComponent_HolderNameLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageReceiverIbanInputField",
     "androidValue": "com.halkbank.mobil.dev:id/itemIban",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_iban\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageReceiverNameField",
     "androidValue": "com.halkbank.mobil.dev:id/receiverName",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BIBANInfoComponent_customerName\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferContinueButton",
     "androidValue": "com.halkbank.mobil.dev:id/buttonConfirmItem",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageSenderAccountNumber",
     "androidValue": "com.halkbank.mobil.dev:id/textViewAccountNumber",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BAccountSelectionComponent_AccountNumberLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageSenderAccountBalance",
     "androidValue": "com.halkbank.mobil.dev:id/textViewAccountBalance",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BAccountSelectionComponent_AmountLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageTransactionDate",
     "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewSelection'])[1]",
-    "androidType": "xpath"
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BDatePickerComponent_DateLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageTransactionAmount",
     "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_n2\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPagePaymentType",
     "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewSelection'])[2]",
-    "androidType": "xpath"
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BSelectionComponent_ValueLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageTransactionDescription",
     "androidValue": "//*[@resource-id='com.halkbank.mobil.dev:id/descriptionItem']//android.widget.EditText",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeTextView[@name=\"BTextViewComponent_BTextView\"]",
+    "iosType": "xpath"
   },
   {
     "key": "ibanPageFirstTransactionAcceptButton",
     "androidValue": "android:id/button1",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeButton[@name=\"BAlertView_BButton_Ok\"]",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPageReceiverInfo",
@@ -111,36 +115,36 @@
     "key": "confirmationPageTransactionDate",
     "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[1]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTitleValueComponent_ValueLabel\"])[1]",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPageTransactionAmount",
     "androidValue": "com.halkbank.mobil.dev:id/textViewAmountText",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTransactionSummaryComponent_AmountLabel\"])[2]",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPagePaymentType",
     "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[3]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTitleValueComponent_ValueLabel\"])[2]",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPageTransactionDescription",
     "androidValue": "(//android.widget.TextView[@resource-id='com.halkbank.mobil.dev:id/textViewValue'])[2]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTitleValueComponent_ValueLabel\"])[3]",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPageConfirmButton",
     "androidValue": "com.halkbank.mobil.dev:id/buttonApprove",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPageSwitchPermission",
@@ -167,57 +171,57 @@
     "key": "moneyTransferSentForApprovalInfoText",
     "androidValue": "com.halkbank.mobil.dev:id/textView",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BInformationImageComponent_TitleLabel\"])[1]",
+    "iosType": "xpath"
   },
   {
     "key": "differentCurrencyErrorMessage",
     "androidValue": "com.halkbank.mobil.dev:id/textinput_error",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BAlertView_TextLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferFundWarningPopupMessage",
     "androidValue": "android:id/message",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BAlertView_TextLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferReceiverAccountNumberInputField",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[1]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_accountNumber\"])[1]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferReceiverAccountNumberSuffixInputField",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_accountNumber\"])[2]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferToAccountDescriptionField",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[3]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeTextField)[4]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferToAccountAmountField",
     "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_n2\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferToAccountReceiverNameField",
     "androidValue": "com.halkbank.mobil.dev:id/receiverName",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BIBANInfoComponent_customerName\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferDatePickerMonthField",
@@ -237,15 +241,15 @@
     "key": "moneyTransferDatePickerOkButton",
     "androidValue": "com.halkbank.mobil.dev:id/confirm_button",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeButton[@name=\"BDatePickerViewComponent_BarButtonItem_Done\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferAcceptOrderButton",
     "androidValue": "(//android.widget.Switch)[2]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeSwitch[@name=\"BInformationTextComponent_BSwitch\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferDatePickerDays",
@@ -295,5 +299,49 @@
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
+  },
+  {
+    "key": "confirmationPageSenderAccountNumber",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTransactionSummaryComponent_SenderBalanceTitle\"])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "confirmationPageSenderBalance",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTransactionSummaryComponent_SenderBalanceTitle\"])[3]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "confirmationPageReceiverIban",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BTransactionSummaryComponent_RecipientBalanceLabel\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "confirmationPageReceiverName",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BTransactionSummaryComponent_RecipientAccountLabel\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "moneyTransferAccountTab",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[@name=\"SegmentedControl_1\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "moneyTransferIosIbanPageDatePickerComponentList",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypePickerWheel",
+    "iosType": "xpath"
   }
+
 ]
+

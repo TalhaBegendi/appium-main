@@ -22,5 +22,11 @@
     "appium:deviceName": "iPhone 16",
     "appium:udid": "254BEF76-4275-477F-BA7E-FC94A034B108",
     "tag": "16"
+  },
+  {
+    "appium:platformVersion": "17.5",
+    "appium:deviceName": "iPhone 15",
+    "appium:udid": "636E3761-1EA4-463C-9DB4-0751312EE660",
+    "tag": "15"
   }
 ]

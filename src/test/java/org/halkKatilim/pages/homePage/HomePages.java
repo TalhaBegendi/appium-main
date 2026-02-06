@@ -10,35 +10,41 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LAST_TRAN
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix.HOMEPAGE;
 
 @Slf4j
-public  class HomePages extends BasePages {
+public class HomePages extends BasePages {
 
-    public HomePages() {}
-
-    public void goToOptionFromHomepage(String option) {
+    public void navigateToHomePageOption(String option) {
         appiumUtil.navigate(option, "pageTitleHomepage", null, HOMEPAGE);
         log.info(LOG_HOMEPAGE_NAVIGATE_OPTION, option);
     }
 
-    public void goToRandomElementsCheckWithText(String order) {
-        TextSource source = order == null || order.isBlank() ? null : TextSource.valueOf(order);
+    public void selectRandomAccountAndVerifyBalanceText(String textSourceOrder) {
+        TextSource source = textSourceOrder == null || textSourceOrder.isBlank()
+                ? null
+                : TextSource.valueOf(textSourceOrder);
 
-        String actualText = appiumUtil.clickRandomElementGetText("accountListAvailableBalanceHomepageItem", source);
-        String expectedText = appiumUtil.getTextElement("accountAvailableBalanceItem", source);
+        String actualText = appiumUtil.clickRandomElementGetText(
+                "accountListAvailableBalanceHomepageItem", source
+        );
+
+        String expectedText = appiumUtil.getTextElement(
+                "accountAvailableBalanceItem", source
+        );
 
         ACCOUNTS.runAssertion(actualText, expectedText);
-
         log.info(LOG_RANDOM_ACCOUNT_TEXT_CHECK, actualText, expectedText);
     }
 
-    public void goToRandomLastActivities() {
+    public void openRandomLastTransactionAndVerifySlip() {
         appiumUtil.clickRandomElement("last10TransactionsTitleHomepage");
         LAST_TRANSACTIONS_SLIP.runAssertion();
-
         log.info(LOG_RANDOM_LAST_ACTIVITIES_OPENED);
     }
 
-    public void verifyAssetsCurrencyToggle() {
-        appiumUtil.verifyAssetsCurrencyToggle("myAssetsCurrentAmountText", "myAssetsCurrencyToggleButton");
+    public void toggleAssetsCurrencyAndVerifyAmount() {
+        appiumUtil.verifyAssetsCurrencyToggle(
+                "myAssetsCurrentAmountText",
+                "myAssetsCurrencyToggleButton"
+        );
         log.info(LOG_ASSETS_CURRENCY_TOGGLE_VERIFIED);
     }
 }

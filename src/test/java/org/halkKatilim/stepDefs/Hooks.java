@@ -1,6 +1,9 @@
 package org.halkKatilim.stepDefs;
 
-import io.cucumber.java.*;
+import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import org.halkKatilim.constant.SelectorType;
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.deviceConfig.DeviceSpec;
@@ -11,14 +14,17 @@ import org.halkKatilim.utility.Driver;
 import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
 import org.halkKatilim.utility.assertionUtil.types.HardAssertion;
-import org.halkKatilim.utility.helpers.*;
+import org.halkKatilim.utility.helpers.AllureAttachmentHelper;
+import org.halkKatilim.utility.helpers.AppUtils;
+import org.halkKatilim.utility.helpers.DeviceManager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 
 import static org.halkKatilim.constant.Config.ENABLE_REPORTING;
-import static org.halkKatilim.utility.Driver.*;
+import static org.halkKatilim.utility.Driver.quitDriver;
+import static org.halkKatilim.utility.Driver.setUpByConfig;
 
 public class Hooks extends BasePages {
     @Before
