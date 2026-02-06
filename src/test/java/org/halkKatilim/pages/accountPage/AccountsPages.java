@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/test/java/org/halkKatilim/pages/accountPage/AccountsPages.java
 package org.halkKatilim.pages.accountPage;
-========
-package org.halkKatilim.pages.accountsPage;
->>>>>>>> b5bcdeda588b8b989818c31796b8516e7cb3dadf:src/test/java/org/halkKatilim/pages/accountsPage/AccountsPages.java
 
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.retail.RetailCustomer;
@@ -15,7 +11,7 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.SUCCESS_A
 
 public class AccountsPages extends BasePages {
 
-    public void enterMinimumAmountForMaturity() {
+    protected void enterMinimumAmountForMaturity() {
         List<String> minAmounts = appiumUtil.getTextElements("minAmountForMaturityAccounts");
         String minAmount = appiumUtil.findMinAmount(minAmounts);
         appiumUtil
@@ -23,7 +19,7 @@ public class AccountsPages extends BasePages {
                 .clickElement("continueButtonMaturityItemAccounts");
     }
 
-    public void confirmWithOtp() {
+    protected void confirmWithOtp() {
         RetailCustomer retailCustomer = DeviceContext.getCustomer();
         confirmApproval();
         appiumUtil
@@ -32,15 +28,15 @@ public class AccountsPages extends BasePages {
                 .clickElement("smsOtpButtonSendItem");
     }
 
-    public void confirmApproval() {
+    protected void confirmApproval() {
         appiumUtil.clickElementWithScroll("approveButtonItemAccounts");
     }
 
-    public String generateAccountName() {
+    protected String generateAccountName() {
         return "Otomasyon_" + appiumUtil.generateNumber(4);
     }
 
-    public void selectAccount(String accountType, String moneyCurrency) {
+    protected void selectAccount(String accountType, String moneyCurrency) {
         final String currencyButtonKey =
                 StepsText.INVESTMENT_ACCOUNT.matches(accountType)
                         ? "moneyCurrencyButtonItemInvestmentAccounts"
@@ -51,7 +47,7 @@ public class AccountsPages extends BasePages {
                 .clickByText("selectAccountOptionDropdown", moneyCurrency);
     }
 
-    public void selectMaturityAccount(String accountType, String moneyCurrency, String maturityDate) {
+    protected void selectMaturityAccount(String accountType, String moneyCurrency, String maturityDate) {
         boolean isGoldCurrency = StepsText.MINE_CURRENCY.matches(moneyCurrency);
 
         boolean shouldSelectMaturity = (isGoldCurrency && StepsText.GOLD_MATURITY_DATE.matches(maturityDate))
@@ -68,11 +64,11 @@ public class AccountsPages extends BasePages {
         }
     }
 
-    public void fillAccountName(String accountName) {
+    protected void fillAccountName(String accountName) {
         appiumUtil.clearAndFillInputWithScroll("inputAccountNameAccounts", accountName);
     }
 
-    public void proceedAccountCreation(String accountType) {
+    protected void proceedAccountCreation(String accountType) {
         final String accountContinueButtonKey =
                 StepsText.INVESTMENT_ACCOUNT.matches(accountType)
                         ? "continueButtonItemInvestmentAccounts"
@@ -82,13 +78,13 @@ public class AccountsPages extends BasePages {
                 .clickElement(accountContinueButtonKey);
     }
 
-    public void verifyAccountSummary(String accountType, String accountName, String moneyCurrency) {
+    protected void verifyAccountSummary(String accountType, String accountName, String moneyCurrency) {
         List<String> actual = appiumUtil.getTextElements("verifyTextValueAccounts");
         List<String> expected = List.of(accountName, moneyCurrency);
         ACCOUNTS.runAssertionInList(actual, expected);
     }
 
-    public void verifySuccessMessage() {
+    protected void verifySuccessMessage() {
         String actual = appiumUtil.getTextElement("verifySuccessAccounts");
         hardAssertion.assertTextInDisplayTexts(actual, SUCCESS_ACCOUNTS);
     }

@@ -17,13 +17,7 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LOGIN;
 @Slf4j
 public class LoginPages extends BasePages {
 
-<<<<<<< HEAD
     public void loginToApplication(String customerKey, String langKey, String userTypeKey) {
-=======
-    public LoginPages() {}
-
-    public void loginToApp(String customerKey, String langKey, String userTypeKey) {
->>>>>>> b5bcdeda588b8b989818c31796b8516e7cb3dadf
 
         UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
         log.info(LOG_LOGIN_START, userType, customerKey, langKey);
@@ -100,28 +94,6 @@ public class LoginPages extends BasePages {
                 .clickElement("logoutButtonItem")
                 .clickByAnyText("logoutButtonItem", language.getLogoutTexts());
 
-<<<<<<< HEAD
-=======
-        fillUserFields.run();
-
-        appiumUtil
-                .clickElement("buttonActivationItem")
-                .waitUntilElementLoad("inputSmsOtp");
-
-        log.info(LOG_LOGIN_COMMON_FLOW_COMPLETED, lang);
-    }
-
-    public void logoutFromApp(String customerKey, String langKey, String userTypeKey) {
-
-        Language lang = Language.valueOf(langKey);
-        log.info(LOG_LOGOUT_START, customerKey, lang, userTypeKey);
-
-        loginToApp(customerKey, langKey, userTypeKey);
-        new MenuPages().goToMenu();
-
-        appiumUtil.clickElement("logoutButtonItem")
-                .clickByAnyText("logoutButtonItem", lang.getLogoutTexts());
->>>>>>> b5bcdeda588b8b989818c31796b8516e7cb3dadf
         BUTTON_LOGIN_ITEM.runAssertion();
         log.info(LOG_LOGOUT_COMPLETED);
     }

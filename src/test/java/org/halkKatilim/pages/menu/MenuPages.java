@@ -17,71 +17,30 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix.MENU;
 @Slf4j
 public class MenuPages extends BasePages {
 
-<<<<<<< HEAD
     public void openMainMenu() {
-=======
-    public MenuPages() {
-    }
-
-    public void goToMenu() {
->>>>>>> b5bcdeda588b8b989818c31796b8516e7cb3dadf
         appiumUtil.clickElement("menuItem");
         MAIN_MENU.runAssertion();
         log.info(LOG_MENU_OPENED);
     }
 
-<<<<<<< HEAD
     public void navigateToMenuOption(String option) {
         openMainMenu();
         appiumUtil.navigate(option, "menuTitleItem", null, MENU);
     }
 
-    public void navigateMenuPathAndVerify(
-            String path,
-            String assertionKey,
-            String assertionModeKey,
-            String textSourceOrder
-    ) {
+    public void navigateMenuPathAndVerify(String path, String assertionKey, String assertionModeKey, String textSourceOrder) {
         openMainMenu();
-=======
-    public void goToOptionFromMenu(String option) {
-        goToMenu();
-        appiumUtil.navigate(option, "menuTitleItem", null, MENU);
-    }
-
-    public void goToFromMenuUnified(String path, String assertion, String assertionModeKey, String order) {
-        goToMenu();
-        AppiumUtil.StepResult res = appiumUtil.navigateWithAssertion(
-                path, assertion, "menuTitleItem", "lastMenuOption", MENU);
->>>>>>> b5bcdeda588b8b989818c31796b8516e7cb3dadf
-
-        AppiumUtil.StepResult result = appiumUtil.navigateWithAssertion(
-                path,
-                assertionKey,
-                "menuTitleItem",
-                "lastMenuOption",
-                MENU
-        );
-
+        AppiumUtil.StepResult result = appiumUtil.navigateWithAssertion(path, assertionKey, "menuTitleItem", "lastMenuOption", MENU);
         AssertionKey key = result.key();
-
         TextSource source = (textSourceOrder == null || textSourceOrder.isBlank())
                 ? null
                 : TextSource.valueOf(textSourceOrder);
-
         AssertionMode mode = AssertionMode.valueOf(assertionModeKey);
-
         executeAssertion(mode, key, result.steps(), source);
-
         log.info(LOG_MENU_PATH_COMPLETED, String.join(" -> ", result.steps()));
     }
 
-    private void executeAssertion(
-            AssertionMode mode,
-            AssertionKey key,
-            List<String> steps,
-            TextSource source
-    ) {
+    private void executeAssertion(AssertionMode mode, AssertionKey key, List<String> steps, TextSource source) {
         switch (mode) {
             case PRESENCE -> key.runAssertion();
             case EQUAL -> key.getAssertion().verifyText(steps, key, source);
@@ -89,11 +48,7 @@ public class MenuPages extends BasePages {
         }
     }
 
-    private void verifyPresenceOrText(
-            AssertionKey key,
-            List<String> steps,
-            TextSource source
-    ) {
+    private void verifyPresenceOrText(AssertionKey key, List<String> steps, TextSource source) {
         Optional.ofNullable(key.getFallback())
                 .filter(fallback ->
                         key.getAssertion()
