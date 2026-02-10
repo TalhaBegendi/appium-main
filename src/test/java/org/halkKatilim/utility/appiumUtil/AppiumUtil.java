@@ -19,6 +19,7 @@ import java.util.stream.IntStream;
 
 import org.halkKatilim.pages.BasePages;
 
+import static org.halkKatilim.enums.SwipeDirection.*;
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ASSETS;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
@@ -40,7 +41,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil autoHandleNavigationGates(NavigationGates.Context context) {
-       appiumUtilHelper.autoHandleNavigationGates(context);
+        appiumUtilHelper.autoHandleNavigationGates(context);
         return this;
     }
 
@@ -51,7 +52,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public void ifExistClickByKey(String key) {
-        Optional.ofNullable(appiumUtilHelper.findElementByKeyWithoutAssert(key)).ifPresent(element -> {
+        Optional.ofNullable(appiumUtil.findElementSilent(key)).ifPresent(element -> {
             info(String.format(ELEMENT_CLICKED, key));
             element.click();
         });
@@ -79,11 +80,11 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public WebElement findElementSilent(String key) {
-       return appiumUtilHelper.findElementSilent(key);
+        return appiumUtilHelper.findElementSilent(key);
     }
 
     public List<WebElement> findElementsSilent(String key) {
-        return  appiumUtilHelper.findElementsSilent(key);
+        return appiumUtilHelper.findElementsSilent(key);
     }
 
     public List<WebElement> safeFindElementsAndWait(String key) {
@@ -188,7 +189,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
 
     public AppiumUtil clickByText(String key, String text) {
         appiumUtilHelper.clickByText(key, text);
-        return  this;
+        return this;
     }
 
     public void clickByAnyText(String key, String[] texts) {
@@ -203,14 +204,13 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil clickRandomElement(String key) {
-        WebElement element = appiumUtilHelper.pickRandomElement(key);
-        if (element == null) return this;
-        try {
-            element.click();
-            log("🎲 Rastgele tıklanan element → " + key);
-        } catch (Exception e) {
-            logErrorAndFail("❌ Rastgele elemana tıklanamadı: " + key, e);
-        }
+        List<WebElement> elements = appiumUtil.findElementsSilent(key);
+
+        elements.stream()
+                .skip(ThreadLocalRandom.current().nextInt(elements.size()))
+                .findFirst()
+                .ifPresent(WebElement::click);
+
         return this;
     }
 
@@ -292,4 +292,34 @@ public class AppiumUtil extends BasePages implements WaitConditions {
             log("✅ " + key + " → no elements found as expected");
         });
     }
+
+    public AppiumUtil selectFromListByText(String listKey, String expectedText) {
+        appiumUtil.findElementsSilent(listKey)
+                .stream()
+                .filter(e -> expectedText.equalsIgnoreCase(e.getText()))
+                .findFirst()
+                .ifPresent(WebElement::click);
+        return this;
+    }
+
+    public AppiumUtil swipeRightOnElement(WebElement element) {
+        appiumUtilHelper.swipeOnElement(element, RIGHT);
+        return this;
+    }
+
+    public AppiumUtil swipeLeftOnElement(WebElement element) {
+        appiumUtilHelper.swipeOnElement(element, LEFT);
+        return this;
+    }
+
+    public AppiumUtil swipeUpOnElement(WebElement element) {
+        appiumUtilHelper.swipeOnElement(element, UP);
+        return this;
+    }
+
+    public AppiumUtil swipeDownOnElement(WebElement element) {
+        appiumUtilHelper.swipeOnElement(element, DOWN);
+        return this;
+    }
+
 }
