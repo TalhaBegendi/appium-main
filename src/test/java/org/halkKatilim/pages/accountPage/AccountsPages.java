@@ -1,11 +1,17 @@
 package org.halkKatilim.pages.accountPage;
 
 import org.halkKatilim.deviceConfig.DeviceContext;
+import org.halkKatilim.enums.UserType;
+import org.halkKatilim.enums.corporate.CorporateCustomer;
 import org.halkKatilim.enums.retail.RetailCustomer;
 import org.halkKatilim.enums.StepsText;
+import org.halkKatilim.interfaces.CustomerCapable;
 import org.halkKatilim.pages.BasePages;
 
 import java.util.List;
+
+import static org.halkKatilim.enums.UserType.CORPORATE;
+import static org.halkKatilim.enums.UserType.RETAIL;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ACCOUNTS;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.SUCCESS_ACCOUNTS;
 
@@ -20,11 +26,11 @@ public class AccountsPages extends BasePages {
     }
 
     protected void confirmWithOtp() {
-        RetailCustomer retailCustomer = DeviceContext.getCustomer();
         confirmApproval();
+        CustomerCapable customer =DeviceContext.getCustomer(DeviceContext.getCurrentUserType());
         appiumUtil
                 .waitUntilElementLoad("inputSmsOtp")
-                .clearAndFillInputWithScroll("inputSmsOtp", retailCustomer.getSmsCode())
+                .clearAndFillInputWithScroll("inputSmsOtp", customer.getSmsCode())
                 .clickElement("smsOtpButtonSendItem");
     }
 

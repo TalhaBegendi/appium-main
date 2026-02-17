@@ -26,6 +26,8 @@ public final class NavigationGates {
 
         LOGIN(EnumSet.of(Gate.OK_INFO)),
 
+        MONEY_TRANSFER(EnumSet.of(Gate.OK_INFO)),
+
         DEFAULT(EnumSet.of(
                 Gate.CLOSE_POPUP,
                 Gate.OK_POPUP,

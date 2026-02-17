@@ -7,8 +7,10 @@ import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.UserType;
 import org.halkKatilim.enums.corporate.CorporateCustomer;
 import org.halkKatilim.enums.retail.RetailCustomer;
+import org.halkKatilim.interfaces.CustomerCapable;
 import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.pages.menu.MenuPages;
+import org.halkKatilim.testData.retail.moneyTransfer.CustomerEntry;
 
 import static org.halkKatilim.pages.loginPage.LoginPageText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.BUTTON_LOGIN_ITEM;
@@ -18,17 +20,18 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LOGIN;
 public class LoginPages extends BasePages {
 
     public void loginToApplication(String customerKey, String langKey, String userTypeKey) {
-
         UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
         log.info(LOG_LOGIN_START, userType, customerKey, langKey);
-
-        switch (userType) {
+        DeviceContext.setCurrentUserType(userType);
+        CustomerCapable customer = switch (userType) {
             case RETAIL -> loginWithRetailCustomer(customerKey, langKey);
             case CORPORATE -> loginWithCorporateCustomer(customerKey, langKey);
-        }
+        };
+        DeviceContext.setCustomer(new CustomerEntry<>(userType, customer));
     }
 
-    private void loginWithRetailCustomer(String customerKey, String langKey) {
+
+    private RetailCustomer loginWithRetailCustomer(String customerKey, String langKey) {
 
         RetailCustomer customer = RetailCustomer.valueOf(customerKey);
         Language language = Language.valueOf(langKey);
@@ -41,14 +44,14 @@ public class LoginPages extends BasePages {
         );
 
         completeOtpVerification(customer.getSmsCode());
+        return customer;
     }
 
-    private void loginWithCorporateCustomer(String customerKey, String langKey) {
+    private CorporateCustomer loginWithCorporateCustomer(String customerKey, String langKey) {
 
         CorporateCustomer customer = CorporateCustomer.valueOf(customerKey);
         Language language = Language.valueOf(langKey);
         log.info(LOG_LOGIN_CORPORATE_FLOW, customerKey, language);
-
         executeCommonLoginFlow(language, () -> appiumUtil
                 .clickElement("corporateUserTab")
                 .waitUntilElementLoad("inputMsisdnNumber")
@@ -57,8 +60,8 @@ public class LoginPages extends BasePages {
                 .clearAndFillInputWithEnter("inputPassword", customer.getPassword())
                 .hideKeyboardIfNeeded()
         );
-
         completeOtpVerification(customer.getSmsCode());
+        return customer;
     }
 
     private void executeCommonLoginFlow(Language language, Runnable fillCredentials) {

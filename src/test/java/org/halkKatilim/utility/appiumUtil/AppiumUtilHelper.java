@@ -3,9 +3,9 @@ package org.halkKatilim.utility.appiumUtil;
 
 import lombok.NoArgsConstructor;
 import org.halkKatilim.constant.SelectorInfo;
+import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.Platform;
-import org.halkKatilim.enums.SwipeDirection;
 import org.halkKatilim.enums.TextSource;
 import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.utility.Driver;
@@ -13,7 +13,6 @@ import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
 import org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 
 import java.math.BigDecimal;
@@ -30,7 +29,8 @@ import java.util.stream.IntStream;
 
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.ELEMENT_LIST_NOT_FOUND;
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.ELEMENT_NOT_FOUND;
-import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
+import static org.halkKatilim.utility.helpers.FrameworkLogger.log;
+import static org.halkKatilim.utility.helpers.FrameworkLogger.logErrorAndFail;
 
 @NoArgsConstructor
 public class AppiumUtilHelper extends BasePages {
@@ -177,7 +177,6 @@ public class AppiumUtilHelper extends BasePages {
     }
 
     void autoHandleNavigationGates(NavigationGates.Context context) {
-
         EnumSet<NavigationGates.Gate> gates = context.getGates();
         withTempImplicitWait(Duration.ofMillis(2550), () -> {
             boolean gateFound = gates.stream()
@@ -313,7 +312,9 @@ public class AppiumUtilHelper extends BasePages {
     }
 
     List<String> parseSteps(String path) {
-        return Arrays.stream(path.split(">")).map(String::trim).toList();
+        return Arrays.stream(path.split(">"))
+                .map(String::trim)
+                .toList();
     }
 
     WebElement findElementByKeyWithoutAssert(String key) {

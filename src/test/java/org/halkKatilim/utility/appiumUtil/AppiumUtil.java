@@ -19,7 +19,6 @@ import java.util.stream.IntStream;
 
 import org.halkKatilim.pages.BasePages;
 
-import static org.halkKatilim.enums.SwipeDirection.*;
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ASSETS;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
@@ -30,8 +29,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
 
     AppiumUtilHelper appiumUtilHelper = new AppiumUtilHelper();
 
-    public record StepResult(List<String> steps, AssertionKey key) {
-    }
+    public record StepResult(List<String> steps, AssertionKey key) { }
 
     public StepResult navigateWithAssertion(String path, String assertion, String clickKey, String contextKey, AssertionPrefix prefix) {
         List<String> steps = navigate(path, clickKey, contextKey, prefix);
@@ -41,7 +39,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil autoHandleNavigationGates(NavigationGates.Context context) {
-        appiumUtilHelper.autoHandleNavigationGates(context);
+       appiumUtilHelper.autoHandleNavigationGates(context);
         return this;
     }
 
@@ -52,7 +50,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public void ifExistClickByKey(String key) {
-        Optional.ofNullable(appiumUtil.findElementSilent(key)).ifPresent(element -> {
+        Optional.ofNullable(appiumUtilHelper.findElementByKeyWithoutAssert(key)).ifPresent(element -> {
             info(String.format(ELEMENT_CLICKED, key));
             element.click();
         });
@@ -81,11 +79,11 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public WebElement findElementSilent(String key) {
-        return appiumUtilHelper.findElementSilent(key);
+       return appiumUtilHelper.findElementSilent(key);
     }
 
     public List<WebElement> findElementsSilent(String key) {
-        return appiumUtilHelper.findElementsSilent(key);
+        return  appiumUtilHelper.findElementsSilent(key);
     }
 
     public List<WebElement> safeFindElementsAndWait(String key) {
@@ -157,7 +155,6 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil clearAndFillInputWithScroll(String key, String text) {
-
         WebElement element = appiumUtilHelper.scrollUntilVisible(key, 8);
         if (element == null) {
             logErrorAndFail("❌ Element not found after scrolling: " + key);
@@ -168,6 +165,25 @@ public class AppiumUtil extends BasePages implements WaitConditions {
             element.clear();
             element.sendKeys(text);
             hideKeyboardIfNeeded();
+            info("⌨️ '" + key + "' alanına '" + text + "' yazıldı");
+            return this;
+
+        } catch (Exception e) {
+            logErrorAndFail("❌ '" + key + "' alanına yazılamadı", e);
+            return this;
+        }
+    }
+
+    public AppiumUtil clearAndFillInput(String key, String text) {
+        WebElement element = appiumUtilHelper.findElementSilent(key);
+        if (element == null) {
+            logErrorAndFail("❌ Element not found after scrolling: " + key);
+            return this;
+        }
+        try {
+            element.click();
+            element.clear();
+            element.sendKeys(text);
             info("⌨️ '" + key + "' alanına '" + text + "' yazıldı");
             return this;
 
@@ -190,7 +206,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
 
     public AppiumUtil clickByText(String key, String text) {
         appiumUtilHelper.clickByText(key, text);
-        return this;
+        return  this;
     }
 
     public void clickByAnyText(String key, String[] texts) {
@@ -205,13 +221,14 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil clickRandomElement(String key) {
-        List<WebElement> elements = appiumUtil.findElementsSilent(key);
-
-        elements.stream()
-                .skip(ThreadLocalRandom.current().nextInt(elements.size()))
-                .findFirst()
-                .ifPresent(WebElement::click);
-
+        WebElement element = appiumUtilHelper.pickRandomElement(key);
+        if (element == null) return this;
+        try {
+            element.click();
+            log("🎲 Rastgele tıklanan element → " + key);
+        } catch (Exception e) {
+            logErrorAndFail("❌ Rastgele elemana tıklanamadı: " + key, e);
+        }
         return this;
     }
 
@@ -317,5 +334,4 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         appiumUtilHelper.swipeOnElementAndroid(element, UP);
         return this;
     }
-
 }

@@ -213,4 +213,4 @@ Feature: Menu navigation flows language English
     When Go to "Money Transfer > Secure Payment Transactions > Secure Payment Transaction" from Menu with assertion "MONEY_CARDS_SECURE_TITLE_MENU_DISPLAY" of type "EQUAL" using "NAME"
 
   Scenario: Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > TR QR Code
-    When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > TR QR Code" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > TR QR Code" from Menu with assertion "TRANSFER_MONEY_QR_MENU_ITEM" of type "EQUAL" using "LABEL"

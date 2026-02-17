@@ -2,7 +2,7 @@
 Feature: Homepage flows language Turkish
 
   Background:
-    Given Login as "RETAIL" customer "HOMEPAGE_USER" using "TURKISH" language
+    Given Login as "RETAIL" customer "MENU_MONEY_TRANSFER_USER" using "TURKISH" language
 
   Scenario: Varlıklarım Sayfasına Git
     When Go to "Varlıklarım" from Homepage
