@@ -3,9 +3,9 @@ package org.halkKatilim.utility.appiumUtil;
 
 import lombok.NoArgsConstructor;
 import org.halkKatilim.constant.SelectorInfo;
-import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.Platform;
+import org.halkKatilim.enums.SwipeDirection;
 import org.halkKatilim.enums.TextSource;
 import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.utility.Driver;
@@ -13,6 +13,7 @@ import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
 import org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 
 import java.math.BigDecimal;
@@ -29,8 +30,7 @@ import java.util.stream.IntStream;
 
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.ELEMENT_LIST_NOT_FOUND;
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.ELEMENT_NOT_FOUND;
-import static org.halkKatilim.utility.helpers.FrameworkLogger.log;
-import static org.halkKatilim.utility.helpers.FrameworkLogger.logErrorAndFail;
+import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
 
 @NoArgsConstructor
 public class AppiumUtilHelper extends BasePages {

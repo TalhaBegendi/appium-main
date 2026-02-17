@@ -23,6 +23,7 @@ import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ASSETS;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
 import static org.testng.Assert.fail;
+import static org.halkKatilim.enums.SwipeDirection.*;
 
 @RequiredArgsConstructor
 public class AppiumUtil extends BasePages implements WaitConditions {
