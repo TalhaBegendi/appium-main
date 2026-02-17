@@ -110,8 +110,6 @@ Feature: Menu navigation flows language Turkish
   Scenario: Kartlar > Borç Öde > Başka Karta
     When Go to "Kartlar > Borç Öde > Başka Karta" from Menu with assertion "MONEY_CARDS_TITLE_MENU_ITEM" of type "EQUAL" using "CONTENT_DESC"
 
-
-
   Scenario: Finansman > Finansman Başvurusu
     When Go to "Finansman > Finansman Başvurusu" from Menu with assertion "LOAN_APPLICATION_MENU_ITEM" of type "PRESENCE" using ""
 
@@ -213,4 +211,4 @@ Feature: Menu navigation flows language Turkish
     When Go to "Para Transferi > Güvenli Ödeme İşlemleri > Güvenli Ödeme İşlemi" from Menu with assertion "MONEY_CARDS_SECURE_TITLE_MENU_DISPLAY" of type "EQUAL" using "NAME"
 
   Scenario: Para Transferi > Başka Hesaba > TR Karekod
-    When Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > TR Karekod" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    When Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > TR Karekod" from Menu with assertion "TRANSFER_MONEY_QR_MENU_ITEM" of type "EQUAL" using "LABEL"

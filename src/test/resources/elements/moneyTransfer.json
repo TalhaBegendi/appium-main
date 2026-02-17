@@ -36,7 +36,6 @@
   },
   {
     "key": "ibanPageReceiverNameField",
-    "androidValue": "com.halkbank.mobil.dev:id/receiverName",
     "androidType": "id",
     "iosValue": "//XCUIElementTypeStaticText[@name=\"BIBANInfoComponent_customerName\"]",
     "iosType": "xpath"
@@ -45,7 +44,7 @@
     "key": "moneyTransferContinueButton",
     "androidValue": "com.halkbank.mobil.dev:id/buttonConfirmItem",
     "androidType": "id",
-    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]",
+    "iosValue": "//XCUIElementTypeCell[@name='BActionButtonComponent']",
     "iosType": "xpath"
   },
   {
@@ -73,8 +72,8 @@
     "key": "ibanPageTransactionAmount",
     "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
     "androidType": "id",
-    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_n2\"]",
-    "iosType": "xpath"
+    "iosValue": "BTextFieldComponents_BTextField_n2",
+    "iosType": "accessibilityId"
   },
   {
     "key": "ibanPagePaymentType",
@@ -87,7 +86,7 @@
     "key": "ibanPageTransactionDescription",
     "androidValue": "//*[@resource-id='com.halkbank.mobil.dev:id/descriptionItem']//android.widget.EditText",
     "androidType": "xpath",
-    "iosValue": "//XCUIElementTypeTextView[@name=\"BTextViewComponent_BTextView\"]",
+    "iosValue": "//XCUIElementTypeTextView[@name='BTextViewComponent_BTextView']",
     "iosType": "xpath"
   },
   {
@@ -150,22 +149,22 @@
     "key": "confirmationPageSwitchPermission",
     "androidValue": "com.halkbank.mobil.dev:id/itemSwitch",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent\"]",
+    "iosType": "xpath"
   },
   {
     "key": "confirmationPageDialogAcceptButton",
     "androidValue": "com.halkbank.mobil.dev:id/dialogButtonSendItem",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "BAlertView_BButton_Ok",
+    "iosType": "accessibilityId"
   },
   {
     "key": "moneyTransferSuccessMessage",
     "androidValue": "com.halkbank.mobil.dev:id/textView",
     "androidType": "id",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BInformationImageComponent_TitleLabel\"]",
+    "iosType": "xpath"
   },
   {
     "key": "moneyTransferSentForApprovalInfoText",

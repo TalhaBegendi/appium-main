@@ -49,16 +49,27 @@ public class MoneyTransferSteps {
 
     @And("Enter the OTP code")
     public void enterOtpCode() {
-        pages.getToAnotherAccountIbanPage().enterOtpCode("123456");
+        pages.getToAnotherAccountIbanPage().confirmWithOtp();
     }
 
     @Then("The transaction should be completed successfully")
     public void verifyTransactionSuccess() {
         pages.getToAnotherAccountIbanPage().verifyTransactionSuccess();
     }
+
+    @Then("The transaction should be for forward date completed successfully")
+    public void verifyTransactionSuccessForwardDate() {
+        pages.getToAnotherAccountIbanPage().verifyTransactionSuccessForwardDate();
+    }
+
     @Then("The transaction should be successfully sent for approval")
     public void verifyTransactionSentForApproval() {
         pages.getToAnotherAccountIbanPage().verifyTransactionSentForApproval();
+    }
+
+    @Then("The transaction should be successfully sent for approval and Account")
+    public void verifyTransactionSentForApprovalAndAccount() {
+        pages.getToAnotherAccountAccountPage().verifyTransactionSentForApprovalTypeAccount();
     }
 
     @When("Enter {string} customer transaction details with different currency for today")

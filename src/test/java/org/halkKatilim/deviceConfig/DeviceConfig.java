@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public final class DeviceConfig {
 
     private final String defaultDevice;
-    private final Map<String, List<String>> platforms;
+    private final Map<String, List<String>> platform;
     private final Map<String, List<String>> groups;
     private final Map<String, String> deviceToPlatform;
 
@@ -21,7 +21,7 @@ public final class DeviceConfig {
             @JsonProperty("platforms") Map<String, List<String>> platforms,
             @JsonProperty("groups") Map<String, List<String>> groups) {
         this.defaultDevice = defaultDevice;
-        this.platforms = platforms != null ? Map.copyOf(platforms) : Map.of();
+        this.platform = platforms != null ? Map.copyOf(platforms) : Map.of();
         this.groups = groups != null ? Map.copyOf(groups) : Map.of();
         this.deviceToPlatform = buildDeviceToPlatformIndex(platforms);
     }

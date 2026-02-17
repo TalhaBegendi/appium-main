@@ -1,9 +1,13 @@
 package org.halkKatilim.pages.moneyTransfer.toAnotherAccount;
 
+import org.halkKatilim.deviceConfig.DeviceContext;
+import org.halkKatilim.enums.Platform;
 import org.halkKatilim.pages.BasePages;
+import org.halkKatilim.utility.Driver;
 import org.openqa.selenium.WebElement;
 
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
+import static org.testng.AssertJUnit.assertEquals;
 
 public final class ToAnotherAccountAccountPages extends BasePages {
 
@@ -37,6 +41,27 @@ public final class ToAnotherAccountAccountPages extends BasePages {
         appiumUtil.findElementSilent("moneyTransferDatePickerOkButton").click();
         appiumUtil.findElementSilent("moneyTransferAcceptOrderButton").click();
 
+    }
+
+    public void verifyTransactionSentForApprovalTypeAccount() {
+        appiumUtil.waitUntilElementLoad("moneyTransferSentForApprovalInfoText");
+        Platform platform = Driver.getPlatformForThread();
+        boolean isRetail = "RETAIL".equalsIgnoreCase(String.valueOf(DeviceContext.getCurrentUserType()));
+        boolean isTurkish = "TURKISH".equalsIgnoreCase(String.valueOf(DeviceContext.getLanguage()));
+        boolean isIOS = platform == Platform.IOS;
+        String expectedMessage =
+                isRetail
+                        ? (isTurkish
+                        ? (isIOS
+                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL_IOS
+                        : TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL)
+                        : (isIOS
+                        ? ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL_IOS
+                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL))
+                        : (isTurkish
+                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
+                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
+        assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
 
     public void clickAccountTab() {
