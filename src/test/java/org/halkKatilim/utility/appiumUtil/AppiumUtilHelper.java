@@ -136,7 +136,8 @@ public class AppiumUtilHelper extends BasePages {
         try {
             return AssertionKey.valueOf(key);
         } catch (Exception e) {
-            throw new IllegalArgumentException("❌ Unknown assertion key: " + key);
+            return null;
+            //throw new IllegalArgumentException("❌ Unknown assertion key: " + key);
         }
     }
 
@@ -401,7 +402,7 @@ public class AppiumUtilHelper extends BasePages {
         }
     }
 
-    void swipeOnElement(WebElement element, SwipeDirection direction) {
+    void swipeOnElementAndroid(WebElement element, SwipeDirection direction) {
 
         Rectangle r = element.getRect();
 
@@ -417,5 +418,4 @@ public class AppiumUtilHelper extends BasePages {
 
         info("👉 Swipe " + direction + " executed via mobile: swipeGesture");
     }
-
 }

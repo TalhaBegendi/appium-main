@@ -58,7 +58,7 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
 
     public void clickContinueButton() {
-        appiumUtil.clickElementWithScroll("moneyTransferContinueButton")
+        appiumUtil.clickElement("moneyTransferContinueButton")
                 .ifExistClickByKey("ibanPageFirstTransactionAcceptButton");
 
     }
@@ -331,8 +331,8 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
     public void enterTransactionAmountAndDescription(String amount) {
-        appiumUtil.clearAndFillInputWithScroll("ibanPageTransactionDescription", TRANSACTION_DESCRIPTION)
-                .clearAndFillInputWithScroll("ibanPageTransactionAmount", amount);
+        appiumUtil.clearAndFillInputWithScroll("ibanPageTransactionAmount", amount)
+                .clearAndFillInputWithScroll("ibanPageTransactionDescription", TRANSACTION_DESCRIPTION);
     }
 
     public void enterFundTransactionDetailsForToday() {

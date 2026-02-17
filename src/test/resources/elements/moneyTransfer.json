@@ -45,7 +45,7 @@
     "key": "moneyTransferContinueButton",
     "androidValue": "com.halkbank.mobil.dev:id/buttonConfirmItem",
     "androidType": "id",
-    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent_nextButton\"]/XCUIElementTypeButton",
     "iosType": "xpath"
   },
   {

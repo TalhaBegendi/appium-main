@@ -59,13 +59,14 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         waitBySecond(1);
     }
 
-    public void waitBySecond(int seconds) {
+    public AppiumUtil waitBySecond(int seconds) {
         try {
             Thread.sleep(seconds * 1000L);
             info(String.format(WAITED_SECONDS, seconds));
         } catch (InterruptedException e) {
             logErrorAndFail("❌ Thread sleep error", e);
         }
+        return this;
     }
 
     public AppiumUtil waitUntilElementLoad(String key) {
@@ -302,23 +303,18 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         return this;
     }
 
-    public AppiumUtil swipeRightOnElement(WebElement element) {
-        appiumUtilHelper.swipeOnElement(element, RIGHT);
+    public AppiumUtil swipeRightOnElementAndroid(WebElement element) {
+        appiumUtilHelper.swipeOnElementAndroid(element, RIGHT);
         return this;
     }
 
-    public AppiumUtil swipeLeftOnElement(WebElement element) {
-        appiumUtilHelper.swipeOnElement(element, LEFT);
+    public AppiumUtil swipeLeftOnElementAndroid(WebElement element) {
+        appiumUtilHelper.swipeOnElementAndroid(element, LEFT);
         return this;
     }
 
-    public AppiumUtil swipeUpOnElement(WebElement element) {
-        appiumUtilHelper.swipeOnElement(element, UP);
-        return this;
-    }
-
-    public AppiumUtil swipeDownOnElement(WebElement element) {
-        appiumUtilHelper.swipeOnElement(element, DOWN);
+    public AppiumUtil swipeUpOnElementAndroid(WebElement element) {
+        appiumUtilHelper.swipeOnElementAndroid(element, UP);
         return this;
     }
 

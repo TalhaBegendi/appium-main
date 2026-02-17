@@ -130,6 +130,9 @@ Feature: Menu Language Turkish
   Scenario: Karekod İşlemleri > Karekod İle Öde
     When Go to "Karekod İşlemleri > Karekod İle Öde" from Menu with assertion "TRANSFER_MONEY_MENU_ITEM" of type "EQUAL" using "NAME"
 
+  Scenario: Karekod İşlemleri > Ödeme Al
+    When Go to "Karekod İşlemleri > Ödeme Al" from Menu with assertion "TRANSFER_MONEY_MENU_ITEM" of type "EQUAL" using "NAME"
+
   Scenario: Döviz / Kıymetli Maden > Alış / Satış
     When Go to "Döviz / Kıymetli Maden > Döviz / Kıymetli Maden Alış / Satış" from Menu with assertion "CURRENCY_METALS_SELL_TEXT_ITEM" of type "PRESENCE_THEN_EQUAL" using "NAME"
 
@@ -216,6 +219,15 @@ Feature: Menu Language Turkish
 
   Scenario: Ayarlar > Güvenlik Ayarları > Giriş Kayıtları
     When Go to "Ayarlar > Güvenlik Ayarları > Giriş Kayıtları" from Menu with assertion "SETTINGS_MENU_ITEM" of type "EQUAL" using "NAME"
+
+  Scenario: Ayarlar > Güvenlik Ayarları > Kısıtlar > Finansman
+    When Go to "Ayarlar > Güvenlik Ayarları > Kısıtlar > Finansman" from Menu with assertion "SETTINGS_MENU_ITEM" of type "EQUAL" using "NAME"
+
+  Scenario: Ayarlar > Güvenlik Ayarları > Kısıtlar > Kredi Kartı
+    When Go to "Ayarlar > Güvenlik Ayarları > Kısıtlar > Kredi Kartı" from Menu with assertion "SETTINGS_MENU_ITEM" of type "EQUAL" using "NAME"
+
+  Scenario: Ayarlar > Güvenlik Ayarları > Kısıtlar > Para Transferi
+    When Go to "Ayarlar > Güvenlik Ayarları > Kısıtlar > Para Transferi" from Menu with assertion "SETTINGS_MENU_ITEM" of type "EQUAL" using "NAME"
 
   Scenario: Ayarlar > Şifre Ayarları > SIM Bloke Kaldır
     When Go to "Ayarlar > Şifre Ayarları > SIM Bloke Kaldır" from Menu with assertion "SETTINGS_MENU_ITEM" of type "EQUAL" using "NAME"
