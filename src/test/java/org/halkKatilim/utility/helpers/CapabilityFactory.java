@@ -22,7 +22,8 @@ public final class CapabilityFactory {
                 .setAutoDismissAlerts(true)
                 .amend("useNewWDA", true)
                 .amend("wdaLaunchTimeout", 60000)
-                .amend("wdaConnectionTimeout", 60000);
+                .amend("wdaConnectionTimeout", 60000)
+                .amend("appium:waitForQuiescence", false);
         applyCommonOptions(options);
         applyDeviceCapabilities(options, device, "iPhone");
         return options;

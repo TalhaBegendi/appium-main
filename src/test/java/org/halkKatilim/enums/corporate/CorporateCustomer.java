@@ -9,7 +9,7 @@ import org.halkKatilim.interfaces.CustomerCapable;
 public enum CorporateCustomer implements CustomerCapable {
 
     STANDARD_USER("1229","35614036930","121212","123456"),
-    STANDARD_USER_2("1296","34264334076","121212","123456");
+    STANDARD_USER_2("1197","98008068122","121212","123456");
 
     private final String number;
     private final String msisdn;

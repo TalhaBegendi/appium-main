@@ -6,6 +6,7 @@ import org.halkKatilim.pages.loginPage.LoginPages;
 import org.halkKatilim.pages.menu.MenuPages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountAccountPages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountIBANPages;
+import org.halkKatilim.pages.savedTransactions.SavedTransactions;
 
 @Getter
 public class Pages {
@@ -14,6 +15,7 @@ public class Pages {
     private final MenuPages menuPage;
     private final ToAnotherAccountIBANPages toAnotherAccountIbanPage;
     private final ToAnotherAccountAccountPages toAnotherAccountAccountPage;
+    private final SavedTransactions savedTransactions;
 
     public Pages() {
         this.loginPage = new LoginPages();
@@ -21,5 +23,6 @@ public class Pages {
         this.menuPage = new MenuPages();
         this.toAnotherAccountIbanPage = new ToAnotherAccountIBANPages();
         this.toAnotherAccountAccountPage = new ToAnotherAccountAccountPages();
+        this.savedTransactions = new SavedTransactions();
     }
 }

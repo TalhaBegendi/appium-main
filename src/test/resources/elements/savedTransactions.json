@@ -1,0 +1,166 @@
+[
+  {
+    "key": "savedTransactionsAddNewTransactionButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonAddSavedTransaction\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"BPermanentButton_PermanentButton\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsAddNewTransactionPageTitle",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/toolbarTitle\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText)[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsNameList",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/text1\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BSavedTransactionComponent_NameLabel\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsNewTransactionNameField",
+    "androidValue": "//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_standart\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsNewTransactionTypeList",
+    "androidValue": "//android.widget.RadioButton",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[starts-with(@name, \"TreeBubleCell\")]//XCUIElementTypeStaticText",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsMoneyTransferCloseButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonInfo\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"TreeBubleSelectedCell\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsMoneyTransferTypeList",
+    "androidValue": "//android.widget.RadioButton",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[starts-with(@name, \"TreeBubleCell\")]//XCUIElementTypeStaticText",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsMoneyTransferReceiverDropdown",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/imageButtonDropDown\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeCell[@name=\"BAccountSelectionComponent_accountSelection\"])[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsMoneyTransferReceiverList",
+    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkbank.mobil.dev:id/radioButton\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BAccountComponent_MaturityLabel\"])[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsSaveButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonSaveSavedTransactionItem\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeCell[@name=\"BActionButtonComponent\"])[2]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsSuccessMessage",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BInformationImageComponent_TitleLabel\"])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsDeleteButtonsAndroid",
+    "androidValue": "(//android.widget.FrameLayout[@resource-id=\"com.halkbank.mobil.dev:id/swipe_view\"])/android.widget.LinearLayout/android.widget.TextView[3]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsDeleteButtonIos",
+    "iosValue": "//XCUIElementTypeButton[@name=\"Sil\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsDeletePopup",
+    "androidValue": "//androidx.appcompat.widget.LinearLayoutCompat[@resource-id=\"com.halkbank.mobil.dev:id/parentPanel\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsDeletePopupDeleteButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"android:id/button1\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsDeleteTransactionSuccessMessage",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textDeleteSuccessItem\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsIBANInputField",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsReceiverBranchSelection",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textViewPlaceholder\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsReceiverBranchList",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView1x1\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsReceiverAccountNumber",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsReceiverAccountNumberSuffix",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[3]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsSearchBar",
+    "androidValue": "//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "savedTransactionsSearchErrorMessage",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textViewMessage\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  }
+]
+
+
+
+
+

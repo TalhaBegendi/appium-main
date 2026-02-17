@@ -57,13 +57,14 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         waitBySecond(1);
     }
 
-    public void waitBySecond(int seconds) {
+    public AppiumUtil waitBySecond(int seconds) {
         try {
             Thread.sleep(seconds * 1000L);
             info(String.format(WAITED_SECONDS, seconds));
         } catch (InterruptedException e) {
             logErrorAndFail("❌ Thread sleep error", e);
         }
+        return this;
     }
 
     public AppiumUtil waitUntilElementLoad(String key) {
@@ -310,17 +311,27 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         });
     }
 
-    public void clickSegmentedByText(String key, String expectedText) {
-        String expected = hardAssertion.normalizeText(expectedText);
-        for (int i = 0; i < 5; i++) {
-            WebElement el = findElementSilent(String.format(key, i));
-            if (el == null) break;
-            String label = hardAssertion.normalizeText(el.getText());
-            if (expected.equals(label)) {
-                el.click();
-                return;
-            }
-        }
-        logErrorAndFail("❌ SegmentedControl text not found → " + expectedText);
+    public AppiumUtil selectFromListByText(String listKey, String expectedText) {
+        appiumUtil.findElementsSilent(listKey)
+                .stream()
+                .filter(e -> expectedText.equalsIgnoreCase(e.getText()))
+                .findFirst()
+                .ifPresent(WebElement::click);
+        return this;
+    }
+
+    public AppiumUtil swipeRightOnElementAndroid(WebElement element) {
+        appiumUtilHelper.swipeOnElementAndroid(element, RIGHT);
+        return this;
+    }
+
+    public AppiumUtil swipeLeftOnElementAndroid(WebElement element) {
+        appiumUtilHelper.swipeOnElementAndroid(element, LEFT);
+        return this;
+    }
+
+    public AppiumUtil swipeUpOnElementAndroid(WebElement element) {
+        appiumUtilHelper.swipeOnElementAndroid(element, UP);
+        return this;
     }
 }

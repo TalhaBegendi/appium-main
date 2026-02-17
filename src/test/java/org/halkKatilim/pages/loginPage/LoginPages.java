@@ -54,6 +54,7 @@ public class LoginPages extends BasePages {
         log.info(LOG_LOGIN_CORPORATE_FLOW, customerKey, language);
         executeCommonLoginFlow(language, () -> appiumUtil
                 .clickElement("corporateUserTab")
+                .waitUntilElementLoad("inputMsisdnNumber")
                 .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
                 .clearAndFillInputWithScroll("inputMsisdnNumber", customer.getMsisdn())
                 .clearAndFillInputWithEnter("inputPassword", customer.getPassword())

@@ -394,10 +394,6 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
     public void enterTransactionAmountAndDescription(String amount) {
-        Platform platform = Driver.getPlatformForThread();
-        if (platform == Platform.IOS) {
-            appiumUtil.waitUntilElementLoad("ibanPageTransactionAmount");
-        }
         appiumUtil.clearAndFillInputWithScroll("ibanPageTransactionAmount", amount)
                 .clearAndFillInputWithScroll("ibanPageTransactionDescription", TRANSACTION_DESCRIPTION);
     }

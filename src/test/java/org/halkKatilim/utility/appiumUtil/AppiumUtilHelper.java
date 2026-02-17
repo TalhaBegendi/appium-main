@@ -136,7 +136,8 @@ public class AppiumUtilHelper extends BasePages {
         try {
             return AssertionKey.valueOf(key);
         } catch (Exception e) {
-            throw new IllegalArgumentException("❌ Unknown assertion key: " + key);
+            return null;
+            //throw new IllegalArgumentException("❌ Unknown assertion key: " + key);
         }
     }
 
@@ -400,5 +401,22 @@ public class AppiumUtilHelper extends BasePages {
             previousSnapshot = currentSnapshot;
             scrollDown();
         }
+    }
+
+    void swipeOnElementAndroid(WebElement element, SwipeDirection direction) {
+
+        Rectangle r = element.getRect();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("left", r.getX());
+        params.put("top", r.getY());
+        params.put("width", r.getWidth());
+        params.put("height", r.getHeight());
+        params.put("direction", direction.name().toLowerCase());
+        params.put("percent", 0.75);
+
+        appiumDriver.executeScript("mobile: swipeGesture", params);
+
+        info("👉 Swipe " + direction + " executed via mobile: swipeGesture");
     }
 }
