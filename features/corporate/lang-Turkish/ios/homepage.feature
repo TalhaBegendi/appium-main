@@ -2,7 +2,7 @@
 Feature: Homepage flows language Turkish - IOS
 
   Background:
-    Given Login as "CORPORATE" customer "STANDARD_USER_2" using "TURKISH" language
+    Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language
 
   Scenario: Varlıklarım Sayfasına Git - CORPORATE
     When Go to "Varlıklarım" from Homepage

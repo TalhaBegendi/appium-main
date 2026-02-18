@@ -2,7 +2,7 @@
 Feature: Menu Language Turkish - ANDROID - CORPORATE
 
   Background:
-    Given Login as "CORPORATE" customer "STANDARD_USER_2" using "TURKISH" language
+    Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language
 
   Scenario: CORPORATE - Ana Sayfaya Git
     When Go to "Ana Sayfa" from Menu

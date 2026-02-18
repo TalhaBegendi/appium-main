@@ -2,7 +2,7 @@
 Feature: Saved Transactions Flows Language English
 
   Background:
-    When Login as "CORPORATE" customer "STANDARD_USER_2" using "ENGLISH" language
+    When Login as "CORPORATE" customer "STANDARD_USER" using "ENGLISH" language
     When Go to "Saved Transaction" from Menu
 
   Scenario: Kayıtlı İşlemlerden Rastgele Bir işlem Gerçekleştirme --Kaldı
