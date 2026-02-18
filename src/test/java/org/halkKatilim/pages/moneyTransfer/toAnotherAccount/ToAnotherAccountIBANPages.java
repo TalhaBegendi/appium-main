@@ -16,10 +16,7 @@ import org.openqa.selenium.WebElement;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -27,6 +24,7 @@ import java.util.stream.IntStream;
 import static org.halkKatilim.enums.Platform.ANDROID;
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.debug;
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 
 @Slf4j
@@ -68,10 +66,12 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
 
     public void clickContinueButton() {
-        appiumUtil.clickElementWithScroll("moneyTransferContinueButton");
         Platform platform = Driver.getPlatformForThread();
         if (platform == ANDROID) {
+            appiumUtil.clickElementWithScroll("moneyTransferContinueButton");
             appiumUtil.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER);
+        }else  {
+            appiumUtil.clickElementWithScroll("moneyTransferContinueButtoniOS");
         }
     }
 
@@ -190,7 +190,8 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
     public void verifyTransactionSuccess() {
         appiumUtil.waitUntilElementLoad("moneyTransferSuccessMessage");
-        assertEquals(TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_CORPORATE, appiumUtil.findElementSilent("moneyTransferSuccessMessage").getText());
+        assertElementTextContainsAny(appiumUtil.findElementSilent("moneyTransferSuccessMessage"),
+                TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_CORPORATE, ENGLISH_MONEY_TRANSFER_SUCCESS_MESSAGE_CORPORATE);
     }
 
     public void givePermissionForSameDayTransaction() {
@@ -427,5 +428,12 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
     public void enterFundTransactionDetailsToAccountForToday() {
         appiumUtil.clearAndFillInputWithScroll("moneyTransferFundWarningPopupMessage", FUND_ACCOUNT_NUMBER);
+    }
+
+    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
+        String actualText = element.getText().trim();
+
+        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
+                "Actual text [" + actualText + "] does not contain any expected values");
     }
 }

@@ -14,4 +14,36 @@ Feature: Money Transfer flows language Turkish - ANDROID - CORPORATE
     Then The transaction details should be displayed correctly on the Verification page
     When Click confirm button on confirmation page
     And Enter the OTP code
-    Then The transaction should be successfully sent for approval
+    Then The transaction should be completed successfully
+
+  Scenario: CORPORATE - Bireysel Müşteri için Aynı Gün IBAN Transferinin Onaya Gönderilmesi
+    When Enter "RETAIL" customer transaction details for today
+    When Click continue button on the Another Account page
+    Then The transaction details should be displayed correctly on the Verification page
+    When Click confirm button on confirmation page
+    And Enter the OTP code
+    Then The transaction should be completed successfully
+
+  Scenario: CORPORATE - Kurumsal Müşteri için Aynı Gün IBAN Transferinin Onaya Gönderilmesi
+    When Enter "CORPORATE" customer transaction details for today
+    When Click continue button on the Another Account page
+    Then The transaction details should be displayed correctly on the Verification page
+    When Click confirm button on confirmation page
+    And Enter the OTP code
+    Then The transaction should be completed successfully
+
+  Scenario: CORPORATE - Kurumsal Müşteri için İleri Tarihli IBAN Transferinin Onaya Gönderilmesi
+    When Enter "CORPORATE" customer transaction details for "9" days later
+    When Click continue button on the Another Account page
+    When Click confirm button on confirmation page
+    And Enter the OTP code
+    Then The transaction should be for forward date completed successfully
+
+  Scenario: CORPORATE - Kurumsal Müşteride Farklı Para Birimi Transferinin Engellenmesi
+    When Enter "CORPORATE" customer transaction details with different currency for today
+    When Click continue button on the Another Account page
+    Then The different currency error message should be displayed
+
+  Scenario: CORPORATE - Kullanıcıya Ait IBAN Girildiğinde Uyarı Mesajı Gösterilmesi
+    When Enter fund transaction details for today
+    Then Verify fund warning error should be displayed
