@@ -59,8 +59,8 @@ public final class ToAnotherAccountAccountPages extends BasePages {
                         ? ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL_IOS
                         : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL))
                         : (isTurkish
-                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
-                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
+                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL
+                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_ACCOUNT_RETAIL);
         assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
 
