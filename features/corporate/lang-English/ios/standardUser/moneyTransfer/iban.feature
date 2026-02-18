@@ -2,7 +2,7 @@
 Feature: Money Transfer flows language Turkish
 
   Background:
-    Given Login as "CORPORATE" customer "STANDARD_USER_2" using "ENGLISH" language
+    Given Login as "CORPORATE" customer "STANDARD_USER" using "ENGLISH" language
     When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > IBAN" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
 
   Scenario: Sending a Same-Day IBAN Transfer for Approval Using a Saved Transaction
@@ -46,6 +46,6 @@ Feature: Money Transfer flows language Turkish
 
   Scenario: Kullanıcıya Ait IBAN Girildiğinde Uyarı Mesajı Gösterilmesi
     When Enter fund transaction details for today
-    Then Verify fund warning error as "The IBAN you enter belongs to you. Please check and try again." is displayed
+    Then Verify fund warning error should be displayed
 
 

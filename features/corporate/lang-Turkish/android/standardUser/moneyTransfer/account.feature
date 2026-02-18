@@ -2,7 +2,7 @@
 Feature: Money Transfer to account flows language Turkish - ANDROID - CORPORATE
 
   Background:
-    Given Login as "CORPORATE" customer "STANDARD_USER_2" using "TURKISH" language
+    Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language
     Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > Hesap" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
 
   Scenario: CORPORATE - Kayıtlı İşlem ile Aynı Gün Hesap Numarasına Transferinin Onaya Gönderilmesi
