@@ -1,17 +1,17 @@
 @devices=pixel7
-Feature: Saved Transactions Flows Language Turkish
+Feature: Saved Transactions flows language Turkish
 
   Background:
-    Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language
+    Given Login as "RETAIL" customer "ACCOUNT_USER" using "TURKISH" language
     And Go to "Kayıtlı İşlemler" from Menu
 
   Scenario: Kayıtlı Bir İşlem Üzerinden Para Transferi Talimatı Oluşturulması
     When Select one of the saved transactions from the list
     And Enter transaction amount as "5" TL and description
     When Click continue button on the Another Account page
-    When Click confirm button on confirmation page
+    And Click confirm button on confirmation page for Saved Transaction
     And Enter the OTP code
-    Then The transaction should be successfully sent for approval
+    Then The transaction should be successfully sent for approval and Account
 
   Scenario: Hesaplarım Arasında Yeni Kayıtlı Transfer Oluşturulması
     When Click add new saved transaction button
@@ -21,12 +21,12 @@ Feature: Saved Transactions Flows Language Turkish
     And Select "Hesaplarım Arası" as money transfer category
     And Select one own account as receiver
     And Click save button for saved transaction
-    And Click confirm button on confirmation page
+    And Click confirm button on confirmation page for Saved Transaction
     And Enter the OTP code
     Then Saved transfer should be created successfully
 
   Scenario: Hesaplarım Arasındaki Kayıtlı Transferin Silinmesi
-    When Click delete button for saved transaction named "virman"
+    When Click delete button for saved transaction named "gstest"
     Then Verify delete confirmation popup is displayed
     When Click confirm delete button on delete popup
     Then Verify saved transaction is deleted successfully
@@ -40,7 +40,7 @@ Feature: Saved Transactions Flows Language Turkish
     And Select "IBAN'a" as money transfer category
     And Enter receiver IBAN
     And Click save button for saved transaction
-    And Click confirm button on confirmation page
+    And Click confirm button on confirmation page for Saved Transaction
     And Enter the OTP code
     Then Saved transfer should be created successfully
 
@@ -56,11 +56,11 @@ Feature: Saved Transactions Flows Language Turkish
     When Enter "hesap numarası" as new saved transaction name
     And Select "Para Transferi" as transaction type
     And Select "Başka Hesaba (Havale / EFT / FAST)" as money transfer category
-    And Select "Hesap Numarasına" as money transfer category
+    And Select "Account" as money transfer category for platform
     And Select recipient bank as "HALK KATILIM BANKASI A.Ş."
     And Enter receiver account info
     And Click save button for saved transaction
-    And Click confirm button on confirmation page
+    And Click confirm button on confirmation page for Saved Transaction
     And Enter the OTP code
     Then Saved transfer should be created successfully
 
@@ -94,7 +94,7 @@ Feature: Saved Transactions Flows Language Turkish
     When Enter "hesap numarası" as new saved transaction name
     And Select "Para Transferi" as transaction type
     And Select "Başka Hesaba (Havale / EFT / FAST)" as money transfer category
-    And Select "Hesap Numarasına" as money transfer category
+    And Select "Account" as money transfer category for platform
     And Select recipient bank as "HALK KATILIM BANKASI A.Ş."
     And Enter own account info for receiver
     And Click save button for saved transaction

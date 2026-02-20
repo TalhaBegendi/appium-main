@@ -39,6 +39,11 @@ public class SavedTransactionsStepDefs {
         pages.getSavedTransactions().selectAsMoneyTransferCategory(moneyTranType);
     }
 
+    @And("Select {string} as money transfer category for platform")
+    public void selectAsMoneyTransferCategoryForPlatform(String moneyTranType) {
+        pages.getSavedTransactions().selectAsMoneyTransferCategoryForPlatform(moneyTranType);
+    }
+
     @And("Select one own account as receiver")
     public void selectOneOwnAccountAsReceiver() {
         pages.getSavedTransactions().selectOneOwnAccountAsReceiver();
@@ -89,14 +94,19 @@ public class SavedTransactionsStepDefs {
         pages.getSavedTransactions().enterReceiverAccountInfo();
     }
 
+    @When("Into saved transactions search field")
+    public void intoSavedTransactionsSearchField() {
+        pages.getSavedTransactions().intoSavedTransactionsSearchField();
+    }
+
     @When("Enter {string} into saved transactions search field")
     public void enterIntoSavedTransactionsSearchField(String searchText) {
         pages.getSavedTransactions().enterIntoSavedTransactionsSearchField(searchText);
     }
 
-    @Then("All saved transactions matching {string} are displayed")
-    public void allSavedTransactionsMatchingAreDisplayed(String searchText) {
-        pages.getSavedTransactions().allSavedTransactionsMatchingAreDisplayed(searchText);
+    @Then("All saved transactions matching displayed")
+    public void allSavedTransactionsMatchingAreDisplayed() {
+        pages.getSavedTransactions().allSavedTransactionsMatchingAreDisplayed();
     }
 
     @Then("No search results found message is displayed")
@@ -122,5 +132,10 @@ public class SavedTransactionsStepDefs {
     @Then("Verify fund iban warning error should be displayed")
     public void verifyFundIbanWarningErrorShouldBeDisplayed() {
         pages.getSavedTransactions().verifyFundIbanWarningErrorShouldBeDisplayed();
+    }
+
+    @And("Click confirm button on confirmation page for Saved Transaction")
+    public void clickConfirmButtonSavedTransaction() {
+        pages.getSavedTransactions().clickConfirmButtonSavedTransaction();
     }
 }

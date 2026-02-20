@@ -21,6 +21,13 @@
     "iosType": "xpath"
   },
   {
+    "key": "savedTransactionsNameFirst",
+    "androidValue": "((//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/text1\"])[1]",
+    "androidType": "xpath",
+    "iosValue": "((//XCUIElementTypeStaticText[@name=\"BSavedTransactionComponent_NameLabel\"])[1]",
+    "iosType": "xpath"
+  },
+  {
     "key": "savedTransactionsNewTransactionNameField",
     "androidValue": "//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"]",
     "androidType": "xpath",
@@ -113,50 +120,50 @@
     "key": "savedTransactionsIBANInputField",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_iban\"])[2]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsReceiverBranchSelection",
     "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textViewPlaceholder\"]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeStaticText[@name=\"BTitleValueComponent_ValueLabel\"])[2]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsReceiverBranchList",
     "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView1x1\"]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeCell[@name=\"BTitleComponent\"]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsReceiverAccountNumber",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[2]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_accountNumber\"])[4]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsReceiverAccountNumberSuffix",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"])[3]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "(//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_accountNumber\"])[3]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsSearchBar",
     "androidValue": "//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeOther[@name=\"BNavigationItem_NavigationItem\"]",
+    "iosType": "xpath"
   },
   {
     "key": "savedTransactionsSearchErrorMessage",
     "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textViewMessage\"]",
     "androidType": "xpath",
-    "iosValue": "",
-    "iosType": ""
+    "iosValue": "//XCUIElementTypeCell[@name=\"BEmptyViewComponent\"]",
+    "iosType": "xpath"
   }
 ]
 

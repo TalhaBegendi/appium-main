@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static org.halkKatilim.enums.Platform.ANDROID;
+import static org.halkKatilim.enums.Platform.IOS;
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.debug;
 import static org.testng.Assert.assertTrue;
@@ -67,11 +68,16 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
     public void clickContinueButton() {
         Platform platform = Driver.getPlatformForThread();
-        if (platform == ANDROID) {
-            appiumUtil.clickElementWithScroll("moneyTransferContinueButton");
+        boolean isRetail = DeviceContext.getCurrentUserType() == UserType.RETAIL;
+        String buttonKey = switch (platform) {
+            case ANDROID -> "moneyTransferContinueButton";
+            case IOS -> isRetail
+                    ? "moneyTransferContinueButtoniOSRetail"
+                    : "moneyTransferContinueButtoniOS";
+        };
+        appiumUtil.clickElementWithScroll(buttonKey);
+        if (platform == Platform.ANDROID) {
             appiumUtil.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER);
-        }else  {
-            appiumUtil.clickElementWithScroll("moneyTransferContinueButtoniOS");
         }
     }
 
@@ -237,7 +243,7 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         Platform platform = Driver.getPlatformForThread();
         boolean isRetail = "RETAIL".equalsIgnoreCase(String.valueOf(DeviceContext.getCurrentUserType()));
         boolean isTurkish = "TURKISH".equalsIgnoreCase(String.valueOf(DeviceContext.getLanguage()));
-        boolean isIOS = platform == Platform.IOS;
+        boolean isIOS = platform == IOS;
         String expectedMessage =
                 isRetail
                         ? (isTurkish

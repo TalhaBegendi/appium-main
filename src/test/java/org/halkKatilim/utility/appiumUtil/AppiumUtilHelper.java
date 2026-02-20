@@ -15,6 +15,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Pause;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -74,6 +78,49 @@ public class AppiumUtilHelper extends BasePages {
     private void scrollDownIOS() {
         appiumDriver.executeScript("mobile: swipe", Map.of("direction", "up"));
     }
+
+    void swipeLeftAndroid(WebElement element) {
+        Rectangle r = element.getRect();
+        appiumDriver.executeScript("mobile: swipeGesture", Map.of("left", r.getX(), "top", r.getY(), "width", r.getWidth(), "height", r.getHeight(), "direction", "left", "percent", 0.85));
+    }
+
+    void swipeLeftIOS(WebElement cell) {
+
+        Rectangle rect = cell.getRect();
+
+        int y = rect.y + rect.height / 2;
+        int startX = rect.x + rect.width - 30;
+        int endX = rect.x + 40;
+
+        PointerInput finger =
+                new PointerInput(PointerInput.Kind.TOUCH, "finger");
+
+        Sequence seq = new Sequence(finger, 1);
+
+        // parmak koy
+        seq.addAction(finger.createPointerMove(
+                Duration.ZERO,
+                PointerInput.Origin.viewport(),
+                startX, y));
+
+        seq.addAction(finger.createPointerDown(
+                PointerInput.MouseButton.LEFT.asArg()));
+
+        // 🔥 KRİTİK — hafif bekle
+        seq.addAction(new Pause(finger, Duration.ofMillis(180)));
+
+        // yavaş çek
+        seq.addAction(finger.createPointerMove(
+                Duration.ofMillis(200),
+                PointerInput.Origin.viewport(),
+                endX, y));
+
+        seq.addAction(finger.createPointerUp(
+                PointerInput.MouseButton.LEFT.asArg()));
+
+        appiumDriver.perform(List.of(seq));
+    }
+
 
     static final TextSource[] DEFAULT_TEXT_ORDER = {TextSource.TEXT, TextSource.LABEL, TextSource.NAME, TextSource.CONTENT_DESC};
 

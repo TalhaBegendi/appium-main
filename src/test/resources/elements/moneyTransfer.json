@@ -348,6 +348,13 @@
     "androidType": "",
     "iosValue": "///XCUIElementTypeCell[@name=\"BActionButtonComponent\"]/XCUIElementTypeButton",
     "iosType": "xpath"
+  },
+  {
+    "key": "moneyTransferContinueButtoniOSRetail",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BActionButtonComponent_nextButton",
+    "iosType": "accessibilityId"
   }
 
 ]

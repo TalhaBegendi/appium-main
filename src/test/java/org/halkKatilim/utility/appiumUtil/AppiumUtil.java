@@ -194,6 +194,25 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         }
     }
 
+    public AppiumUtil clearAndFillInputHideKeyboard(String key, String text) {
+        WebElement element = appiumUtilHelper.findElementSilent(key);
+        if (element == null) {
+            logErrorAndFail("❌ Element not found after scrolling: " + key);
+            return this;
+        }
+        try {
+            element.click();
+            element.clear();
+            element.sendKeys(text);
+            hideKeyboardIfNeeded();
+            info("⌨️ '" + key + "' alanına '" + text + "' yazıldı");
+            return this;
+
+        } catch (Exception e) {
+            logErrorAndFail("❌ '" + key + "' alanına yazılamadı", e);
+            return this;
+        }
+    }
 
     public List<String> getTextElements(String key, TextSource... order) {
         List<WebElement> elements = appiumUtilHelper.findElementsSilent(key);
@@ -313,7 +332,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil selectFromListByText(String listKey, String expectedText) {
-        appiumUtil.findElementsSilent(listKey)
+        appiumUtil.safeFindElementsAndWait(listKey)
                 .stream()
                 .filter(e -> expectedText.equalsIgnoreCase(e.getText()))
                 .findFirst()
@@ -321,18 +340,21 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         return this;
     }
 
-    public AppiumUtil swipeRightOnElementAndroid(WebElement element) {
-        appiumUtilHelper.swipeOnElementAndroid(element, RIGHT);
-        return this;
-    }
-
     public AppiumUtil swipeLeftOnElementAndroid(WebElement element) {
-        appiumUtilHelper.swipeOnElementAndroid(element, LEFT);
+        appiumUtilHelper.swipeLeftAndroid(element);
         return this;
     }
 
-    public AppiumUtil swipeUpOnElementAndroid(WebElement element) {
-        appiumUtilHelper.swipeOnElementAndroid(element, UP);
+    public AppiumUtil swipeLeftOnElementIOS(WebElement element) {
+        appiumUtilHelper.swipeLeftIOS(element);
+        return this;
+    }
+
+    public AppiumUtil clearAndFillInputSmart(String key, String value) {
+        switch (Driver.getPlatformForThread()) {
+            case IOS -> clearAndFillInputHideKeyboard(key, value);
+            case ANDROID -> clearAndFillInput(key, value);
+        }
         return this;
     }
 }
