@@ -355,6 +355,13 @@
     "androidType": "",
     "iosValue": "BActionButtonComponent_nextButton",
     "iosType": "accessibilityId"
+  },
+  {
+    "key": "moneyTransferMessageCloseButton",
+    "androidValue": "com.halkbank.mobil.dev:id/completeCloseButtonItem",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
   }
 
 ]

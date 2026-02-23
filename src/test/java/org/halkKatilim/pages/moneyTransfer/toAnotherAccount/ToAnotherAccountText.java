@@ -6,8 +6,8 @@ final class ToAnotherAccountText {
     static final String ENGLISH_MONEY_TRANSFER_SUCCESS_MESSAGE_CORPORATE = "Your money transfer transaction has been executed by wire transfer.";
     static final String TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_RETAIL = "Para transferi işleminiz havale ile gerçekleşmiştir.";
     static final String ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_RETAIL = "Your money transfer transaction has been executed by wire transfer.";
-    static final String TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE = "İşleminiz hesap bakiyesinin yeterli olması durumunda belirtilen tarihte gerçekleştirilecektir.";
-    static final String ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE = "Your transaction will take place on the specified date given that enough balance exists.";
+    static final String TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE = "İşleminiz onaya gönderildi. İşlemin tamamlanması için Kurumsal > İşlemlerim ekranından onaylanması gerekmektedir.";
+    static final String ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE = "";
     static final String TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE = "Gönderen ve alıcı hesapların döviz türleri eşleşmemektedir.";
     static final String TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS = "Gönderen ve alıcı hesap türü eşleşmemektedir.";
 

@@ -9,8 +9,9 @@ import org.halkKatilim.interfaces.CustomerCapable;
 public enum CorporateCustomer implements CustomerCapable {
 
     STANDARD_USER("1197","98008068122","121212","123456"),
-    REQUESTER("100046","33056414736","121212","123456"),
-    APPROVER("100046","3285446736","121212","123456");
+    REQUESTER("1296","34264334076","121212","123456"),
+    APPROVER("1296","86353118814","121212","123456"),
+    NEW_ACCOUNT("1197","33428051118","121212","123456");
 
     private final String number;
     private final String msisdn;

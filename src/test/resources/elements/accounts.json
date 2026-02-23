@@ -125,5 +125,19 @@
     "androidType": "id",
     "iosValue": "//XCUIElementTypeCell[@name='BInformationTableViewCell']//XCUIElementTypeStaticText[3]",
     "iosType": "xpath"
+  },
+  {
+    "key": "corporateRoleAuthorizationError",
+    "androidValue": "android:id/message",
+    "androidType": "id",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "accountTab",
+    "androidValue": "//android.widget.HorizontalScrollView[@resource-id=\"com.halkbank.mobil.dev:id/tabLayout\"]//android.widget.LinearLayout//android.widget.LinearLayout",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
   }
 ]

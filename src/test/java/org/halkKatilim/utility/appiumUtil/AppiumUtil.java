@@ -226,7 +226,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
 
     public AppiumUtil clickByText(String key, String text) {
         appiumUtilHelper.clickByText(key, text);
-        return  this;
+        return this;
     }
 
     public void clickByAnyText(String key, String[] texts) {

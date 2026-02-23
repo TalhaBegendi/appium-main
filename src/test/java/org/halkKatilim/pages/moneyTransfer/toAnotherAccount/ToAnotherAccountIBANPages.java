@@ -209,11 +209,9 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
     public void enterTransactionDetailsForToday(String customerType) {
 
-        UserType accountType = UserType.valueOf(customerType.toUpperCase());
         String senderAccountNumber = appiumUtil.findElementSilent("ibanPageSenderAccountNumber").getText();
         String senderAccountBalance = appiumUtil.findElementSilent("ibanPageSenderAccountBalance").getText();
-        IbanCustomerTransactionData data = getCustomerTransactionData(accountType);
-        fillTransactionFields(data);
+        prepareAndFillTransactionFields(customerType.toUpperCase());
         String receiverIban = appiumUtil.findElementSilent("ibanPageReceiverIbanInputField").getText();
         String receiverName = maskToLettersWithSpaces(appiumUtil.findElementSilent("ibanPageReceiverNameField").getText());
 
@@ -223,6 +221,11 @@ public final class ToAnotherAccountIBANPages extends BasePages {
                 common.transactionDate(), common.transactionAmount(), common.paymentType(), common.transactionDescription());
     }
 
+    public void prepareAndFillTransactionFields(String customerType) {
+        UserType accountType = UserType.valueOf(customerType.toUpperCase());
+        IbanCustomerTransactionData data = getCustomerTransactionData(accountType);
+        fillTransactionFields(data);
+    }
     private IbanCustomerTransactionData getCustomerTransactionData(UserType accountType) {
         return switch (accountType) {
             case RETAIL -> new IbanCustomerTransactionData(
@@ -441,5 +444,9 @@ public final class ToAnotherAccountIBANPages extends BasePages {
 
         assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
                 "Actual text [" + actualText + "] does not contain any expected values");
+    }
+
+    public void clickCloseMessageButton() {
+        appiumUtil.clickElement("moneyTransferMessageCloseButton");
     }
 }

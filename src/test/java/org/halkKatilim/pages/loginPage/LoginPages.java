@@ -21,61 +21,69 @@ public class LoginPages extends BasePages {
 
     public void loginToApplication(String customerKey, String langKey, String userTypeKey) {
         UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
+        Language language = Language.valueOf(langKey);
+
         log.info(LOG_LOGIN_START, userType, customerKey, langKey);
         DeviceContext.setCurrentUserType(userType);
-        CustomerCapable customer = switch (userType) {
-            case RETAIL -> loginWithRetailCustomer(customerKey, langKey);
-            case CORPORATE -> loginWithCorporateCustomer(customerKey, langKey);
+        DeviceContext.setLanguage(language);
+
+        handleInitialLanguageSelection(language);
+        performLoginSequence(userType, customerKey);
+    }
+
+    public void loginToApplicationAsCorporateUser(String customerKey, String userTypeKey) {
+        UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
+        log.info(LOG_DIRECT_LOGIN_CORPORATE_USER, customerKey);
+
+        DeviceContext.setCurrentUserType(userType);
+        performLoginSequence(userType, customerKey);
+    }
+
+    private void performLoginSequence(UserType userType, String customerKey) {
+        LoginContext context = prepareLoginContext(userType, customerKey);
+
+        appiumUtil.clickElement("buttonLoginItem");
+        context.credentialFiller().run();
+
+        appiumUtil.clickElement("buttonActivationItem")
+                .waitUntilElementLoad("inputSmsOtp");
+
+        completeOtpVerification(context.customer().getSmsCode());
+        DeviceContext.setCustomer(new CustomerEntry<>(userType, context.customer()));
+    }
+
+    private void handleInitialLanguageSelection(Language language) {
+        appiumUtil
+                .clickElement("continueButtonItem")
+                .clickElement("buttonLanguageItem")
+                .clickByText("languageListItem", language.getDisplay());
+    }
+
+    private LoginContext prepareLoginContext(UserType userType, String customerKey) {
+        return switch (userType) {
+            case RETAIL -> new LoginContext(RetailCustomer.valueOf(customerKey),
+                    () -> fillRetailCredentials(RetailCustomer.valueOf(customerKey)));
+            case CORPORATE -> new LoginContext(CorporateCustomer.valueOf(customerKey),
+                    () -> fillCorporateCredentials(CorporateCustomer.valueOf(customerKey)));
         };
-        DeviceContext.setCustomer(new CustomerEntry<>(userType, customer));
     }
 
-
-    private RetailCustomer loginWithRetailCustomer(String customerKey, String langKey) {
-
-        RetailCustomer customer = RetailCustomer.valueOf(customerKey);
-        Language language = Language.valueOf(langKey);
-
-        log.info(LOG_LOGIN_RETAIL_FLOW, customerKey, language);
-
-        executeCommonLoginFlow(language, () -> appiumUtil
+    private void fillRetailCredentials(RetailCustomer customer) {
+        log.info(LOG_LOGIN_RETAIL_FLOW, customer.name());
+        appiumUtil
                 .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
-                .clearAndFillInputWithScroll("inputPassword", customer.getPassword())
-        );
-
-        completeOtpVerification(customer.getSmsCode());
-        return customer;
+                .clearAndFillInputWithScroll("inputPassword", customer.getPassword());
     }
 
-    private CorporateCustomer loginWithCorporateCustomer(String customerKey, String langKey) {
-
-        CorporateCustomer customer = CorporateCustomer.valueOf(customerKey);
-        Language language = Language.valueOf(langKey);
-        log.info(LOG_LOGIN_CORPORATE_FLOW, customerKey, language);
-        executeCommonLoginFlow(language, () -> appiumUtil
+    private void fillCorporateCredentials(CorporateCustomer customer) {
+        log.info(LOG_LOGIN_CORPORATE_FLOW, customer.name());
+        appiumUtil
                 .clickElement("corporateUserTab")
                 .waitUntilElementLoad("inputMsisdnNumber")
                 .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
                 .clearAndFillInputWithScroll("inputMsisdnNumber", customer.getMsisdn())
                 .clearAndFillInputWithEnter("inputPassword", customer.getPassword())
-                .hideKeyboardIfNeeded()
-        );
-        completeOtpVerification(customer.getSmsCode());
-        return customer;
-    }
-
-    private void executeCommonLoginFlow(Language language, Runnable fillCredentials) {
-        DeviceContext.setLanguage(language);
-        appiumUtil
-                .clickElement("continueButtonItem")
-                .clickElement("buttonLanguageItem")
-                .clickByText("languageListItem", language.getDisplay())
-                .clickElement("buttonLoginItem");
-        fillCredentials.run();
-        appiumUtil
-                .clickElement("buttonActivationItem")
-                .waitUntilElementLoad("inputSmsOtp");
-        log.info(LOG_LOGIN_COMMON_FLOW_COMPLETED, language);
+                .hideKeyboardIfNeeded();
     }
 
     private void completeOtpVerification(String smsCode) {
@@ -90,15 +98,17 @@ public class LoginPages extends BasePages {
     }
 
     public void logoutFromApplication(String customerKey, String langKey, String userTypeKey) {
-        Language language = Language.valueOf(langKey);
-        log.info(LOG_LOGOUT_START, customerKey, language, userTypeKey);
+        log.info(LOG_LOGOUT_START, customerKey, langKey, userTypeKey);
         loginToApplication(customerKey, langKey, userTypeKey);
-        new MenuPages().openMainMenu();
-        appiumUtil
-                .clickElement("logoutButtonItem")
-                .clickByAnyText("logoutButtonItem", language.getLogoutTexts());
-
+        logOutUsingLanguage(langKey);
         BUTTON_LOGIN_ITEM.runAssertion();
         log.info(LOG_LOGOUT_COMPLETED);
+    }
+
+    public void logOutUsingLanguage(String langKey){
+        Language language = Language.valueOf(langKey);
+        new MenuPages().openMainMenu();
+        appiumUtil.clickElement("logoutButtonItem")
+                .clickByAnyText("logoutButtonItem", language.getLogoutTexts());
     }
 }
