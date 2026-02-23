@@ -50,7 +50,6 @@ Feature: Saved Transactions Flows Language Turkish
     When Click confirm delete button on delete popup
     Then Verify saved transaction is deleted successfully
 
-
   Scenario: Hesap Numarasına Yeni Kayıtlı Transfer Oluşturulması
     When Click add new saved transaction button
     Then Verify add new saved transaction screen is visible
@@ -70,6 +69,10 @@ Feature: Saved Transactions Flows Language Turkish
     Then Verify delete confirmation popup is displayed
     When Click confirm delete button on delete popup
     Then Verify saved transaction is deleted successfully
+
+  Scenario: Kayıtlı İşlemler Aramasında Eşleşen Sonuçların Listelenmesi
+    When Into saved transactions search field
+    Then All saved transactions matching displayed
 
   Scenario: Kayıtlı İşlemler Aramasında Eşleşen Sonuçların Listelenmesi
     When Enter "dene" into saved transactions search field

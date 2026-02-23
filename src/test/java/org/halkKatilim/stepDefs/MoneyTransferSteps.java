@@ -124,4 +124,9 @@ public class MoneyTransferSteps {
     public void clickAccountTab() {
         pages.getToAnotherAccountAccountPage().clickAccountTab();
     }
+
+    @When("Click close message button")
+    public void clickCloseMessageButton() {
+        pages.getToAnotherAccountIbanPage().clickCloseMessageButton();
+    }
 }

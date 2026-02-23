@@ -1,6 +1,8 @@
 package org.halkKatilim.pages;
 
 import lombok.Getter;
+import org.halkKatilim.pages.accountPage.AccountsPages;
+import org.halkKatilim.pages.corporate.CorporatePage;
 import org.halkKatilim.pages.homePage.HomePages;
 import org.halkKatilim.pages.loginPage.LoginPages;
 import org.halkKatilim.pages.menu.MenuPages;
@@ -16,6 +18,8 @@ public class Pages {
     private final ToAnotherAccountIBANPages toAnotherAccountIbanPage;
     private final ToAnotherAccountAccountPages toAnotherAccountAccountPage;
     private final SavedTransactions savedTransactions;
+    private final CorporatePage corporatePage;
+    private final AccountsPages accountsPage;
 
     public Pages() {
         this.loginPage = new LoginPages();
@@ -24,5 +28,7 @@ public class Pages {
         this.toAnotherAccountIbanPage = new ToAnotherAccountIBANPages();
         this.toAnotherAccountAccountPage = new ToAnotherAccountAccountPages();
         this.savedTransactions = new SavedTransactions();
+        this.corporatePage = new CorporatePage();
+        this.accountsPage = new AccountsPages();
     }
 }

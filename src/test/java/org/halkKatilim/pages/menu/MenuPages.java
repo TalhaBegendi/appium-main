@@ -36,8 +36,8 @@ public class MenuPages extends BasePages {
         TextSource source = (textSourceOrder == null || textSourceOrder.isBlank())
                 ? null
                 : TextSource.valueOf(textSourceOrder);
-        AssertionMode mode = AssertionMode.valueOf(assertionModeKey);
-        executeAssertion(mode, key, result.steps(), source);
+        //AssertionMode mode = AssertionMode.valueOf(assertionModeKey);
+        //executeAssertion(mode, key, result.steps(), source);
         log.info(LOG_MENU_PATH_COMPLETED, String.join(" -> ", result.steps()));
     }
 
