@@ -59,6 +59,11 @@ public class SavedTransactionsStepDefs {
         pages.getSavedTransactions().successMessageIsDisplayed();
     }
 
+    @Then("The transaction should be successfully sent for approval and Saved Transaction")
+    public void verifyTransactionSentForApprovalAndSavedTransaction() {
+        pages.getSavedTransactions().verifyTransactionSentForApprovalTypeSavedTransaction();
+    }
+
     @When("Click delete button for saved transaction named {string}")
     public void clickDeleteButtonForSavedTransactionNamed(String tranName) {
         pages.getSavedTransactions().clickDeleteButtonForSavedTransactionNamed(tranName);

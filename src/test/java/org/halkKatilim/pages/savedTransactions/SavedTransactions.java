@@ -12,17 +12,16 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-import static org.halkKatilim.enums.Platform.IOS;
 import static org.halkKatilim.pages.savedTransactions.SavedTransactionsText.*;
 import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class SavedTransactions extends BasePages {
 
     public void selectRandomSavedTransaction() {
-        appiumUtil.clickRandomElement("savedTransactionsList");
+        appiumUtil.safeFindElementsAndWait("savedTransactionsList").getFirst().click();
     }
 
     public void clickAddNewSavedTransactionButton() {
@@ -31,7 +30,7 @@ public class SavedTransactions extends BasePages {
 
     public void verifyAddNewSavedTransactionScreenIsVisible() {
         assertElementTextContainsAny(appiumUtil.safeFindElementAndWait("savedTransactionsAddNewTransactionPageTitle"),
-                TURKISH_NEW_SAVED_TRANSACTION_PAGE_TITLE, ENGLISH_NEW_SAVED_TRANSACTION_PAGE_TITLE);
+                TURKISH_NEW_SAVED_TRANSACTION_PAGE_TITLE, ENGLISH_NEW_SAVED_TRANSACTION_PAGE_TITLE, ENGLISH_NEW_SAVED_TRANSACTION_PAGE_TITLE_IOS);
     }
 
     public void enterAsNewSavedTransactionName(String tranName) {
@@ -61,7 +60,7 @@ public class SavedTransactions extends BasePages {
 
     public void clickSaveButtonForSavedTransaction() {
         appiumUtil.waitBySecond(1)
-        .clickElement("savedTransactionsSaveButton");
+                .clickElement("savedTransactionsSaveButton");
     }
 
     public void successMessageIsDisplayed() {
@@ -127,7 +126,7 @@ public class SavedTransactions extends BasePages {
         String searchText = appiumUtil.findElementsSilent("savedTransactionsNameList").getFirst().getText();
         appiumUtil.clearAndFillInput("savedTransactionsSearchBar", searchText)
                 .waitBySecond(1);
-        runContext.setProperty("searchText",searchText);
+        runContext.setProperty("searchText", searchText);
     }
 
     public void enterIntoSavedTransactionsSearchField(String searchText) {
@@ -144,15 +143,15 @@ public class SavedTransactions extends BasePages {
                 .findFirst()
                 .ifPresent(text ->
                         fail("""
-                        ❌ Arama sonucu uyuşmuyor
-                        Beklenen : "%s"
-                        Bulunan  : "%s"
-                        """.formatted(expected, text)));
+                                ❌ Arama sonucu uyuşmuyor
+                                Beklenen : "%s"
+                                Bulunan  : "%s"
+                                """.formatted(expected, text)));
     }
 
     public void noSearchResultsFoundMessageIsDisplayed() {
         assertElementTextContainsAny(appiumUtil.safeFindElementAndWait("savedTransactionsSearchErrorMessage"),
-                TURKISH_SEARCH_ERROR_MESSAGE, ENGLISH_SEARCH_ERROR_MESSAGE);
+                TURKISH_SEARCH_ERROR_MESSAGE, ENGLISH_SEARCH_ERROR_MESSAGE, ENGLISH_SEARCH_ERROR_MESSAGE_IOS);
     }
 
     public void enterOwnIBANAsReceiver() {
@@ -176,8 +175,8 @@ public class SavedTransactions extends BasePages {
     public void verifyFundIbanWarningErrorShouldBeDisplayed() {
         String expectedMessage = resolveFundIbanErrorMessage();
         assertTrue(appiumUtil.findElementSilent("moneyTransferFundWarningPopupMessage")
-                        .getText()
-                        .contains(expectedMessage)
+                .getText()
+                .contains(expectedMessage)
         );
     }
 
@@ -191,14 +190,12 @@ public class SavedTransactions extends BasePages {
         Platform platform = Driver.getPlatformForThread();
         Language language = DeviceContext.getLanguage();
         return switch (platform) {
-            case ANDROID ->
-                    language == Language.TURKISH
-                            ? TURKISH_FUND_IBAN_ERROR_MESSAGE_ANDROID
-                            : ENGLISH_FUND_IBAN_ERROR_MESSAGE;
-            case IOS ->
-                    language == Language.TURKISH
-                            ? TURKISH_FUND_IBAN_ERROR_MESSAGE_IOS
-                            : ENGLISH_FUND_IBAN_ERROR_MESSAGE;
+            case ANDROID -> language == Language.TURKISH
+                    ? TURKISH_FUND_IBAN_ERROR_MESSAGE_ANDROID
+                    : ENGLISH_FUND_IBAN_ERROR_MESSAGE;
+            case IOS -> language == Language.TURKISH
+                    ? TURKISH_FUND_IBAN_ERROR_MESSAGE_IOS
+                    : ENGLISH_FUND_IBAN_ERROR_MESSAGE_IOS;
         };
     }
 
@@ -207,5 +204,19 @@ public class SavedTransactions extends BasePages {
         if (platform == Platform.ANDROID) {
             appiumUtil.clickElement("confirmationPageConfirmButton");
         }
+    }
+
+    public void verifyTransactionSentForApprovalTypeSavedTransaction() {
+        appiumUtil.waitUntilElementLoad("moneyTransferSentForApprovalInfoText");
+        Platform platform = Driver.getPlatformForThread();
+        boolean isTurkish = "TURKISH".equalsIgnoreCase(String.valueOf(DeviceContext.getLanguage()));
+        boolean isIOS = platform == Platform.IOS;
+        String expectedMessage =
+                isTurkish
+                        ? (isIOS
+                        ? TURKISH_SUCCESS_MESSAGE_IOS
+                        : TURKISH_SUCCESS_MESSAGE_AND)
+                        : (ENGLISH_SUCCESS_MESSAGE_AND);
+        assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
 }

@@ -10,7 +10,7 @@
     "key": "savedTransactionsList",
     "androidValue": "//android.widget.FrameLayout[@resource-id=\"com.halkbank.mobil.dev:id/swipe_view\"]//android.view.ViewGroup",
     "androidType": "xpath",
-    "iosValue": "//XCUIElementTypeCell[@name=\"BSavedTransactionComponent\"]",
+    "iosValue": "//XCUIElementTypeCell[@name='BSavedTransactionComponent']",
     "iosType": "xpath"
   },
   {

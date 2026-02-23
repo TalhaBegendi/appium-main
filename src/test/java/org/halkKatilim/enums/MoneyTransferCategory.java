@@ -11,9 +11,9 @@ public enum MoneyTransferCategory {
 
     ACCOUNT(
             "Hesap Numarasına",   // ANDROID TR
-            "Account Number",     // ANDROID EN
+            "to Account Number",     // ANDROID EN
             "Hesap No",           // IOS TR
-            "Account No"          // IOS EN
+            "Account Number"          // IOS EN
     );
 
     private final String androidTr;
