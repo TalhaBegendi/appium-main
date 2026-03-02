@@ -2,9 +2,7 @@ package org.halkKatilim.pages.savedTransactions;
 
 final class SavedTransactionsText {
 
-    private SavedTransactionsText() {
-
-    }
+    private SavedTransactionsText() {}
 
     static final String TURKISH_NEW_SAVED_TRANSACTION_PAGE_TITLE = "Kayıtlı İşlem Ekle";
     static final String ENGLISH_NEW_SAVED_TRANSACTION_PAGE_TITLE = "Add Registered Transaction";
@@ -17,7 +15,7 @@ final class SavedTransactionsText {
     static final String TURKISH_DELETE_TRANSACTION_SUCCESS_MESSAGE = "İşleminiz silindi.";
     static final String ENGLISH_DELETE_TRANSACTION_SUCCESS_MESSAGE = "Your transaction has been deleted.";
     static final String RETAIL_CUSTOMER_RECEIVER_IBAN = "TR290021400000000100500003";
-    static final String RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER = "1000";
+    static final String RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER = "1005";
     static final String RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX = "4";
     static final String TURKISH_SEARCH_ERROR_MESSAGE = "için sonuç bulunamadı.";
     static final String ENGLISH_SEARCH_ERROR_MESSAGE = "No result was found for";

@@ -1,5 +1,5 @@
 @devices=16e
-Feature: Money Transfer flows language Turkish
+Feature: Money Transfer flows language English
 
   Background:
     Given Login as "RETAIL" customer "ACCOUNT_USER" using "ENGLISH" language

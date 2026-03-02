@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.halkKatilim.enums.ContinueButtonVariant;
 import org.halkKatilim.pages.Pages;
 
 public class MoneyTransferSteps {
@@ -29,7 +30,12 @@ public class MoneyTransferSteps {
 
     @When("Click continue button on the Another Account page")
     public void clickContinueButton() {
-        pages.getToAnotherAccountIbanPage().clickContinueButton();
+        pages.getToAnotherAccountIbanPage().clickContinueButton(ContinueButtonVariant.DEFAULT);
+    }
+
+    @When("Click money transfer case continue button on the Another Account page")
+    public void clickTestContinueButton() {
+        pages.getToAnotherAccountIbanPage().clickContinueButton(ContinueButtonVariant.IOS_RETAIL_TEST);
     }
 
     @When("Enter {string} customer transaction details for today")

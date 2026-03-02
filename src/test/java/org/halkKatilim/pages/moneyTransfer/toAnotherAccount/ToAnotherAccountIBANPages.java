@@ -2,9 +2,7 @@ package org.halkKatilim.pages.moneyTransfer.toAnotherAccount;
 
 import lombok.extern.slf4j.Slf4j;
 import org.halkKatilim.deviceConfig.DeviceContext;
-import org.halkKatilim.enums.NavigationGates;
-import org.halkKatilim.enums.Platform;
-import org.halkKatilim.enums.UserType;
+import org.halkKatilim.enums.*;
 import org.halkKatilim.interfaces.CustomerCapable;
 import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.testData.corporate.moneyTransfer.iban.IbanCustomerTransactionData;
@@ -12,6 +10,7 @@ import org.halkKatilim.testData.corporate.moneyTransfer.iban.IbanSavedTransactio
 import org.halkKatilim.testData.corporate.moneyTransfer.iban.TransactionDetailsWithSenderInfo;
 import org.halkKatilim.testData.corporate.moneyTransfer.TransactionDetailsWithoutReceiverAndSender;
 import org.halkKatilim.utility.Driver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.time.LocalDate;
@@ -66,18 +65,24 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
 
-    public void clickContinueButton() {
+    public void clickContinueButton(ContinueButtonVariant variant) {
         Platform platform = Driver.getPlatformForThread();
         boolean isRetail = DeviceContext.getCurrentUserType() == UserType.RETAIL;
         String buttonKey = switch (platform) {
             case ANDROID -> "moneyTransferContinueButton";
-            case IOS -> isRetail
-                    ? "moneyTransferContinueButtoniOSRetail"
-                    : "moneyTransferContinueButtoniOS";
+            case IOS -> switch (variant) {
+                case IOS_RETAIL_TEST -> "moneyTransferContinueButtoniOSRetailFutureDated";
+                case DEFAULT -> isRetail
+                                ? "moneyTransferContinueButtoniOSRetail"
+                                : "moneyTransferContinueButtoniOS";
+            };
         };
+
         appiumUtil.clickElementWithScroll(buttonKey);
+
         if (platform == Platform.ANDROID) {
-            appiumUtil.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER);
+            appiumUtil.autoHandleNavigationGates(
+                    NavigationGates.Context.MONEY_TRANSFER);
         }
     }
 
@@ -298,14 +303,18 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
     public void enterCustomerTransactionDetailsForDaysLater(String customerType, String nextDay) {
-        IbanCustomerTransactionData data = new IbanCustomerTransactionData(
-                CORPORATE_CUSTOMER_RECEIVER_IBAN, TRANSACTION_AMOUNT, TRANSACTION_DESCRIPTION);
+        IbanCustomerTransactionData data = new IbanCustomerTransactionData(CORPORATE_CUSTOMER_RECEIVER_IBAN, TRANSACTION_AMOUNT, TRANSACTION_DESCRIPTION);
         fillTransactionFields(data);
         WebElement tranDateElement = appiumUtil.findElementSilent("ibanPageTransactionDate");
         selectTransactionDate(tranDateElement, nextDay);
         appiumUtil.findElementSilent("moneyTransferDatePickerOkButton").click();
-        appiumUtil.clickElementWithScroll("moneyTransferAcceptOrderButton");
-
+        Language language = DeviceContext.getLanguage();
+        UserType userType = UserType.valueOf(customerType.toUpperCase());
+        String buttonKey =
+                (language == Language.ENGLISH && userType == UserType.RETAIL)
+                        ? "moneyTransferAcceptOrderButtonIOS"
+                        : "moneyTransferAcceptOrderButton";
+        appiumUtil.clickElementWithScroll(buttonKey);
     }
 
     public void selectTransactionDate(WebElement tranDateElement, String nextDay) {
@@ -404,6 +413,10 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
     public void enterTransactionAmountAndDescription(String amount) {
+        Platform platform = Driver.getPlatformForThread();
+        if (platform == Platform.IOS) {
+            appiumUtil.waitUntilElementLoad("ibanPageTransactionAmount");
+        }
         appiumUtil.clearAndFillInputWithScroll("ibanPageTransactionAmount", amount)
                 .clearAndFillInputWithScroll("ibanPageTransactionDescription", TRANSACTION_DESCRIPTION);
     }

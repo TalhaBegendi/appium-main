@@ -143,4 +143,9 @@ public class SavedTransactionsStepDefs {
     public void clickConfirmButtonSavedTransaction() {
         pages.getSavedTransactions().clickConfirmButtonSavedTransaction();
     }
+
+    @And("Click continue button on the Another Saved Transaction page")
+    public void clickContinueButtonSavedTransaction() {
+        pages.getSavedTransactions().clickContinueButton();
+    }
 }

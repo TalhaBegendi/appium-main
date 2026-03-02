@@ -1,10 +1,7 @@
 package org.halkKatilim.pages.savedTransactions;
 
 import org.halkKatilim.deviceConfig.DeviceContext;
-import org.halkKatilim.enums.Language;
-import org.halkKatilim.enums.MoneyTransferCategory;
-import org.halkKatilim.enums.Platform;
-import org.halkKatilim.enums.UserType;
+import org.halkKatilim.enums.*;
 import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.utility.Driver;
 import org.halkKatilim.utility.context.ScenarioRunContext;
@@ -218,5 +215,20 @@ public class SavedTransactions extends BasePages {
                         : TURKISH_SUCCESS_MESSAGE_AND)
                         : (ENGLISH_SUCCESS_MESSAGE_AND);
         assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
+    }
+
+    public void clickContinueButton() {
+        Platform platform = Driver.getPlatformForThread();
+        boolean isRetail = DeviceContext.getCurrentUserType() == UserType.RETAIL;
+        String buttonKey = switch (platform) {
+            case ANDROID -> "moneyTransferContinueButton";
+            case IOS -> isRetail
+                    ? "savedTransactionContinueButtoniOSRetail"
+                    : "moneyTransferContinueButtoniOS";
+        };
+        appiumUtil.clickElementWithScroll(buttonKey);
+        if (platform == Platform.ANDROID) {
+            appiumUtil.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER);
+        }
     }
 }

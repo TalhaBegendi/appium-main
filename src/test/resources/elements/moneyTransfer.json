@@ -73,7 +73,7 @@
     "key": "ibanPageTransactionAmount",
     "androidValue": "com.halkbank.mobil.dev:id/itemAmount",
     "androidType": "id",
-    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_n2\"]",
+    "iosValue": "//XCUIElementTypeTextField[@name='BTextFieldComponents_BTextField_n2']",
     "iosType": "xpath"
   },
   {
@@ -252,6 +252,13 @@
     "iosType": "xpath"
   },
   {
+    "key": "moneyTransferAcceptOrderButtonIOS",
+    "androidValue": "(//android.widget.Switch)[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent_nextButton\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
     "key": "moneyTransferDatePickerDays",
     "androidValue": " //android.widget.GridView[@resource-id=\"com.halkbank.mobil.dev:id/month_grid\"] //android.widget.TextView[@enabled='true']",
     "androidType": "xpath",
@@ -354,6 +361,20 @@
     "androidValue": "",
     "androidType": "",
     "iosValue": "BActionButtonComponent_nextButton",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "moneyTransferContinueButtoniOSRetailFutureDated",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BActionButtonComponent",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "savedTransactionContinueButtoniOSRetail",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BActionButtonComponent",
     "iosType": "accessibilityId"
   },
   {
