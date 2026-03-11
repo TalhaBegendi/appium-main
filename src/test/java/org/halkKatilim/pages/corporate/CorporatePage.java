@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
 
+import static org.halkKatilim.pages.corporate.CorporatePageText.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -57,7 +58,7 @@ public class CorporatePage extends BasePages {
 
     public void verifyTransactionSuccessMessageIsDisplayed() {
         assertElementTextContainsAny(appiumUtil.findElementSilent("transactionSuccessMessage"),
-                "İşleminiz onaylandı.");
+                TURKISH_APPROVE_SUCCESS_MESSAGE);
     }
 
     public void clickTab(String tabName) {
@@ -67,6 +68,18 @@ public class CorporatePage extends BasePages {
 
     public void clickBackAndMenuButton() {
         appiumUtil.clickElement("backButton");
+    }
+
+    public void rejectTheTransactionSentForApproval() {
+        appiumUtil.clickElement("firstTransactionItem")
+                .clickElement("transactionRejectButton")
+                .clearAndFillInput("transactionRejectDescriptionField",REJECT_DESCRIPTION)
+                .clickElement("transactionRejectDescriptionApproveButton");
+    }
+
+    public void verifyTransactionRejectionMessageIsDisplayed() {
+        assertElementTextContainsAny(appiumUtil.findElementSilent("transactionSuccessMessage"),
+                TURKISH_REJECT_SUCCESS_MESSAGE);
     }
 }
 

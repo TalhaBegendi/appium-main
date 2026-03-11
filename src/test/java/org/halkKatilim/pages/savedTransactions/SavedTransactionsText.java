@@ -22,7 +22,7 @@ final class SavedTransactionsText {
     static final String TURKISH_SEARCH_ERROR_MESSAGE = "için sonuç bulunamadı.";
     static final String ENGLISH_SEARCH_ERROR_MESSAGE = "No result was found for";
     static final String ENGLISH_SEARCH_ERROR_MESSAGE_IOS = "No results for";
-    static final String FUND_CUSTOMER_RECEIVER_IBAN_CORPORATE = "TR560021400000000129600002";
+    static final String FUND_CUSTOMER_RECEIVER_IBAN_CORPORATE = "TR930021400000000119700001";
     static final String FUND_CUSTOMER_RECEIVER_IBAN_RETAIL = "TR790021400000000106400001";
     static final String FUND_ACCOUNT_NUMBER = "1296";
     static final String FUND_ACCOUNT_NUMBER_SUFFIX = "5";

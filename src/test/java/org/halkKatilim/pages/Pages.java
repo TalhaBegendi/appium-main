@@ -3,6 +3,7 @@ package org.halkKatilim.pages;
 import lombok.Getter;
 import org.halkKatilim.pages.accountPage.AccountsPages;
 import org.halkKatilim.pages.corporate.CorporatePage;
+import org.halkKatilim.pages.currencyPreciousMetal.CurrencyPreciousMetalPages;
 import org.halkKatilim.pages.homePage.HomePages;
 import org.halkKatilim.pages.loginPage.LoginPages;
 import org.halkKatilim.pages.menu.MenuPages;
@@ -20,6 +21,7 @@ public class Pages {
     private final SavedTransactions savedTransactions;
     private final CorporatePage corporatePage;
     private final AccountsPages accountsPage;
+    private final CurrencyPreciousMetalPages currencyPreciousMetalPages;
 
     public Pages() {
         this.loginPage = new LoginPages();
@@ -30,5 +32,6 @@ public class Pages {
         this.savedTransactions = new SavedTransactions();
         this.corporatePage = new CorporatePage();
         this.accountsPage = new AccountsPages();
+        this.currencyPreciousMetalPages = new CurrencyPreciousMetalPages();
     }
 }

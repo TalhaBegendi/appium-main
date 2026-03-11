@@ -69,6 +69,20 @@
     "iosType": ""
   },
   {
+    "key": "transactionRejectDescriptionField",
+    "androidValue": "//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "transactionRejectDescriptionApproveButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApproveItem\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
     "key": "transactionApproveConfirmationButton",
     "androidValue": " //android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApprove\"]",
     "androidType": "xpath",

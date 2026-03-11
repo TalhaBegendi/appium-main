@@ -1,0 +1,93 @@
+[
+  {
+    "key": "currencyPreciousMetalSellButtonList",
+    "androidValue": "//androidx.cardview.widget.CardView[@resource-id=\"com.halkbank.mobil.dev:id/layoutSell\"]/android.widget.LinearLayout/android.widget.TextView[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BFXParity_Sell\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousMetalBuyButtonList",
+    "androidValue": "//androidx.cardview.widget.CardView[@resource-id=\"com.halkbank.mobil.dev:id/layoutBuy\"]/android.widget.LinearLayout/android.widget.TextView[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BFXParity_Buy\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousMetalSellAmount",
+    "androidValue": "//android.widget.LinearLayout[@resource-id=\"com.halkbank.mobil.dev:id/layoutSell\"]/android.widget.TextView[1]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BFXParitySpanComponent\"]//XCUIElementTypeStaticText[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousMetalBuyAmount",
+    "androidValue": "//android.widget.LinearLayout[@resource-id=\"com.halkbank.mobil.dev:id/layoutBuy\"]/android.widget.TextView[1]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BFXParitySpanComponent\"]//XCUIElementTypeStaticText[3]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousMetalCurrencyInputField",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/itemAmount\"])[1]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeTextField[contains(@name,\"BTextFieldComponents_BTextField_n\")])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousMetalTLInputField",
+    "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/itemAmount\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeTextField[contains(@name,\"BTextFieldComponents_BTextField_n\")])[2]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousSellButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonSend\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousBuyButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonSend\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousApproveButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApprove\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousSuccessMessage",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BInformationImageComponent\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "bmsvKmvInputField",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_standart\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "euroSellButton",
+    "androidValue": "(//android.widget.TextView[@text=\"EUR SAT\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BFXParityComponent\" and contains(@label, \"EUR / USD\")]//XCUIElementTypeStaticText[@name=\"BFXParity_Sell\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "euroBuyButton",
+    "androidValue": "(//android.widget.TextView[@text=\"EUR AL\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BFXParityComponent\" and contains(@label, \"EUR / USD\")]//XCUIElementTypeStaticText[@name=\"BFXParity_Buy\"]",
+    "iosType": "xpath"
+  }
+]

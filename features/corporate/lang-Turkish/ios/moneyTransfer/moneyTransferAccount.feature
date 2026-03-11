@@ -21,7 +21,7 @@ Feature: Money Transfer to account flows language Turkish - IOS - CORPORATE
     And Enter the OTP code
     Then The transaction should be successfully sent for approval and Account
 
-  Scenario: CORPORATE - Bireysel Müşteri için Aynı Gün Hesaba Transferinin Onaya Gönderilmesi
+  Scenario: CORPORATE - Kurumsal Müşteri için Aynı Gün Hesaba Transferinin Onaya Gönderilmesi
     When Enter "CORPORATE" transaction details to account for today
     When Click continue button on the Another Account page
     When Click confirm button on confirmation page
