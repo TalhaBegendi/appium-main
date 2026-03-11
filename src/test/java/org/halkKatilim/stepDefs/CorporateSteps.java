@@ -44,4 +44,14 @@ public class CorporateSteps {
     public void clickBackAndMenuButton() {
         pages.getCorporatePage().clickBackAndMenuButton();
     }
+
+    @When("Reject the transaction sent for approval")
+    public void rejectTheTransactionSentForApproval() {
+        pages.getCorporatePage().rejectTheTransactionSentForApproval();
+    }
+
+    @Then("Verify transaction rejection message is displayed")
+    public void verifyTransactionRejectionMessageIsDisplayed() {
+        pages.getCorporatePage().verifyTransactionRejectionMessageIsDisplayed();
+    }
 }
