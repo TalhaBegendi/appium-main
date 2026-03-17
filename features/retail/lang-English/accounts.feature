@@ -4,6 +4,22 @@ Feature: Accounts flows language English
   Background:
     Given Login as "RETAIL" customer "OPTION_USER" using "ENGLISH" language
 
+  Scenario: Accounts > Open Account - Turkish Lira
+    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
+    When Opens a "Checking Account" account with "Turkish Lira" currency
+
+  Scenario: Accounts > Open Account - US Dollar
+    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
+    When Opens a "Checking Account" account with "US Dollar" currency
+
+  Scenario: Accounts > Open Account - Euro
+    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
+    When Opens a "Checking Account" account with "Euro" currency
+
+  Scenario: Accounts > Open Account - Ruby
+    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
+    When Opens a "Checking Account" account with "Ruby" currency
+
   Scenario: Accounts > My Accounts - Turkish Lira
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
@@ -79,42 +95,6 @@ Feature: Accounts flows language English
     When Click element "openAccountButtonAccounts"
     When Opens a "Digital Participation Account" account with "Ruby" currency and "Breach Maturity" maturity date
 
-  Scenario: Accounts > My Accounts - Investment Account - Turkish Lira
-    When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Click element "openAccountButtonAccounts"
-    When Opens a "Investment Account" account with "Turkish Lira" currency
-
-  Scenario: Accounts > My Accounts - Investment Account - US Dollar
-    When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Click element "openAccountButtonAccounts"
-    When Opens a "Investment Account" account with "US Dollar" currency
-
-  Scenario: Accounts > My Accounts - Investment Account - Euro
-    When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Click element "openAccountButtonAccounts"
-    When Opens a "Investment Account" account with "Euro" currency
-
-  Scenario: Accounts > My Accounts - Investment Account - Ruby
-    When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Click element "openAccountButtonAccounts"
-    When Opens a "Investment Account" account with "Ruby" currency
-
-  Scenario: Accounts > Open Account - Turkish Lira
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Checking Account" account with "Turkish Lira" currency
-
-  Scenario: Accounts > Open Account - US Dollar
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Checking Account" account with "US Dollar" currency
-
-  Scenario: Accounts > Open Account - Euro
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Checking Account" account with "Euro" currency
-
-  Scenario: Accounts > Open Account - Ruby
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Checking Account" account with "Ruby" currency
-
   Scenario: Open Account > Digital Participation Account - Turkish Lira - 3 Months
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Opens a "Digital Participation Account" account with "Turkish Lira" currency and "3 Months" maturity date
@@ -158,19 +138,3 @@ Feature: Accounts flows language English
   Scenario: Open Account > Digital Participation Account - Ruby - Breach Maturity
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Opens a "Digital Participation Account" account with "Ruby" currency and "Breach Maturity" maturity date
-
-  Scenario: Accounts > Open Account - Investment Account - Turkish Lira
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Investment Account" account with "Turkish Lira" currency
-
-  Scenario: Accounts > Open Account - Investment Account - US Dollar
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Investment Account" account with "US Dollar" currency
-
-  Scenario: Accounts > Open Account - Investment Account - Euro
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Investment Account" account with "Euro" currency
-
-  Scenario: Accounts > Open Account - Investment Account - Ruby
-    When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Investment Account" account with "Ruby" currency
