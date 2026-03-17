@@ -182,6 +182,13 @@
     "iosType": "class"
   },
   {
+    "key": "selectLanguageMenuText",
+    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidType": "id",
+    "iosValue": "XCUIElementTypeNavigationBar",
+    "iosType": "class"
+  },
+  {
     "key": "myInvestmentAccountsMenuText",
     "androidValue": "android:id/message",
     "androidType": "id",

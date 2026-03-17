@@ -30,7 +30,8 @@ public class AppiumUtil extends BasePages implements WaitConditions {
 
     AppiumUtilHelper appiumUtilHelper = new AppiumUtilHelper();
 
-    public record StepResult(List<String> steps, AssertionKey key) { }
+    public record StepResult(List<String> steps, AssertionKey key) {
+    }
 
     public StepResult navigateWithAssertion(String path, String assertion, String clickKey, String contextKey, AssertionPrefix prefix) {
         List<String> steps = navigate(path, clickKey, contextKey, prefix);
@@ -40,7 +41,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public AppiumUtil autoHandleNavigationGates(NavigationGates.Context context) {
-       appiumUtilHelper.autoHandleNavigationGates(context);
+        appiumUtilHelper.autoHandleNavigationGates(context);
         return this;
     }
 
@@ -80,11 +81,11 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public WebElement findElementSilent(String key) {
-       return appiumUtilHelper.findElementSilent(key);
+        return appiumUtilHelper.findElementSilent(key);
     }
 
     public List<WebElement> findElementsSilent(String key) {
-        return  appiumUtilHelper.findElementsSilent(key);
+        return appiumUtilHelper.findElementsSilent(key);
     }
 
     public List<WebElement> safeFindElementsAndWait(String key) {
@@ -140,6 +141,12 @@ public class AppiumUtil extends BasePages implements WaitConditions {
             logErrorAndFail("❌ Elemente tıklanamadı: " + key, e);
             return this;
         }
+    }
+
+    public AppiumUtil scrollToBottom(int count) {
+        IntStream.range(0, count)
+                .forEach(i -> appiumUtilHelper.scrollDown());
+        return this;
     }
 
     public AppiumUtil hideKeyboardIfNeeded() {

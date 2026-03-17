@@ -1,0 +1,185 @@
+[
+  {
+    "key": "settingsLanguageList",
+    "androidValue": "//android.widget.FrameLayout[@resource-id=\"com.halkbank.mobil.dev:id/layoutContent\"]/android.view.ViewGroup/android.widget.TextView",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BSummaryComponent_BLabel\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsSelectLanguageSuccessMessage",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/tvTitle\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"My Accounts\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsInformationSharingSwitchFirst",
+    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkbank.mobil.dev:id/itemSwitch\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsInformationSharingSwitchSecond",
+    "androidValue": "(//android.widget.Switch)[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeSwitch[@name=\"BInformationTextComponent_BSwitch\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsSwitchApproveAndroid",
+    "androidValue": "android.widget.CheckBox",
+    "androidType": "class",
+    "iosValue": "",
+    "iosType": ""
+  },
+  {
+    "key": "settingsSwitchFirstOptionIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BPDFComponent\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsSwitchSecondOptionIOS",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BPDFComponent_kvkkPersonalInfoAgreementComponent\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsPageTitle",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/toolbarTitle\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeNavigationBar//XCUIElementTypeStaticText)[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsSuccessSwitchPermission",
+    "androidValue": "//android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BTitleValueComponent_notificationMenu\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsClickSwitchPermission",
+    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkbank.mobil.dev:id/switchIBranchPermissionItem\"]",
+    "androidType": "xpath",
+    "iosValue": "  //XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent_pushActiveComponent\"]\n",
+    "iosType": "xpath"
+  },
+
+  {
+    "key": "settingsSwitchChannelActiveManagement",
+    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkbank.mobil.dev:id/switchIBranchPermissionItem\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent_permissionSwitch\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsButtonAccountItem",
+    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkbank.mobil.dev:id/radioButtonAccountItem\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText)[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsButtonPaymentItem",
+    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkbank.mobil.dev:id/radioButtonPaymentItem\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"iOS RadioButtonPassive\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsButtonActiveItem",
+    "androidValue": "(//android.widget.HorizontalScrollView//android.widget.LinearLayout)[1]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"SegmentedControl_0\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsButtonPassiveItem",
+    "androidValue": "(//android.widget.HorizontalScrollView//android.widget.LinearLayout)[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"SegmentedControl_1\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsPhoneButtonUpdate",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonPhoneUpdate\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BOtherAppsComponent_telephoneComp\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsEmailButtonUpdate",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonEmailUpdate\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BOtherAppsComponent_eMailComp\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsContinueButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/button\"]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeStaticText)[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsSuccessPageMessage",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BInformationImageComponent\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsApproveConfirmationButton",
+    "androidValue": " //android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApprove\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeButton[@name=\"BBarButton_Done\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsAddressButtonUpdate",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonAddressUpdate\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BOtherAppsComponent_addressComp\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsAddressButtonSelect",
+    "androidValue": "(//androidx.recyclerview.widget.RecyclerView//android.widget.LinearLayout)[1]",
+    "androidType": "xpath",
+    "iosValue": "(//XCUIElementTypeCell[@name=\"BTitleComponent\"])[1]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsMyEmploymentDetails",
+    "androidValue": "(//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonImageViewEndIcon\"])[1]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BTitleComponent_occupationComp\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsPlannedMonthlyTransactions",
+    "androidValue": "(//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonImageViewEndIcon\"])[2]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeStaticText[@name=\"BTitleComponent_PlannedMonthlyOperations\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsEditButton",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeButton[@name=\"BBarButton_Edit\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "settingsEditMailText",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeTextField[@name=\"BTextFieldComponents_BTextField_onlyEmail\"]",
+    "iosType": "xpath"
+  }
+]

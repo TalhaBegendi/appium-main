@@ -243,10 +243,8 @@ public class AppiumUtilHelper extends BasePages {
 
     void performNavigation(String clickKey, String contextKey, AssertionPrefix prefix, String option, boolean doAssert) {
         clickByText(clickKey, option);
-
         Optional.ofNullable(contextKey)
                 .ifPresent(key -> runContext.setProperty(key, option));
-
         if (doAssert) {
             AssertionKey.resolve(prefix, option).runAssertion();
         }
@@ -323,7 +321,6 @@ public class AppiumUtilHelper extends BasePages {
     }
 
     WebElement scrollUntilVisible(String key, int maxScroll) {
-
         return IntStream.range(0, maxScroll)
                 .mapToObj(i -> Optional.ofNullable(findElementSilent(key))
                         .orElseGet(() -> {

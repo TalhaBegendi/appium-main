@@ -10,6 +10,7 @@ import org.halkKatilim.pages.menu.MenuPages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountAccountPages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountIBANPages;
 import org.halkKatilim.pages.savedTransactions.SavedTransactions;
+import org.halkKatilim.pages.settingsPage.SettingsPages;
 
 @Getter
 public class Pages {
@@ -22,6 +23,7 @@ public class Pages {
     private final CorporatePage corporatePage;
     private final AccountsPages accountsPage;
     private final CurrencyPreciousMetalPages currencyPreciousMetalPages;
+    private final SettingsPages settingsPages;
 
     public Pages() {
         this.loginPage = new LoginPages();
@@ -33,5 +35,6 @@ public class Pages {
         this.corporatePage = new CorporatePage();
         this.accountsPage = new AccountsPages();
         this.currencyPreciousMetalPages = new CurrencyPreciousMetalPages();
+        this.settingsPages = new SettingsPages();
     }
 }
