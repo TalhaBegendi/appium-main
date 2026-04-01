@@ -3,7 +3,6 @@ package org.halkKatilim.pages.settingsPage;
 final class SettingsPageText {
 
     static final String TURKISH_SELECT_LANGUAGE_SUCCESS_MESSAGE = "My Accounts";
-    static final String ENGLISH_SELECT_LANGUAGE_SUCCESS_MESSAGE = "Hesaplarım";
     static final String TURKISH_FINANCE_SUCCESS_MESSAGE_TITLE = "Finansman";
     static final String TURKISH_CREDIT_CARD_SUCCESS_MESSAGE_TITLE = "Kart Kısıtları";
     static final String TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_TITLE = "Menü Kısıtla";
@@ -23,5 +22,10 @@ final class SettingsPageText {
     static final String TURKISH_EMAIL_UPDATE_SUCCESS_MESSAGE = "E-posta adresi güncelleme talebiniz alındı.";
     static final String TURKISH_ADDRESS_UPDATE_SUCCESS_MESSAGE = "Adresiniz güncellendi.";
     static final String EMAIL_DATA = "Otomasyontest@gmail.com";
+    static final String TURKISH_PROFILE = "Profilim";
+    static final String TURKISH_CORPORATE_PROFILE = "Kurumsal Profil";
+    static final String TURKISH_SUCCESS_LOGIN = "Başarılı Girişler";
+    static final String TURKISH_UNSUCCESS_LOGIN_ATTEMPT = "Başarısız Giriş Denemeleri";
+    static final String TURKISH_FACE_ID ="Face ID / Touch ID ile Doğrula";
 
 }
