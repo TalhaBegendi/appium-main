@@ -12,6 +12,7 @@ import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.pages.menu.MenuPages;
 import org.halkKatilim.testData.retail.moneyTransfer.CustomerEntry;
 
+import static java.lang.Thread.sleep;
 import static org.halkKatilim.pages.loginPage.LoginPageText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.BUTTON_LOGIN_ITEM;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LOGIN;
@@ -72,7 +73,7 @@ public class LoginPages extends BasePages {
         log.info(LOG_LOGIN_RETAIL_FLOW, customer.name());
         appiumUtil
                 .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
-                .clearAndFillInputWithScroll("inputPassword", customer.getPassword());
+                .clearAndFillInputHideKeyboard("inputPassword", customer.getPassword());
     }
 
     private void fillCorporateCredentials(CorporateCustomer customer) {
@@ -92,7 +93,9 @@ public class LoginPages extends BasePages {
                 .waitUntilElementLoad("smsOtpComponent")
                 .clearAndFillInputWithScroll("inputSmsOtp", smsCode)
                 .clickElement("smsOtpButtonSendItem")
-                .autoHandleNavigationGates(NavigationGates.Context.LOGIN);
+                .sleep(300)
+                .autoHandleNavigationGates(NavigationGates.Context.LOGIN)
+                .sleep(300);
         LOGIN.runAssertion();
         log.info(LOG_OTP_FLOW_COMPLETED);
     }

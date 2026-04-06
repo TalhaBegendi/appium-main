@@ -1,8 +1,6 @@
 package org.halkKatilim.deviceConfig;
 
 import org.halkKatilim.enums.UserType;
-import org.halkKatilim.enums.corporate.CorporateCustomer;
-import org.halkKatilim.enums.retail.RetailCustomer;
 import org.halkKatilim.enums.Language;
 import org.halkKatilim.testData.retail.moneyTransfer.CustomerEntry;
 

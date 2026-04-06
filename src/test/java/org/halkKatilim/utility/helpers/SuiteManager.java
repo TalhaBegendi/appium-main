@@ -1,6 +1,8 @@
 package org.halkKatilim.utility.helpers;
 
+import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.Platform;
+import org.halkKatilim.constant.Config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +21,6 @@ public final class SuiteManager {
 
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
     private static final AtomicBoolean CLEANUP_DONE = new AtomicBoolean(false);
-
 
     private SuiteManager() {
     }
@@ -142,6 +143,11 @@ public final class SuiteManager {
     }
 
     private static void stopDevice() {
+        if (DeviceContext.isSet() && DeviceContext.get().isRealDevice()) {
+            FrameworkLogger.info("📱 (Real Device) skip all stop operations");
+            return;
+        }
+
         for (Platform platform : Platform.values()) {
             platform.stopIfUsed();
         }

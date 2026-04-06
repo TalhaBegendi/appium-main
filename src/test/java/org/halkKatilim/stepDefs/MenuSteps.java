@@ -13,7 +13,6 @@ public class MenuSteps extends MenuPages {
     @When("Go to {string} from Menu")
     public void goToOptionFromMenu(String option) {
         navigateToMenuOption(option);
-
     }
 
     @When("Go to {string} from Menu with assertion {string} of type {string} using {string}")

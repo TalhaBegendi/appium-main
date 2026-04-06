@@ -55,6 +55,7 @@ public class Hooks extends BasePages {
 
     @After
     public void afterScenario() {
+        AppUtils.handleTestEndAppTermination(appiumDriver);
         quitDriver();
         DeviceContext.clear();
     }

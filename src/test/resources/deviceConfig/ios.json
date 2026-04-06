@@ -2,25 +2,25 @@
   {
     "appium:platformVersion": "18.6",
     "appium:deviceName": "iPhone 16 Pro",
-    "appium:udid": "41AA9D82-A412-498D-A0C2-587822311A92",
+    "appium:udid": "D8067CF2-9126-44BA-94D6-11A6A282D5BC",
     "tag": "16pro"
   },
   {
     "appium:platformVersion": "18.6",
     "appium:deviceName": "iPhone 16 Plus",
-    "appium:udid": "0827C3C5-C31A-4EE3-8DE4-A2233707C768",
+    "appium:udid": "7FB448D8-47CC-4E9B-9C10-B4B7B2E99C58",
     "tag": "16plus"
   },
   {
     "appium:platformVersion": "18.6",
     "appium:deviceName": "iPhone 16e",
-    "appium:udid": "8D13D607-28C0-4918-B5B1-5C5C2F114AB6",
+    "appium:udid": "DBB464C6-C11B-4440-903A-C2830D0FDA6B",
     "tag": "16e"
   },
   {
     "appium:platformVersion": "18.6",
     "appium:deviceName": "iPhone 16",
-    "appium:udid": "254BEF76-4275-477F-BA7E-FC94A034B108",
+    "appium:udid": "176DBBF1-9BE5-44A8-86D1-75E7FC5BFF77",
     "tag": "16"
   },
   {
@@ -28,5 +28,13 @@
     "appium:deviceName": "iPhone 15",
     "appium:udid": "636E3761-1EA4-463C-9DB4-0751312EE660",
     "tag": "15"
+  },
+  {
+    "appium:platformVersion": "18.5",
+    "appium:deviceName": "Halk iPhone’u",
+    "appium:udid": "00008110-00015D8A3E03801E",
+    "appium:xcodeOrgId": "SNH8253M7S",
+    "appium:xcodeSigningId": "Apple Development",
+    "tag": "13mini"
   }
 ]

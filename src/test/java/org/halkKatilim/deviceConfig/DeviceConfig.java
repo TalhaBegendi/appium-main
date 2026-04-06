@@ -3,6 +3,7 @@ package org.halkKatilim.deviceConfig;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -13,17 +14,22 @@ public final class DeviceConfig {
     private final String defaultDevice;
     private final Map<String, List<String>> groups;
     private final Map<String, String> deviceToPlatform;
+    private final Map<String, Boolean> deviceToIsRealStatus;
 
     @JsonCreator
     public DeviceConfig(
             @JsonProperty("defaultDevice") String defaultDevice,
-            @JsonProperty("platforms") Map<String, List<String>> platforms,
+            @JsonProperty("platforms") Map<String, Map<String, List<String>>> platforms,
             @JsonProperty("groups") Map<String, List<String>> groups) {
 
         this.defaultDevice = Objects.requireNonNull(defaultDevice, "defaultDevice required");
-        Map<String, List<String>> normalizedPlatforms = toDeepUnmodifiable(platforms);
+
+        // Normalize platforms
+        Map<String, Map<String, List<String>>> normalizedPlatforms = platforms == null ? Map.of() : platforms;
+
         this.groups = toDeepUnmodifiable(groups);
         this.deviceToPlatform = buildDeviceToPlatformIndex(normalizedPlatforms);
+        this.deviceToIsRealStatus = buildDeviceToIsRealStatus(normalizedPlatforms);
         validateDefaultDevice();
     }
 
@@ -43,20 +49,44 @@ public final class DeviceConfig {
     }
 
     private static Map<String, String> buildDeviceToPlatformIndex(
-            Map<String, List<String>> platforms
+            Map<String, Map<String, List<String>>> platforms
     ) {
-        return platforms.entrySet()
-                .stream()
-                .flatMap(entry ->
-                        entry.getValue().stream()
-                                .map(device ->
-                                        Map.entry(device, entry.getKey())
-                                )
-                )
-                .collect(Collectors.toUnmodifiableMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue
-                ));
+        Map<String, String> result = new HashMap<>();
+        platforms.forEach((platformName, typeMap) -> {
+            if (typeMap != null) {
+                typeMap.values().forEach(deviceList -> {
+                    if (deviceList != null) {
+                        for (String deviceName : deviceList) {
+                            result.put(deviceName, platformName);
+                        }
+                    }
+                });
+            }
+        });
+        return Map.copyOf(result);
+    }
+
+    private static Map<String, Boolean> buildDeviceToIsRealStatus(
+            Map<String, Map<String, List<String>>> platforms
+    ) {
+        Map<String, Boolean> result = new HashMap<>();
+        platforms.forEach((platformName, typeMap) -> {
+            if (typeMap != null) {
+                List<String> realDevices = typeMap.get("real");
+                if (realDevices != null) {
+                    for (String deviceName : realDevices) {
+                        result.put(deviceName, true);
+                    }
+                }
+                List<String> simulatorDevices = typeMap.get("simulator");
+                if (simulatorDevices != null) {
+                    for (String deviceName : simulatorDevices) {
+                        result.put(deviceName, false);
+                    }
+                }
+            }
+        });
+        return Map.copyOf(result);
     }
 
     private void validateDefaultDevice() {
@@ -82,6 +112,14 @@ public final class DeviceConfig {
         return Objects.requireNonNull(
                 deviceToPlatform.get(device),
                 "Unknown device: " + device);
+    }
+
+    public boolean isRealDevice(String device) {
+        Boolean status = deviceToIsRealStatus.get(device);
+        if (status == null) {
+            throw new IllegalArgumentException("Unknown device for real status: " + device);
+        }
+        return status;
     }
 
     public List<String> group(String key) {

@@ -1,6 +1,5 @@
 package org.halkKatilim.constant;
 
-import org.halkKatilim.enums.Platform;
 import org.halkKatilim.utility.helpers.FrameworkLogger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,10 +28,12 @@ public final class Config {
     // --- Helpers ---
     private static String envOrProp(String envKey, String propKey, String defaultVal) {
         String env = System.getenv(envKey);
-        if (env != null && !env.trim().isEmpty()) return env.trim();
+        if (env != null && !env.trim().isEmpty())
+            return env.trim();
 
         String prop = baseProps.getProperty(propKey);
-        if (prop != null && !prop.trim().isEmpty()) return prop.trim();
+        if (prop != null && !prop.trim().isEmpty())
+            return prop.trim();
 
         return defaultVal;
     }
@@ -52,22 +53,17 @@ public final class Config {
     private static File runtimeFile(String name, String suffix) {
         return new File("target/runtime/" + name + suffix);
     }
+
     private static String hubUrl(String key, String defaultVal) {
         return envOrProp(key, key, defaultVal);
     }
 
-    public static final String PLATFORM_NAME_RAW =
-            envOrProp("PLATFORM", "PlatformName", "ios").toLowerCase(Locale.ROOT);
-
-    public static final Platform PLATFORM =
-            "android".equalsIgnoreCase(PLATFORM_NAME_RAW) ? Platform.ANDROID : Platform.IOS;
-
-    public static final boolean IS_ANDROID = PLATFORM == Platform.ANDROID;
+    public static final String PLATFORM_NAME_RAW = envOrProp("PLATFORM", "PlatformName", "ios").toLowerCase(Locale.ROOT);
 
     // ==============================
     // Grid / Local
     // ==============================
-    public static final boolean GRID     = envOrPropBool("GRID", "GRID", false);
+    public static final boolean GRID = envOrPropBool("GRID", "GRID", false);
     public static final boolean PARALLEL = envOrPropBool("PARALLEL", "PARALLEL", false);
 
     // ==============================
@@ -75,11 +71,11 @@ public final class Config {
     // ==============================
     public static final boolean ENABLE_REPORTING = envOrPropBool("ENABLE_REPORTING", "ENABLE_REPORTING", true);
 
-    public static final File SERIAL_MARKER_ALL  = runtimeFile("serial.grid", ".started");
-    public static final File ALL_LOCK           = runtimeFile("grid", ".lock");
-    public static final File CLEANUP_COUNTER     = runtimeFile("cleanup", ".counter");
+    public static final File SERIAL_MARKER_ALL = runtimeFile("serial.grid", ".started");
+    public static final File ALL_LOCK = runtimeFile("grid", ".lock");
+    public static final File CLEANUP_COUNTER = runtimeFile("cleanup", ".counter");
 
-    public static final String GRID_HUB_URL  = hubUrl("GRID_HUB_URL", "");
+    public static final String GRID_HUB_URL = hubUrl("GRID_HUB_URL", "");
     public static final String LOCAL_HUB_URL = hubUrl("LOCAL_HUB_URL", "");
 
     public static final String APPIUM_PORT_MAP = envOrProp("APPIUM_PORT_MAP", "APPIUM_PORT_MAP",
@@ -100,15 +96,15 @@ public final class Config {
         Path path = Paths.get(APPIUM_PORT_MAP);
         File file = path.toFile();
         long modified = file.lastModified();
-        
+
         if (modified == lastModifiedTime && !APPIUM_PORTS.isEmpty()) {
             return;
         }
-        
+
         try (InputStream is = Files.newInputStream(path)) {
             Properties tmp = new Properties();
             tmp.load(is);
-            
+
             APPIUM_PORTS.clear();
             tmp.forEach((k, v) -> {
                 String key = k.toString().trim();
@@ -116,7 +112,7 @@ public final class Config {
                 APPIUM_PORTS.put(key, value);
             });
             lastModifiedTime = modified;
-            
+
             if (APPIUM_PORTS.isEmpty()) {
                 FrameworkLogger.error("❌ appium_ports.properties yüklendi ama boş!");
             }
@@ -151,6 +147,8 @@ public final class Config {
         }
     }
 
+    // Real Device Config is now handled dynamically per-thread based on device configuration.
+
     // ==============================
     // Common Capabilities
     // ==============================
@@ -159,51 +157,50 @@ public final class Config {
     public static final boolean FULL_RESET = false;
 
     public static final boolean HEADLESS = envOrPropBool("HEADLESS", "HEADLESS", false);
-    public static final String  LANGUAGE = envOrProp("LANGUAGE", "LANGUAGE", "en");
-    public static final String  LOCALE   = envOrProp("LOCALE",   "LOCALE",   "US");
+    public static final String LANGUAGE = envOrProp("LANGUAGE", "LANGUAGE", "en");
+    public static final String LOCALE = envOrProp("LOCALE", "LOCALE", "US");
 
-    public static final boolean RECORD_VIDEO        = envOrPropBool("RECORD_VIDEO",        "RECORD_VIDEO",        false);
-    public static final boolean AUTO_ACCEPT_ALERTS  = envOrPropBool("AUTO_ACCEPT_ALERTS",  "AUTO_ACCEPT_ALERTS",  true);
-    public static final boolean AUTO_DISMISS_ALERTS = envOrPropBool("AUTO_DISMISS_ALERTS", "AUTO_DISMISS_ALERTS", false);
+    public static final boolean RECORD_VIDEO = envOrPropBool("RECORD_VIDEO", "RECORD_VIDEO", false);
+    public static final boolean AUTO_ACCEPT_ALERTS = envOrPropBool("AUTO_ACCEPT_ALERTS", "AUTO_ACCEPT_ALERTS", true);
+    public static final boolean AUTO_DISMISS_ALERTS = envOrPropBool("AUTO_DISMISS_ALERTS", "AUTO_DISMISS_ALERTS",
+            false);
 
     // Capability keys
-    public static final String CAP_RECORD_VIDEO        = "appium:recordVideo";
-    public static final String CAP_AUTO_ACCEPT_ALERTS  = "appium:autoAcceptAlerts";
+    public static final String CAP_RECORD_VIDEO = "appium:recordVideo";
+    public static final String CAP_AUTO_ACCEPT_ALERTS = "appium:autoAcceptAlerts";
     public static final String CAP_AUTO_DISMISS_ALERTS = "appium:autoDismissAlerts";
 
     // ==============================
     // Appium platform sabitleri
     // ==============================
     public static final String ANDROID_AUTOMATION_NAME = "UiAutomator2";
-    public static final String IOS_AUTOMATION_NAME     = "XCUITest";
+    public static final String IOS_AUTOMATION_NAME = "XCUITest";
 
     // ==============================
     // iOS
     // ==============================
-    public static final String IOS_APP_PATH  = envOrProp("IOS_APP_PATH", "IOS_APP_PATH", "");
+    public static final String IOS_APP_PATH = envOrProp("IOS_APP_PATH", "IOS_APP_PATH", "");
     public static final String IOS_BUNDLE_ID = envOrProp("IOS_BUNDLE_ID", "IOS_BUNDLE_ID", "");
 
     // ==============================
     // Android
     // ==============================
-    public static final String ANDROID_APP_PATH      = envOrProp("ANDROID_APP_PATH", "ANDROID_APP_PATH", "");
-    public static final String APP_PACKAGE           = envOrProp("APP_PACKAGE", "APP_PACKAGE", "");
+    public static final String ANDROID_APP_PATH = envOrProp("ANDROID_APP_PATH", "ANDROID_APP_PATH", "");
+    public static final String APP_PACKAGE = envOrProp("APP_PACKAGE", "APP_PACKAGE", "");
 
+    public static final long NEW_COMMAND_TIMEOUT = envOrPropLong("NEW_COMMAND_TIMEOUT", "NEW_COMMAND_TIMEOUT", 30000L);
 
-    public static final long NEW_COMMAND_TIMEOUT =
-            envOrPropLong("NEW_COMMAND_TIMEOUT", "NEW_COMMAND_TIMEOUT", 30000L);
+    private Config() {
+    }
 
-    private Config() {}
-
-    public static Map<String,String> getDefaultCapsForPlatform() {
+    public static Map<String, String> getDefaultCapsForPlatform() {
         return Map.of(
                 "appium:automationName",
                 switch (PLATFORM_NAME_RAW) {
                     case "ios" -> IOS_AUTOMATION_NAME;
                     case "android" -> ANDROID_AUTOMATION_NAME;
                     default -> throw new IllegalArgumentException("❌ Unknown platform: " + PLATFORM_NAME_RAW);
-                }
-        );
+                });
     }
 
     public static String resolveAndroidUdidForTag(String tag) {
@@ -217,8 +214,7 @@ public final class Config {
                 .filter(entry -> entry.getKey() != null)
                 .map(entry -> new AbstractMap.SimpleEntry<>(
                         entry.getKey().split(":")[0].toLowerCase(Locale.ROOT).replace("_", "").trim(),
-                        entry.getValue()
-                ))
+                        entry.getValue()))
                 .filter(e -> e.getKey().equalsIgnoreCase(normTag))
                 .map(Map.Entry::getValue)
                 .filter(Objects::nonNull)

@@ -7,7 +7,7 @@
 set -uo pipefail
 
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROP_FILE="$BASE_DIR/../env/default/appium0properties"
+PROP_FILE="$BASE_DIR/../env/default/appium.properties"
 RUNTIME_DIR="$BASE_DIR/../target/runtime"
 
 GRID_MODE=$(grep "^GRID=" "$PROP_FILE" 2>/dev/null | cut -d'=' -f2 | tr '[:upper:]' '[:lower:]')

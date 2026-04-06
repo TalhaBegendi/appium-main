@@ -21,10 +21,10 @@ GRID_MODE=$(grep "^GRID=" "$PROP_FILE" | cut -d'=' -f2 | tr '[:upper:]' '[:lower
 GRID_HUB_URL=$(grep "^GRID_HUB_URL" "$PROP_FILE" | cut -d'=' -f2)
 LOCAL_HUB_URL=$(grep "^LOCAL_HUB_URL" "$PROP_FILE" | cut -d'=' -f2)
 
-GRID_START_NODE_PORT=$(grep "^GRID_START_NODE_PORT" "$PROP_FILE" | cut -d'=' -f2)
+GRID_START_NODE_PORT=1488
 MAX_SESSIONS=$(grep "^GRID_MAX_SESSIONS" "$PROP_FILE" | cut -d'=' -f2)
 MAX_TOTAL_DEVICES=$(grep "^GRID_MAX_TOTAL_DEVICES" "$PROP_FILE" | cut -d'=' -f2)
-APPIUM_BASE_PORT=$(grep "^APPIUM_BASE_PORT" "$PROP_FILE" | cut -d'=' -f2)
+APPIUM_BASE_PORT=4725
 
 GRID_HUB_HOST=$(echo "$GRID_HUB_URL" | sed -E 's,https?://([^:/]+).*,\1,')
 GRID_HUB_PORT=$(echo "$GRID_HUB_URL" | sed -E 's,.*:([0-9]+).*,\1,')

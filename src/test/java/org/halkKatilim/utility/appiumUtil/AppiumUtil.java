@@ -143,9 +143,31 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         }
     }
 
+    public AppiumUtil clickElementTextWithScroll(String key, String targetText) {
+        WebElement element = appiumUtilHelper.scrollUntilTextVisible(key, targetText, 8);
+        if (element == null) {
+            logErrorAndFail("❌ Element not found after scrolling → key: " + key + " text: " + targetText);
+            return this;
+        }
+        try {
+            element.click();
+            info("🖱️ Tıklandı (scroll + text) → " + targetText);
+            return this;
+
+        } catch (Exception e) {
+            logErrorAndFail("❌ Elemente tıklanamadı → " + targetText, e);
+            return this;
+        }
+    }
+
     public AppiumUtil scrollToBottom(int count) {
         IntStream.range(0, count)
                 .forEach(i -> appiumUtilHelper.scrollDown());
+        return this;
+    }
+
+    public AppiumUtil sleep(long ms) {
+        appiumUtilHelper.sleep(ms);
         return this;
     }
 
@@ -154,7 +176,7 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         try {
             switch (platform) {
                 case ANDROID -> appiumDriver.executeScript("mobile: hideKeyboard");
-                case IOS -> appiumDriver.executeScript("mobile: tap", Map.of("x", 387, "y", 550));
+                case IOS -> appiumDriver.executeScript("mobile: tap", Map.of("x", 387, "y", 450));
             }
         } catch (Exception e) {
             debug("⚠️ Keyboard gizlenemedi (muhtemelen zaten gizli): " + e.getMessage());

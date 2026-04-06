@@ -31,7 +31,8 @@ public final class DeviceResolver {
     private DeviceSpec single(String device) {
         return new DeviceSpec(
                 config.platformOf(device),
-                device
+                device,
+                config.isRealDevice(device)
         );
     }
 }

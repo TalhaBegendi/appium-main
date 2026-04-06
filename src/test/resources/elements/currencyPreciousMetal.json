@@ -10,7 +10,7 @@
     "key": "currencyPreciousMetalBuyButtonList",
     "androidValue": "//androidx.cardview.widget.CardView[@resource-id=\"com.halkbank.mobil.dev:id/layoutBuy\"]/android.widget.LinearLayout/android.widget.TextView[2]",
     "androidType": "xpath",
-    "iosValue": "//XCUIElementTypeStaticText[@name=\"BFXParity_Buy\"]",
+    "iosValue": "//XCUIElementTypeStaticText[@name='BFXParity_Buy']",
     "iosType": "xpath"
   },
   {
@@ -31,14 +31,21 @@
     "key": "currencyPreciousMetalCurrencyInputField",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/itemAmount\"])[1]",
     "androidType": "xpath",
-    "iosValue": "(//XCUIElementTypeTextField[contains(@name,\"BTextFieldComponents_BTextField_n\")])[1]",
+    "iosValue": "(//XCUIElementTypeTextField[@name='BTextFieldComponents_BTextField_n2'])[1]",
     "iosType": "xpath"
+  },
+  {
+    "key": "currencyPreciousMetalCurrencyAccountVerify",
+    "androidValue": "//android.widget.ImageView[@resource-id=\"com.halkbank.mobil.dev:id/imageViewArrow\"]",
+    "androidType": "xpath",
+    "iosValue": "",
+    "iosType": ""
   },
   {
     "key": "currencyPreciousMetalTLInputField",
     "androidValue": "(//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/itemAmount\"])[2]",
     "androidType": "xpath",
-    "iosValue": "(//XCUIElementTypeTextField[contains(@name,\"BTextFieldComponents_BTextField_n\")])[2]",
+    "iosValue": "(//XCUIElementTypeTextField[@name='BTextFieldComponents_BTextField_n2'])[2]",
     "iosType": "xpath"
   },
   {

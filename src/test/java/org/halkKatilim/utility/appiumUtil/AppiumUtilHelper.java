@@ -291,7 +291,7 @@ public class AppiumUtilHelper extends BasePages {
                 .orElse(false);
     }
 
-    private void sleep(long ms) {
+    public void sleep(long ms) {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
@@ -327,6 +327,28 @@ public class AppiumUtilHelper extends BasePages {
                             scrollDown();
                             return null;
                         }))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
+
+    WebElement scrollUntilTextVisible(String key, String targetText, int maxScroll) {
+        return IntStream.range(0, maxScroll)
+                .mapToObj(i -> {
+                    List<WebElement> elements = appiumUtil.safeFindElementsAndWait(key);
+                    Optional<WebElement> match = elements.stream()
+                            .filter(e -> targetText.equals(e.getText()))
+                            .findFirst();
+                    if (match.isPresent()) {
+                        try {
+                            if (match.get().isDisplayed()) {
+                                return match.get();
+                            }
+                        } catch (Exception ignored) {}
+                    }
+                    scrollDown();
+                    return null;
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null);

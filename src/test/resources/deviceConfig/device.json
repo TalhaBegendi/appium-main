@@ -2,8 +2,14 @@
   "defaultDevice": "16e",
 
   "platforms": {
-    "android": ["pixel7", "pixel8", "pixel9", "pixel6"],
-    "ios": ["16e", "16", "16plus", "16pro", "15"]
+    "android": {
+      "simulator": ["pixel7", "pixel8", "pixel9", "pixel6"],
+      "real": []
+    },
+    "ios": {
+      "simulator": ["16e", "16", "16plus", "16pro", "15"],
+      "real": ["13mini"]
+    }
   },
 
   "groups": {

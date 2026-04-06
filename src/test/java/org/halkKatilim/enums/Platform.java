@@ -2,6 +2,7 @@ package org.halkKatilim.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.halkKatilim.constant.Config;
 import org.halkKatilim.deviceConfig.DeviceManagement;
 import org.halkKatilim.utility.helpers.FrameworkLogger;
 
