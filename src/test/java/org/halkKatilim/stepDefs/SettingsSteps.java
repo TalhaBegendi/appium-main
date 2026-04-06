@@ -18,11 +18,6 @@ public class SettingsSteps {
         pages.getSettingsPages().successMessageIsDisplayed();
     }
 
-    @Then("Pages should be opened successfully")
-    public void successPageTitleIsDisplayed() {
-        pages.getSettingsPages().successPageTitleIsDisplayed();
-    }
-
     @Then("Profile should be opened some pages successfully")
     public void successProfilePageTitleIsDisplayed() {
         pages.getSettingsPages().successProfilePageTitleIsDisplayed();
@@ -81,5 +76,10 @@ public class SettingsSteps {
     @And("Opens Planned Monthly Transactions Page")
     public void plannedMonthlyTransactions() {
         pages.getSettingsPages().plannedMonthlyTransactions();
+    }
+
+    @Then("Pages should be opened successfully with {string} title")
+    public void pagesShouldBeOpenedSuccessfullyWithTitle(String title) {
+        pages.getSettingsPages().pagesShouldBeOpenedSuccessfullyWithTitle(title);
     }
 }

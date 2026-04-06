@@ -100,34 +100,6 @@ public class SettingsPages extends BasePages {
                 TURKISH_SELECT_LANGUAGE_SUCCESS_MESSAGE);
     }
 
-    public void successPageTitleIsDisplayed() {
-        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
-        assertElementTextContainsAny(
-                appiumUtil.safeFindElementAndWait("settingsPageTitle"),
-                TURKISH_FINANCE_SUCCESS_MESSAGE_TITLE,
-                TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_TITLE,
-                TURKISH_CREDIT_CARD_SUCCESS_MESSAGE_TITLE,
-                TURKISH_SAVED_DEVICES_SUCCESS_MESSAGE_TITLE,
-                TURKISH_SAVED_LOGIN_SUCCESS_MESSAGE_TITLE,
-                TURKISH_PASSWORD_BLOKE_SUCCESS_MESSAGE_TITLE,
-                TURKISH_VERIFY_BIOMETRIC_SUCCESS_MESSAGE_TITLE,
-                TURKISH_CHANNEL_ACTIVE_MANAGEMENT_SUCCESS_MESSAGE_TITLE,
-                TURKISH_PAYMENT_REQUEST_PREFERENCES_SUCCESS_MESSAGE_TITLE,
-                TURKISH_OPENED_BANKING_CHANNEL_SUCCESS_MESSAGE_TITLE,
-                TURKISH_CONSENT_PENDING_SUCCESS_MESSAGE_TITLE,
-                TURKISH_OPEN_BANKING_PERMISSION_SUCCESS_MESSAGE_TITLE,
-                TURKISH_PHONE_UPDATE_SUCCESS_MESSAGE_TITLE,
-                TURKISH_PHONE_UPDATE_SUCCESS_MESSAGE_TITLE_IOS,
-                TURKISH_MY_EMPLOYMENT_DETAILS_SUCCESS_MESSAGE_TITLE,
-                TURKISH_PLANNED_MONTHLY_TRANSACTIONS_SUCCESS_MESSAGE_TITLE,
-                TURKISH_PROFILE,
-                TURKISH_CORPORATE_PROFILE,
-                TURKISH_SUCCESS_LOGIN,
-                TURKISH_UNSUCCESS_LOGIN_ATTEMPT,
-                TURKISH_FACE_ID
-        );
-    }
-
     public void successProfilePageTitleIsDisplayed() {
         appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
         assertElementTextContainsAny(
@@ -210,5 +182,11 @@ public class SettingsPages extends BasePages {
 
     public void plannedMonthlyTransactions() {
         appiumUtil.clickElement("settingsPlannedMonthlyTransactions");
+    }
+
+    public void pagesShouldBeOpenedSuccessfullyWithTitle(String title) {
+        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
+        hardAssertion.hardAssertEquals(appiumUtil.safeFindElementAndWait("settingsPageTitle").getText(), title);
+
     }
 }
