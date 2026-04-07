@@ -18,5 +18,11 @@
     "appium:platformVersion": "16.0",
     "appium:deviceName": "Pixel_6",
     "tag": "pixel6"
+  },
+  {
+    "appium:platformVersion": "14.0",
+    "appium:deviceName": "A34",
+    "appium:udid": "R6CX101Q7AK",
+    "tag": "a34"
   }
 ]

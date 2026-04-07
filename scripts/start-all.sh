@@ -118,8 +118,16 @@ start_local() {
       BASE_DEVICE=$(jq -c ".[$i]" "$DEVICE_FILE")
       TAG=$(echo "$BASE_DEVICE" | jq -r '.tag')
       DEVICE_NAME=$(echo "$BASE_DEVICE" | jq -r '."appium:deviceName"')
+      JSON_UDID=$(echo "$BASE_DEVICE" | jq -r '."appium:udid"')
 
       if [ -n "$REQUESTED_TAGS" ] && ! grep -qw "$TAG" <<< "$REQUESTED_TAGS"; then continue; fi
+
+      # GERÇEK CİHAZ (REAL DEVICE) KONTROLÜ
+      if [ -n "$JSON_UDID" ] && [ "$JSON_UDID" != "null" ]; then
+        echo "📱 Real Android device ($TAG) detected. Skipping emulator launch."
+        continue
+      fi
+
       ensure_android_emulator "$TAG" || { echo "❌ Emulator failed for tag=$TAG"; exit 1; }
     done
   fi
@@ -143,7 +151,11 @@ start_local() {
     WDA_PORT=$((8100 + COUNTER)); BUNDLE="com.mycompany.WebDriverAgentRunner.${TAG}.${COUNTER}"
 
     if [ "$IS_ANDROID" = "true" ]; then
-      UDID=$(resolve_android_udid_by_avd "$DEVICE_NAME")
+      if [ -n "$JSON_UDID" ] && [ "$JSON_UDID" != "null" ]; then
+        UDID="$JSON_UDID"
+      else
+        UDID=$(resolve_android_udid_by_avd "$DEVICE_NAME")
+      fi
       [ -z "$UDID" ] && { echo "❌ Cannot resolve UDID for $DEVICE_NAME"; continue; }
     else
       UDID="$JSON_UDID"; [ -z "$UDID" ] || [ "$UDID" = "null" ] && UDID="device_$i"
@@ -217,7 +229,16 @@ start_grid() {
       for i in $(seq 0 $((DEVICE_COUNT-1))); do
         BASE=$(jq -c ".[$i]" "$DEVICE_FILE")
         TAG=$(echo "$BASE" | jq -r '.tag')
+        JSON_UDID=$(echo "$BASE" | jq -r '."appium:udid"')
+
         if [ -n "$REQUESTED_TAGS" ] && ! echo "$REQUESTED_TAGS" | grep -qw "$TAG"; then continue; fi
+
+        # GERÇEK CİHAZ (REAL DEVICE) KONTROLÜ
+        if [ -n "$JSON_UDID" ] && [ "$JSON_UDID" != "null" ]; then
+          echo "📱 Real Android device ($TAG) detected. Skipping emulator launch."
+          continue
+        fi
+
         ensure_android_emulator "$TAG" || { echo "❌ Emulator failed for tag=$TAG"; exit 1; }
       done
     fi
@@ -251,7 +272,11 @@ start_grid() {
     BUNDLE="com.mycompany.WebDriverAgentRunner.${TAG}.${COUNTER}"
 
     if [ "$IS_ANDROID" = "true" ]; then
-      UDID=$(resolve_android_udid_by_avd "$DEVICE_NAME")
+      if [ -n "$JSON_UDID" ] && [ "$JSON_UDID" != "null" ]; then
+        UDID="$JSON_UDID"
+      else
+        UDID=$(resolve_android_udid_by_avd "$DEVICE_NAME")
+      fi
       [ -z "$UDID" ] && { echo "❌ Cannot resolve UDID"; continue; }
       PLATFORM="Android"; AUTO="UiAutomator2"
     else

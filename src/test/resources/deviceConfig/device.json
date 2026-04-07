@@ -4,7 +4,7 @@
   "platforms": {
     "android": {
       "simulator": ["pixel7", "pixel8", "pixel9", "pixel6"],
-      "real": []
+      "real": ["a34"]
     },
     "ios": {
       "simulator": ["16e", "16", "16plus", "16pro", "15"],
