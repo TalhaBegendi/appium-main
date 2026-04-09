@@ -16,9 +16,9 @@ Feature: Accounts flows language English
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Opens a "Checking Account" account with "Euro" currency
 
-  Scenario: Accounts > Open Account - Ruby
+  Scenario: Accounts > Open Account - Gold
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Checking Account" account with "Ruby" currency
+    When Opens a "Checking Account" account with "Gold" currency
 
   Scenario: Accounts > My Accounts - Turkish Lira
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
@@ -35,10 +35,10 @@ Feature: Accounts flows language English
     When Click element "openAccountButtonAccounts"
     When Opens a "Checking Account" account with "Euro" currency
 
-  Scenario: Accounts > My Accounts - Ruby
+  Scenario: Accounts > My Accounts - Gold
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
-    When Opens a "Checking Account" account with "Ruby" currency
+    When Opens a "Checking Account" account with "Gold" currency
 
   Scenario: My Accounts > Digital Participation Account - Turkish Lira - 3 Months
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
@@ -85,15 +85,15 @@ Feature: Accounts flows language English
     When Click element "openAccountButtonAccounts"
     When Opens a "Digital Participation Account" account with "Euro" currency and "Daily Profit (2-29 Days)" maturity date
 
-  Scenario: My Accounts > Digital Participation Account - Ruby - 3 Months
+  Scenario: My Accounts > Digital Participation Account - Gold - 3 Months
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
-    When Opens a "Digital Participation Account" account with "Ruby" currency and "3 Months" maturity date
+    When Opens a "Digital Participation Account" account with "Gold" currency and "3 Months" maturity date
 
-  Scenario: My Accounts > Digital Participation Account - Ruby - Breach Maturity
+  Scenario: My Accounts > Digital Participation Account - Gold - Breach Maturity
     When Go to "Accounts > My Accounts" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
-    When Opens a "Digital Participation Account" account with "Ruby" currency and "Breach Maturity" maturity date
+    When Opens a "Digital Participation Account" account with "Gold" currency and "Breach Maturity" maturity date
 
   Scenario: Open Account > Digital Participation Account - Turkish Lira - 3 Months
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
@@ -131,10 +131,10 @@ Feature: Accounts flows language English
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Opens a "Digital Participation Account" account with "Euro" currency and "Daily Profit (2-29 Days)" maturity date
 
-  Scenario: Open Account > Digital Participation Account - Ruby - 3 Months
+  Scenario: Open Account > Digital Participation Account - Gold - 3 Months
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Digital Participation Account" account with "Ruby" currency and "3 Months" maturity date
+    When Opens a "Digital Participation Account" account with "Gold" currency and "3 Months" maturity date
 
-  Scenario: Open Account > Digital Participation Account - Ruby - Breach Maturity
+  Scenario: Open Account > Digital Participation Account - Gold - Breach Maturity
     When Go to "Accounts > Open Account" from Menu with assertion "OPEN_ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Digital Participation Account" account with "Ruby" currency and "Breach Maturity" maturity date
+    When Opens a "Digital Participation Account" account with "Gold" currency and "Breach Maturity" maturity date

@@ -16,9 +16,9 @@ Feature: Accounts flows language Turkish
     When Go to "Hesaplar > Hesap Aç" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Opens a "Cari Hesap" account with "Euro" currency
 
-  Scenario: Hesaplarım > Hesap Aç - Cari Hesap  - Yakut
+  Scenario: Hesaplarım > Hesap Aç - Cari Hesap  - Altın
     When Go to "Hesaplar > Hesap Aç" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Cari Hesap" account with "Yakut" currency
+    When Opens a "Cari Hesap" account with "Altın" currency
 
   Scenario: Hesaplarım > Cari Hesap Aç - Türk Lirası
     When Go to "Hesaplar > Hesaplarım" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
@@ -35,10 +35,10 @@ Feature: Accounts flows language Turkish
     When Click element "openAccountButtonAccounts"
     When Opens a "Cari Hesap" account with "Euro" currency
 
-  Scenario: Hesaplarım > Cari Hesap Aç - Yakut
+  Scenario: Hesaplarım > Cari Hesap Aç - Altın
     When Go to "Hesaplar > Hesaplarım" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
-    When Opens a "Cari Hesap" account with "Yakut" currency
+    When Opens a "Cari Hesap" account with "Altın" currency
 
   Scenario: Hesaplarım > Dijital Katılma Hesabı - Türk Lirası - 3 Aylık
     When Go to "Hesaplar > Hesaplarım" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
@@ -85,15 +85,15 @@ Feature: Accounts flows language Turkish
     When Click element "openAccountButtonAccounts"
     When Opens a "Dijital Katılma Hesabı" account with "Euro" currency and "Günlük Kazançlı (2-29 Gün)" maturity date
 
-  Scenario: Hesaplarım > Dijital Katılma Hesabı - Yakut - 3 Aylık
+  Scenario: Hesaplarım > Dijital Katılma Hesabı - Altın - 3 Aylık
     When Go to "Hesaplar > Hesaplarım" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
-    When Opens a "Dijital Katılma Hesabı" account with "Yakut" currency and "3 Aylık" maturity date
+    When Opens a "Dijital Katılma Hesabı" account with "Altın" currency and "3 Aylık" maturity date
 
-  Scenario: Hesaplarım > Dijital Katılma Hesabı - Yakut - Kırık Vadeli
+  Scenario: Hesaplarım > Dijital Katılma Hesabı - Altın - Kırık Vadeli
     When Go to "Hesaplar > Hesaplarım" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Click element "openAccountButtonAccounts"
-    When Opens a "Dijital Katılma Hesabı" account with "Yakut" currency and "Kırık Vadeli" maturity date
+    When Opens a "Dijital Katılma Hesabı" account with "Altın" currency and "Kırık Vadeli" maturity date
 
   Scenario: Hesaplarım > Hesap Aç > Dijital Katılma Hesabı - Türk Lirası - 3 Aylık
     When Go to "Hesaplar > Hesap Aç" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
@@ -131,10 +131,10 @@ Feature: Accounts flows language Turkish
     When Go to "Hesaplar > Hesap Aç" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
     When Opens a "Dijital Katılma Hesabı" account with "Euro" currency and "Günlük Kazançlı (2-29 Gün)" maturity date
 
-  Scenario: Hesaplarım > Hesap Aç > Dijital Katılma Hesabı - Yakut - 3 Aylık
+  Scenario: Hesaplarım > Hesap Aç > Dijital Katılma Hesabı - Altın - 3 Aylık
     When Go to "Hesaplar > Hesap Aç" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Dijital Katılma Hesabı" account with "Yakut" currency and "3 Aylık" maturity date
+    When Opens a "Dijital Katılma Hesabı" account with "Altın" currency and "3 Aylık" maturity date
 
-  Scenario: Hesaplarım > Hesap Aç > Dijital Katılma Hesabı - Yakut - Kırık Vadeli
+  Scenario: Hesaplarım > Hesap Aç > Dijital Katılma Hesabı - Altın - Kırık Vadeli
     When Go to "Hesaplar > Hesap Aç" from Menu with assertion "ACCOUNTS_TITLE_MENU" of type "EQUAL" using "NAME"
-    When Opens a "Dijital Katılma Hesabı" account with "Yakut" currency and "Kırık Vadeli" maturity date
+    When Opens a "Dijital Katılma Hesabı" account with "Altın" currency and "Kırık Vadeli" maturity date
