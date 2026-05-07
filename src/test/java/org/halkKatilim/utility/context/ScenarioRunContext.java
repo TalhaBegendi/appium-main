@@ -1,28 +1,28 @@
 package org.halkKatilim.utility.context;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class ScenarioRunContext {
+public final class ScenarioRunContext {
 
+    private static final ThreadLocal<Map<String, Object>> STORE = ThreadLocal.withInitial(HashMap::new);
 
-    private final ThreadLocal<ScenarioRunContext> instance = ThreadLocal.withInitial(ScenarioRunContext::new);
+    private ScenarioRunContext() {}
 
-    public final Map<String, Object> runContext = new ConcurrentHashMap<>();
-
-    public  ScenarioRunContext getInstance() {
-        return instance.get();
-    }
-
-    public void setProperty(String key, Object value) {
+    public static void set(String key, Object value) {
         if (value != null) {
-            runContext.put(key, value);
+            STORE.get().put(key, value);
         } else {
-            runContext.remove(key);
+            STORE.get().remove(key);
         }
     }
 
-    public <T> T getProperty(String key) {
-        return (T) runContext.get(key);
+    @SuppressWarnings("unchecked")
+    public static <T> T get(String key) {
+        return (T) STORE.get().get(key);
+    }
+
+    public static void clear() {
+        STORE.remove();
     }
 }

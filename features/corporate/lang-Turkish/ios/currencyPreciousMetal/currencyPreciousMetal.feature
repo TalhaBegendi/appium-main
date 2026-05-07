@@ -3,7 +3,7 @@ Feature: Currency/Precious Metal Language Turkish - IOS - CORPORATE
 
   Background:
     When Login as "CORPORATE" customer "NEW_ACCOUNT" using "TURKISH" language
-    When Go to "Döviz / Kıymetli Maden > Döviz / Kıymetli Maden Alış / Satış" from Menu with assertion "CURRENCY_METALS_SELL_TEXT_ITEM" of type "PRESENCE_THEN_EQUAL" using "NAME"
+    When Go to "Döviz / Kıymetli Maden > Döviz / Kıymetli Maden Alış / Satış" from Menu
 
   Scenario: Euro - Dolar Dönüşümü - Euro Alma
     When Click the EUR Buy button for the "EUR/USD" currency pair

@@ -14,7 +14,6 @@ public interface Selector {
         return getElementInfoToBy(getElementInfo(key));
     }
 
-
     default SelectorInfo getSelectorInfo(String key) {
         return new SelectorInfo(getElementInfoToBy(key), getElementInfoToIndex(key));
     }

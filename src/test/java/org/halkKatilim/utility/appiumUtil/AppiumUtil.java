@@ -1,95 +1,96 @@
 package org.halkKatilim.utility.appiumUtil;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import org.halkKatilim.enums.NavigationGates;
-import org.halkKatilim.enums.Platform;
 import org.halkKatilim.enums.TextSource;
 import org.halkKatilim.utility.Driver;
 import org.halkKatilim.utility.WaitConditions;
-import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
-import org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix;
+import org.halkKatilim.utility.assertionUtil.types.HardAssertion;
 import org.openqa.selenium.*;
-
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.*;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
-
-import org.halkKatilim.pages.BasePages;
-
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ASSETS;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
 import static org.testng.Assert.fail;
-import static org.halkKatilim.enums.SwipeDirection.*;
 
 @RequiredArgsConstructor
-public class AppiumUtil extends BasePages implements WaitConditions {
+public class AppiumUtil implements WaitConditions {
 
-    AppiumUtilHelper appiumUtilHelper = new AppiumUtilHelper();
+    private final AppiumUtilHelper helper;
 
-    public record StepResult(List<String> steps, AssertionKey key) {
+    public AppiumUtil() {
+        this(new AppiumUtilHelper());
     }
 
-    public StepResult navigateWithAssertion(String path, String assertion, String clickKey, String contextKey, AssertionPrefix prefix) {
-        List<String> steps = navigate(path, clickKey, contextKey, prefix);
-        AssertionKey key = appiumUtilHelper.parseAssertion(assertion);
-        autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
-        return new StepResult(steps, key);
+    public HardAssertion getAssertion() {
+        return helper.getAssertion();
+    }
+
+    public void navigate(String path, String clickKey) {
+        List<String> steps = helper.parseSteps(path);
+        for (String step : steps) {
+            helper.clickByText(clickKey, step);
+        }
+        helper.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
+        info("🟢 Navigasyon tamamlandı: " + path);
     }
 
     public AppiumUtil autoHandleNavigationGates(NavigationGates.Context context) {
-        appiumUtilHelper.autoHandleNavigationGates(context);
+        helper.autoHandleNavigationGates(context);
         return this;
     }
 
-    public List<String> navigate(String path, String clickKey, String contextKey, AssertionPrefix prefix) {
-        List<String> steps = appiumUtilHelper.parseSteps(path);
-        appiumUtilHelper.navigatePath(steps, clickKey, contextKey, prefix);
-        return steps;
-    }
-
-    public void ifExistClickByKey(String key) {
-        Optional.ofNullable(appiumUtilHelper.findElementByKeyWithoutAssert(key)).ifPresent(element -> {
-            info(String.format(ELEMENT_CLICKED, key));
-            element.click();
-        });
-        waitBySecond(1);
-    }
-
     public AppiumUtil waitBySecond(int seconds) {
-        try {
-            Thread.sleep(seconds * 1000L);
-            info(String.format(WAITED_SECONDS, seconds));
-        } catch (InterruptedException e) {
-            logErrorAndFail("❌ Thread sleep error", e);
-        }
+        helper.sleep(seconds * 1000L);
+        info(String.format(WAITED_SECONDS, seconds));
         return this;
     }
 
     public AppiumUtil waitUntilElementLoad(String key) {
-        By by = selector.getElementInfoToBy(key);
-        waitForElementToBePresence(by);
-        Optional.ofNullable(appiumUtilHelper.findElement(by)).filter(WebElement::isDisplayed).ifPresentOrElse(el -> info(String.format(ELEMENT_VISIBLE, key)), () -> fail(String.format(ELEMENT_NOT_VISIBLE, key)));
+        for (int i = 0; i < 7; i++) {
+            boolean isVisible = helper.withTempImplicit(Duration.ZERO, () -> {
+                try {
+                    WebElement el = helper.findElementSilent(key);
+                    return el != null && el.isDisplayed();
+                } catch (Exception e) {
+                    return false;
+                }
+            });
+            if (isVisible) {
+                info(String.format(ELEMENT_VISIBLE, key));
+                return this;
+            }
+            sleep(1300);
+        }
+        fail(String.format(ELEMENT_NOT_VISIBLE, key));
         return this;
     }
 
+    public AppiumUtil sleep(long ms) {
+        helper.sleep(ms);
+        return this;
+    }
+
+
     public WebElement safeFindElementAndWait(String key) {
-        return appiumUtilHelper.handleFind(appiumUtilHelper::findElement, key);
+        return helper.handleFind(helper::findElement, key);
     }
 
     public WebElement findElementSilent(String key) {
-        return appiumUtilHelper.findElementSilent(key);
+        return helper.findElementSilent(key);
     }
 
     public List<WebElement> findElementsSilent(String key) {
-        return appiumUtilHelper.findElementsSilent(key);
+        return helper.findElementsSilent(key);
     }
 
     public List<WebElement> safeFindElementsAndWait(String key) {
-        return appiumUtilHelper.safeFindElementsAndWait(key);
+        return helper.safeFindElementsAndWait(key);
     }
 
     public AppiumUtil clickElement(String key) {
@@ -109,26 +110,8 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         return this;
     }
 
-    public AppiumUtil clickLastElement(String key) {
-        List<WebElement> elements = safeFindElementsAndWait(key);
-
-        if (elements == null || elements.isEmpty()) {
-            logErrorAndFail("⚠️ Element listesi boş, son elemana tıklanamadı: " + key, null);
-            return this;
-        }
-
-        WebElement lastElement = elements.getLast();
-        try {
-            lastElement.click();
-            info("🖱️ Son elemana tıklandı → " + key);
-        } catch (Exception e) {
-            logErrorAndFail("❌ Son elemana tıklanamadı: " + key, e);
-        }
-        return this;
-    }
-
     public AppiumUtil clickElementWithScroll(String key) {
-        WebElement element = appiumUtilHelper.scrollUntilVisible(key, 8);
+        WebElement element = helper.scrollUntilVisible(key, 8);
         if (element == null) {
             logErrorAndFail("❌ Element not found after scrolling: " + key);
             return this;
@@ -136,15 +119,14 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         try {
             element.click();
             info("🖱️ Tıklandı (scroll ile) → " + key);
-            return this;
         } catch (Exception e) {
             logErrorAndFail("❌ Elemente tıklanamadı: " + key, e);
-            return this;
         }
+        return this;
     }
 
     public AppiumUtil clickElementTextWithScroll(String key, String targetText) {
-        WebElement element = appiumUtilHelper.scrollUntilTextVisible(key, targetText, 8);
+        WebElement element = helper.scrollUntilTextVisible(key, targetText, 8);
         if (element == null) {
             logErrorAndFail("❌ Element not found after scrolling → key: " + key + " text: " + targetText);
             return this;
@@ -152,125 +134,31 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         try {
             element.click();
             info("🖱️ Tıklandı (scroll + text) → " + targetText);
-            return this;
-
         } catch (Exception e) {
             logErrorAndFail("❌ Elemente tıklanamadı → " + targetText, e);
-            return this;
         }
-    }
-
-    public AppiumUtil scrollToBottom(int count) {
-        IntStream.range(0, count)
-                .forEach(i -> appiumUtilHelper.scrollDown());
-        return this;
-    }
-
-    public AppiumUtil sleep(long ms) {
-        appiumUtilHelper.sleep(ms);
-        return this;
-    }
-
-    public AppiumUtil hideKeyboardIfNeeded() {
-        Platform platform = Driver.getPlatformForThread();
-        try {
-            switch (platform) {
-                case ANDROID -> appiumDriver.executeScript("mobile: hideKeyboard");
-                case IOS -> appiumDriver.executeScript("mobile: tap", Map.of("x", 387, "y", 450));
-            }
-        } catch (Exception e) {
-            debug("⚠️ Keyboard gizlenemedi (muhtemelen zaten gizli): " + e.getMessage());
-        }
-        return this;
-    }
-
-    public AppiumUtil clearAndFillInputWithScroll(String key, String text) {
-        WebElement element = appiumUtilHelper.scrollUntilVisible(key, 8);
-        if (element == null) {
-            logErrorAndFail("❌ Element not found after scrolling: " + key);
-            return this;
-        }
-        try {
-            element.click();
-            element.clear();
-            element.sendKeys(text);
-            hideKeyboardIfNeeded();
-            info("⌨️ '" + key + "' alanına '" + text + "' yazıldı");
-            return this;
-
-        } catch (Exception e) {
-            logErrorAndFail("❌ '" + key + "' alanına yazılamadı", e);
-            return this;
-        }
-    }
-
-    public AppiumUtil clearAndFillInput(String key, String text) {
-        WebElement element = appiumUtilHelper.findElementSilent(key);
-        if (element == null) {
-            logErrorAndFail("❌ Element not found after scrolling: " + key);
-            return this;
-        }
-        try {
-            element.click();
-            element.clear();
-            element.sendKeys(text);
-            info("⌨️ '" + key + "' alanına '" + text + "' yazıldı");
-            return this;
-
-        } catch (Exception e) {
-            logErrorAndFail("❌ '" + key + "' alanına yazılamadı", e);
-            return this;
-        }
-    }
-
-    public AppiumUtil clearAndFillInputHideKeyboard(String key, String text) {
-        WebElement element = appiumUtilHelper.findElementSilent(key);
-        if (element == null) {
-            logErrorAndFail("❌ Element not found after scrolling: " + key);
-            return this;
-        }
-        try {
-            element.click();
-            element.clear();
-            element.sendKeys(text);
-            hideKeyboardIfNeeded();
-            info("⌨️ '" + key + "' alanına '" + text + "' yazıldı");
-            return this;
-
-        } catch (Exception e) {
-            logErrorAndFail("❌ '" + key + "' alanına yazılamadı", e);
-            return this;
-        }
-    }
-
-    public List<String> getTextElements(String key, TextSource... order) {
-        List<WebElement> elements = appiumUtilHelper.findElementsSilent(key);
-        return elements.stream().map(e -> appiumUtilHelper.getElementTextSmart(e, order)).filter(text -> text != null && !text.isBlank()).toList();
-    }
-
-    public AppiumUtil repeat(int times, Runnable action) {
-        IntStream.range(0, times).forEach(i -> action.run());
         return this;
     }
 
     public AppiumUtil clickByText(String key, String text) {
-        appiumUtilHelper.clickByText(key, text);
+        helper.clickByText(key, text);
         return this;
     }
 
     public void clickByAnyText(String key, String[] texts) {
         for (String text : texts) {
             try {
-                appiumUtilHelper.clickByText(key, text);
+                helper.clickByText(key, text);
                 return;
             } catch (Exception ignored) {
             }
         }
-        throw new NoSuchElementException("None of the texts found for key=" + key + " → " + Arrays.toString(texts));
+        throw new NoSuchElementException(
+                "None of the texts found for key=" + key + " → " + Arrays.toString(texts));
     }
 
     public AppiumUtil clickRandomElement(String key) {
-        WebElement element = appiumUtilHelper.pickRandomElement(key);
+        WebElement element = helper.pickRandomElement(key);
         if (element == null) return this;
         try {
             element.click();
@@ -282,9 +170,9 @@ public class AppiumUtil extends BasePages implements WaitConditions {
     }
 
     public String clickRandomElementGetText(String key, TextSource... order) {
-        WebElement element = appiumUtilHelper.pickRandomElement(key);
+        WebElement element = helper.pickRandomElement(key);
         if (element == null) return null;
-        String text = appiumUtilHelper.getElementTextSmart(element, order);
+        String text = helper.getElementTextSmart(element, order);
         try {
             element.click();
             log("🎲 Rastgele tıklanan element (text alındı) → " + text);
@@ -294,27 +182,26 @@ public class AppiumUtil extends BasePages implements WaitConditions {
         return text;
     }
 
-    public String getTextElement(String key, TextSource... order) {
-        WebElement element = findElementSilent(key);
-        return appiumUtilHelper.getElementTextSmart(element, order);
+    public AppiumUtil selectFromListByText(String listKey, String expectedText) {
+        this.safeFindElementsAndWait(listKey)
+                .stream()
+                .filter(e -> expectedText.equalsIgnoreCase(e.getText()))
+                .findFirst()
+                .ifPresent(WebElement::click);
+        return this;
     }
 
-    public void verifyAssetsCurrencyToggle(String amountKey, String toggleClickKey) {
-        String beforeAmount = getTextElement(amountKey);
-        clickElement(toggleClickKey);
-        String afterAmount = getTextElement(amountKey);
-        ASSETS.runAssertion(beforeAmount, afterAmount);
-    }
+    public AppiumUtil fillInputKeyboard(String key, String text, boolean scroll, boolean hideKeyboard) {
+        WebElement element = scroll
+                ? helper.scrollUntilVisible(key, 8)
+                : helper.findElementSilent(key);
 
-    public boolean elementExistsSilent(String key) {
-        try {
-            return appiumUtilHelper.withTempImplicitWaitResult(Duration.ofMillis(2500), () -> {
-                By by = selector.getElementInfoToBy(key);
-                return !appiumDriver.findElements(by).isEmpty();
-            });
-        } catch (Exception ignored) {
-            return false;
+        if (element == null) {
+            logErrorAndFail("❌ Element not found: " + key);
+            return this;
         }
+        fillInput(element, text, hideKeyboard);
+        return this;
     }
 
     public AppiumUtil clearAndFillInputWithEnter(String key, String text) {
@@ -329,6 +216,69 @@ public class AppiumUtil extends BasePages implements WaitConditions {
             logErrorAndFail("❌ '" + key + "' alanına yazılamadı", e);
         }
         return this;
+    }
+
+    public AppiumUtil clearAndFillInputSmart(String key, String value) {
+        return switch (Driver.getPlatformForThread()) {
+            case IOS -> fillInputKeyboard(key, value, false, true);
+            case ANDROID -> fillInputKeyboard(key, value, false, false);
+        };
+    }
+
+    private void fillInput(WebElement element, String text, boolean hideKeyboard) {
+        element.click();
+        element.clear();
+        element.sendKeys(text);
+        if (hideKeyboard) hideKeyboardIfNeeded();
+    }
+
+    public AppiumUtil hideKeyboardIfNeeded() {
+        helper.hideKeyboard(Driver.getPlatformForThread());
+        return this;
+    }
+
+    public AppiumUtil scrollToBottom(int count) {
+        IntStream.range(0, count).forEach(i -> helper.scrollDown());
+        return this;
+    }
+
+    public AppiumUtil swipeLeftOnElementAndroid(WebElement element) {
+        helper.swipeLeftAndroid(element);
+        return this;
+    }
+
+    public AppiumUtil swipeLeftOnElementIOS(WebElement element) {
+        helper.swipeLeftIOS(element);
+        return this;
+    }
+
+    public String getTextElement(String key, TextSource... order) {
+        return helper.getElementTextSmart(findElementSilent(key), order);
+    }
+
+    public List<String> getTextElements(String key, TextSource... order) {
+        return helper.findElementsSilent(key).stream()
+                .map(e -> helper.getElementTextSmart(e, order))
+                .filter(text -> text != null && !text.isBlank())
+                .toList();
+    }
+
+    public void elementsNotExists(String key) {
+        helper.withTempImplicit(Duration.ofMillis(2500), () -> {
+            List<WebElement> elements = helper.driver().findElements(helper.getElementInfoToBy(key));
+            if (!elements.isEmpty()) {
+                logErrorAndFail("❌ Element SHOULD NOT exist but found → " + key
+                        + " (count=" + elements.size() + ")");
+            }
+            log("✅ " + key + " → no elements found as expected");
+        });
+    }
+
+    public void verifyAssetsCurrencyToggle(String amountKey, String toggleClickKey) {
+        String beforeAmount = getTextElement(amountKey);
+        clickElement(toggleClickKey);
+        String afterAmount = getTextElement(amountKey);
+        ASSETS.runAssertion(beforeAmount, afterAmount);
     }
 
     public String generateNumber(int length) {
@@ -347,43 +297,5 @@ public class AppiumUtil extends BasePages implements WaitConditions {
                 .min(BigDecimal::compareTo)
                 .orElse(BigDecimal.ZERO)
                 .toPlainString();
-    }
-
-    public void elementsNotExists(String key) {
-        appiumUtilHelper.withTempImplicitWait(Duration.ofMillis(2500), () -> {
-            By by = selector.getElementInfoToBy(key);
-            List<WebElement> elements = appiumDriver.findElements(by);
-            if (!elements.isEmpty()) {
-                logErrorAndFail("❌ Element SHOULD NOT exist but found → " + key + " (count=" + elements.size() + ")");
-            }
-            log("✅ " + key + " → no elements found as expected");
-        });
-    }
-
-    public AppiumUtil selectFromListByText(String listKey, String expectedText) {
-        appiumUtil.safeFindElementsAndWait(listKey)
-                .stream()
-                .filter(e -> expectedText.equalsIgnoreCase(e.getText()))
-                .findFirst()
-                .ifPresent(WebElement::click);
-        return this;
-    }
-
-    public AppiumUtil swipeLeftOnElementAndroid(WebElement element) {
-        appiumUtilHelper.swipeLeftAndroid(element);
-        return this;
-    }
-
-    public AppiumUtil swipeLeftOnElementIOS(WebElement element) {
-        appiumUtilHelper.swipeLeftIOS(element);
-        return this;
-    }
-
-    public AppiumUtil clearAndFillInputSmart(String key, String value) {
-        switch (Driver.getPlatformForThread()) {
-            case IOS -> clearAndFillInputHideKeyboard(key, value);
-            case ANDROID -> clearAndFillInput(key, value);
-        }
-        return this;
     }
 }

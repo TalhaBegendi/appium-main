@@ -2,7 +2,7 @@
 Feature: Saved Transactions flows language Turkish
 
   Background:
-    Given Login as "RETAIL" customer "ACCOUNT_USER" using "TURKISH" language
+    Given Login as "RETAIL" customer "MENU_USER" using "TURKISH" language
     And Go to "Kayıtlı İşlemler" from Menu
 
   Scenario: Hesaplarım Arasında Yeni Kayıtlı Transfer Oluşturulması
@@ -34,7 +34,7 @@ Feature: Saved Transactions flows language Turkish
   Scenario: IBAN’a Yeni Kayıtlı Transfer Oluşturulması
     When Click add new saved transaction button
     Then Verify add new saved transaction screen is visible
-    When Enter "iban" as new saved transaction name
+    When Enter "aiban" as new saved transaction name
     And Select "Para Transferi" as transaction type
     And Select "Başka Hesaba (Havale / EFT / FAST)" as money transfer category
     And Select "IBAN'a" as money transfer category

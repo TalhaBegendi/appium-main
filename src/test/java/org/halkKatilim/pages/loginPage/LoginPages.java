@@ -7,18 +7,19 @@ import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.UserType;
 import org.halkKatilim.enums.corporate.CorporateCustomer;
 import org.halkKatilim.enums.retail.RetailCustomer;
-import org.halkKatilim.interfaces.CustomerCapable;
-import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.pages.menu.MenuPages;
 import org.halkKatilim.testData.retail.moneyTransfer.CustomerEntry;
-
-import static java.lang.Thread.sleep;
 import static org.halkKatilim.pages.loginPage.LoginPageText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.BUTTON_LOGIN_ITEM;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LOGIN;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
 @Slf4j
-public class LoginPages extends BasePages {
+@RequiredArgsConstructor
+public class LoginPages  {
+
+    private final AppiumUtil appiumUtil;
 
     public void loginToApplication(String customerKey, String langKey, String userTypeKey) {
         UserType userType = UserType.valueOf(userTypeKey.toUpperCase());
@@ -72,8 +73,8 @@ public class LoginPages extends BasePages {
     private void fillRetailCredentials(RetailCustomer customer) {
         log.info(LOG_LOGIN_RETAIL_FLOW, customer.name());
         appiumUtil
-                .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
-                .clearAndFillInputHideKeyboard("inputPassword", customer.getPassword());
+                .fillInputKeyboard("inputCustomerNumber", customer.getNumber(), true, true)
+                .fillInputKeyboard("inputPassword", customer.getPassword()  , true, true);
     }
 
     private void fillCorporateCredentials(CorporateCustomer customer) {
@@ -81,8 +82,8 @@ public class LoginPages extends BasePages {
         appiumUtil
                 .clickElement("corporateUserTab")
                 .waitUntilElementLoad("inputMsisdnNumber")
-                .clearAndFillInputWithScroll("inputCustomerNumber", customer.getNumber())
-                .clearAndFillInputWithScroll("inputMsisdnNumber", customer.getMsisdn())
+                .fillInputKeyboard("inputCustomerNumber", customer.getNumber(), true, true)
+                .fillInputKeyboard("inputMsisdnNumber", customer.getMsisdn(), true, true)
                 .clearAndFillInputWithEnter("inputPassword", customer.getPassword())
                 .hideKeyboardIfNeeded();
     }
@@ -91,11 +92,11 @@ public class LoginPages extends BasePages {
         log.info(LOG_OTP_FLOW_START);
         appiumUtil
                 .waitUntilElementLoad("smsOtpComponent")
-                .clearAndFillInputWithScroll("inputSmsOtp", smsCode)
+                .fillInputKeyboard("inputSmsOtp", smsCode, true, true)
                 .clickElement("smsOtpButtonSendItem")
                 .sleep(300)
                 .autoHandleNavigationGates(NavigationGates.Context.LOGIN)
-                .sleep(300);
+                .sleep(400);
         LOGIN.runAssertion();
         log.info(LOG_OTP_FLOW_COMPLETED);
     }
@@ -108,9 +109,9 @@ public class LoginPages extends BasePages {
         log.info(LOG_LOGOUT_COMPLETED);
     }
 
-    public void logOutUsingLanguage(String langKey){
+    public void logOutUsingLanguage(String langKey) {
         Language language = Language.valueOf(langKey);
-        new MenuPages().openMainMenu();
+        new MenuPages(appiumUtil).openMainMenu();
         appiumUtil.clickElement("logoutButtonItem")
                 .clickByAnyText("logoutButtonItem", language.getLogoutTexts());
     }

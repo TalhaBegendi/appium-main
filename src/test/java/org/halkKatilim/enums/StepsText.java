@@ -31,9 +31,19 @@ public enum StepsText {
             "Daily (32-999 Days)"
     ),
 
+    SELECT_ACCOUNT(
+            "Dijital Katılma Hesabı",
+            "Digital Participation Account"
+    ),
+
     INVESTMENT_ACCOUNT(
             "Yatırım Hesabı",
-                    "Investment Account"
+            "Investment Account"
+    ),
+
+    INVESTMENT_CURRENCY(
+            "Türk Lirası",
+                    "Turkish Lira"
     );
 
     private final Set<String> texts;

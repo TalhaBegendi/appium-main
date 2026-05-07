@@ -8,7 +8,7 @@ import org.halkKatilim.interfaces.CustomerCapable;
 @Getter
 public enum RetailCustomer implements CustomerCapable {
 
-    MENU_USER("1063","121212","123456"),
+    MENU_USER("1064","121212","123456"),
     ACCOUNT_USER("1006","121212","123456"),
     HOMEPAGE_USER("1033","121212","123456"),
     LOGIN_USER("1033","121212","123456"),

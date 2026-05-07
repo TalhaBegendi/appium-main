@@ -1,151 +1,154 @@
 package org.halkKatilim.stepDefs;
 
+import org.halkKatilim.utility.context.PageContext;
+import org.halkKatilim.pages.savedTransactions.SavedTransactions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.halkKatilim.pages.Pages;
 
 public class SavedTransactionsStepDefs {
 
-    Pages pages = new Pages();
+    private SavedTransactions savedTransactions() {
+        return PageContext.get().get(SavedTransactions.class);
+    }
 
     @When("Select one of the saved transactions from the list")
     public void selectOneOfTheSavedTransactionsFromTheList() {
-        pages.getSavedTransactions().selectRandomSavedTransaction();
+        savedTransactions().selectRandomSavedTransaction();
     }
 
     @When("Click add new saved transaction button")
     public void clickAddNewSavedTransactionButton() {
-        pages.getSavedTransactions().clickAddNewSavedTransactionButton();
+        savedTransactions().clickAddNewSavedTransactionButton();
     }
 
     @Then("Verify add new saved transaction screen is visible")
     public void verifyAddNewSavedTransactionScreenIsVisible() {
-        pages.getSavedTransactions().verifyAddNewSavedTransactionScreenIsVisible();
+        savedTransactions().verifyAddNewSavedTransactionScreenIsVisible();
     }
 
     @And("Enter {string} as new saved transaction name")
     public void enterAsNewSavedTransactionName(String tranName) {
-        pages.getSavedTransactions().enterAsNewSavedTransactionName(tranName);
+        savedTransactions().enterAsNewSavedTransactionName(tranName);
     }
 
     @And("Select {string} as transaction type")
     public void selectAsTransactionType(String tranType) {
-        pages.getSavedTransactions().selectAsTransactionType(tranType);
+        savedTransactions().selectAsTransactionType(tranType);
     }
 
     @And("Select {string} as money transfer category")
     public void selectAsMoneyTransferCategory(String moneyTranType) {
-        pages.getSavedTransactions().selectAsMoneyTransferCategory(moneyTranType);
+        savedTransactions().selectAsMoneyTransferCategory(moneyTranType);
     }
 
     @And("Select {string} as money transfer category for platform")
     public void selectAsMoneyTransferCategoryForPlatform(String moneyTranType) {
-        pages.getSavedTransactions().selectAsMoneyTransferCategoryForPlatform(moneyTranType);
+        savedTransactions().selectAsMoneyTransferCategoryForPlatform(moneyTranType);
     }
 
     @And("Select one own account as receiver")
     public void selectOneOwnAccountAsReceiver() {
-        pages.getSavedTransactions().selectOneOwnAccountAsReceiver();
+        savedTransactions().selectOneOwnAccountAsReceiver();
     }
 
     @And("Click save button for saved transaction")
     public void clickSaveButtonForSavedTransaction() {
-        pages.getSavedTransactions().clickSaveButtonForSavedTransaction();
+        savedTransactions().clickSaveButtonForSavedTransaction();
     }
 
     @Then("Saved transfer should be created successfully")
     public void successMessageIsDisplayed() {
-        pages.getSavedTransactions().successMessageIsDisplayed();
+        savedTransactions().successMessageIsDisplayed();
     }
 
     @Then("The transaction should be successfully sent for approval and Saved Transaction")
     public void verifyTransactionSentForApprovalAndSavedTransaction() {
-        pages.getSavedTransactions().verifyTransactionSentForApprovalTypeSavedTransaction();
+        savedTransactions().verifyTransactionSentForApprovalTypeSavedTransaction();
     }
 
     @When("Click delete button for saved transaction named {string}")
     public void clickDeleteButtonForSavedTransactionNamed(String tranName) {
-        pages.getSavedTransactions().clickDeleteButtonForSavedTransactionNamed(tranName);
+        savedTransactions().clickDeleteButtonForSavedTransactionNamed(tranName);
     }
 
     @Then("Verify delete confirmation popup is displayed")
     public void verifyDeleteConfirmationPopupIsDisplayed() {
-        pages.getSavedTransactions().verifyDeleteConfirmationPopupIsDisplayed();
+        savedTransactions().verifyDeleteConfirmationPopupIsDisplayed();
     }
 
     @When("Click confirm delete button on delete popup")
     public void clickConfirmDeleteButtonOnDeletePopup() {
-        pages.getSavedTransactions().clickConfirmDeleteButtonOnDeletePopup();
+        savedTransactions().clickConfirmDeleteButtonOnDeletePopup();
     }
 
     @Then("Verify saved transaction is deleted successfully")
     public void verifySavedTransactionIsDeletedSuccessfully() {
-        pages.getSavedTransactions().verifySavedTransactionIsDeletedSuccessfully();
+        savedTransactions().verifySavedTransactionIsDeletedSuccessfully();
     }
 
     @And("Enter receiver IBAN")
     public void enterReceiverIBAN() {
-        pages.getSavedTransactions().enterReceiverIBAN();
+        savedTransactions().enterReceiverIBAN();
     }
 
     @And("Select recipient bank as {string}")
     public void selectRecipientBankAs(String bankingName) {
-        pages.getSavedTransactions().selectRecipientBankAs(bankingName);
+        savedTransactions().selectRecipientBankAs(bankingName);
     }
 
     @And("Enter receiver account info")
     public void enterReceiverAccountInfo() {
-        pages.getSavedTransactions().enterReceiverAccountInfo();
+        savedTransactions().enterReceiverAccountInfo();
     }
 
     @When("Into saved transactions search field")
     public void intoSavedTransactionsSearchField() {
-        pages.getSavedTransactions().intoSavedTransactionsSearchField();
+        savedTransactions().intoSavedTransactionsSearchField();
     }
 
     @When("Enter {string} into saved transactions search field")
     public void enterIntoSavedTransactionsSearchField(String searchText) {
-        pages.getSavedTransactions().enterIntoSavedTransactionsSearchField(searchText);
+        savedTransactions().enterIntoSavedTransactionsSearchField(searchText);
     }
 
     @Then("All saved transactions matching displayed")
     public void allSavedTransactionsMatchingAreDisplayed() {
-        pages.getSavedTransactions().allSavedTransactionsMatchingAreDisplayed();
+        savedTransactions().allSavedTransactionsMatchingAreDisplayed();
     }
 
     @Then("No search results found message is displayed")
     public void noSearchResultsFoundMessageIsDisplayed() {
-        pages.getSavedTransactions().noSearchResultsFoundMessageIsDisplayed();
+        savedTransactions().noSearchResultsFoundMessageIsDisplayed();
     }
 
     @And("Enter own IBAN as receiver")
     public void enterOwnIBANAsReceiver() {
-        pages.getSavedTransactions().enterOwnIBANAsReceiver();
+        savedTransactions().enterOwnIBANAsReceiver();
     }
 
     @And("Enter own account info for receiver")
     public void enterOwnAccountInfoForReceiver() {
-        pages.getSavedTransactions().enterOwnAccountInfoForReceiver();
+        savedTransactions().enterOwnAccountInfoForReceiver();
     }
 
     @Then("Verify fund account warning error should be displayed")
     public void verifyFundAccountWarningErrorShouldBeDisplayed() {
-        pages.getSavedTransactions().verifyFundAccountWarningErrorShouldBeDisplayed();
+        savedTransactions().verifyFundAccountWarningErrorShouldBeDisplayed();
     }
 
     @Then("Verify fund iban warning error should be displayed")
     public void verifyFundIbanWarningErrorShouldBeDisplayed() {
-        pages.getSavedTransactions().verifyFundIbanWarningErrorShouldBeDisplayed();
+        savedTransactions().verifyFundIbanWarningErrorShouldBeDisplayed();
     }
 
     @And("Click confirm button on confirmation page for Saved Transaction")
     public void clickConfirmButtonSavedTransaction() {
-        pages.getSavedTransactions().clickConfirmButtonSavedTransaction();
+        savedTransactions().clickConfirmButtonSavedTransaction();
     }
 
     @And("Click continue button on the Another Saved Transaction page")
     public void clickContinueButtonSavedTransaction() {
-        pages.getSavedTransactions().clickContinueButton();
+        savedTransactions().clickContinueButton();
     }
 }

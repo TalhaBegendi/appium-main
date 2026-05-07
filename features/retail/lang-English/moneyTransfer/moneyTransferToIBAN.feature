@@ -3,7 +3,7 @@ Feature: Money Transfer flows language English
 
   Background:
     Given Login as "RETAIL" customer "ACCOUNT_USER" using "ENGLISH" language
-    When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > IBAN" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > IBAN" from Menu
 
   Scenario: Performing Same-Day IBAN Transfer Using a Saved Transaction
     When Click the make from saved transactions button

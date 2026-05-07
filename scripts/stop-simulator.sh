@@ -1,67 +1,94 @@
 #!/bin/bash
-# ==============================
-# iOS Simulator Stopper (JSON-safe, optimized, idempotent)
-# ==============================
+# =========================================================
+# iOS Simulator Stopper (FINAL / SAFE / NO FALSE FAIL)
+# =========================================================
 
-TARGET="${1:-all}"   # Parametre: "all" ya da tek UDID
+set -euo pipefail
+
+TARGET="${1:-all}"
+
+log()  { echo "ℹ️ $*"; }
+ok()   { echo "✅ $*"; }
+warn() { echo "⚠️ $*"; }
+
+log "Stopping iOS simulators... (target=$TARGET)"
+
 DEVICES_JSON=$(xcrun simctl list devices --json)
 
-echo "🛑 iOS simülatör kapatma işlemi başlatıldı... (target=$TARGET)"
-
 shutdown_device() {
-    local UDID=$1
-    local NAME=$2
-    local STATE=$3
+    local udid="$1"
+    local name="$2"
 
-    if [ "$STATE" == "Shutdown" ]; then
-        echo "ℹ️ $NAME ($UDID) zaten kapalı, skip ediliyor."
-        return
-    fi
-
-    echo "🛑 Kapatılıyor: $NAME ($UDID)"
-    xcrun simctl shutdown "$UDID" || echo "⚠️ $UDID shutdown başarısız olabilir."
+    log "Shutting down: $name ($udid)"
+    xcrun simctl shutdown "$udid" >/dev/null 2>&1 || warn "$udid shutdown may have failed"
 }
 
-if [ "$TARGET" == "all" ]; then
-    # Sadece Booted cihazları bul
-    BOOTED_UDIDS=$(echo "$DEVICES_JSON" | jq -r '.devices[][] | select(.state=="Booted") | .udid')
+# ---------------------------------------------------------
+# ALL mode
+# ---------------------------------------------------------
+if [[ "$TARGET" == "all" ]]; then
 
-    if [ -z "$BOOTED_UDIDS" ]; then
-        echo "ℹ️ Açık simülatör bulunamadı."
+    BOOTED=$(echo "$DEVICES_JSON" | jq -r '
+        .devices[][] | select(.state=="Booted") | "\(.udid)|\(.name)"
+    ')
+
+    if [ -z "$BOOTED" ]; then
+        log "No booted simulators found"
     else
-        for UDID in $BOOTED_UDIDS; do
-            NAME=$(echo "$DEVICES_JSON" | jq -r ".devices[][] | select(.udid==\"$UDID\") | .name")
-            STATE=$(echo "$DEVICES_JSON" | jq -r ".devices[][] | select(.udid==\"$UDID\") | .state")
-            shutdown_device "$UDID" "$NAME" "$STATE"
-        done
-        echo "✅ Booted simülatör(ler) için kapatma denemesi bitti."
+        while IFS="|" read -r UDID NAME; do
+            shutdown_device "$UDID" "$NAME"
+        done <<< "$BOOTED"
+
+        ok "Booted simulators shutdown completed"
     fi
+
+# ---------------------------------------------------------
+# SINGLE UDID mode
+# ---------------------------------------------------------
 else
-    # Tek UDID kapatma
-    NAME=$(echo "$DEVICES_JSON" | jq -r ".devices[][] | select(.udid==\"$TARGET\") | .name")
-    STATE=$(echo "$DEVICES_JSON" | jq -r ".devices[][] | select(.udid==\"$TARGET\") | .state")
-    if [ -z "$NAME" ] || [ "$NAME" == "null" ]; then
-        echo "⚠️ UDID $TARGET için cihaz bulunamadı!"
+
+    DEVICE=$(echo "$DEVICES_JSON" | jq -r --arg ID "$TARGET" '
+        .devices[][] | select(.udid==$ID) | "\(.udid)|\(.name)|\(.state)"
+    ')
+
+    if [ -z "$DEVICE" ]; then
+        warn "Device not found: $TARGET"
     else
-        shutdown_device "$TARGET" "$NAME" "$STATE"
-        echo "✅ Simülatör kapatma denemesi bitti."
+        IFS="|" read -r UDID NAME STATE <<< "$DEVICE"
+
+        if [[ "$STATE" == "Shutdown" ]]; then
+            log "$NAME ($UDID) already shutdown"
+        else
+            shutdown_device "$UDID" "$NAME"
+        fi
+
+        ok "Simulator shutdown completed"
     fi
 fi
 
-# Simulator.app açık ise önce graceful quit, sonra killall
-if pgrep -q Simulator; then
-    echo "🛑 Simulator uygulaması sonlandırılıyor..."
-    osascript -e 'quit app "Simulator"' 2>/dev/null || true
+# ---------------------------------------------------------
+# Simulator App cleanup (SAFE)
+# ---------------------------------------------------------
+if pgrep -q Simulator >/dev/null 2>&1; then
+    log "Closing Simulator app..."
+
+    osascript -e 'quit app "Simulator"' >/dev/null 2>&1 || true
     sleep 1
-    pgrep -q Simulator && killall Simulator
+
+    if pgrep -q Simulator >/dev/null 2>&1; then
+        killall Simulator >/dev/null 2>&1 || true
+    fi
 fi
 
-
-# CoreSimulatorService hard reset (network / permission bug fix)
-if pgrep -f CoreSimulatorService >/dev/null; then
-    echo "🧹 Resetting CoreSimulatorService..."
-    killall -9 com.apple.CoreSimulator.CoreSimulatorService 2>/dev/null || true
+# ---------------------------------------------------------
+# Optional CoreSimulator reset (SAFE)
+# ---------------------------------------------------------
+if [[ "${FORCE_RESET:-false}" == "true" ]]; then
+    if pgrep -f CoreSimulatorService >/dev/null 2>&1; then
+        warn "Force resetting CoreSimulatorService..."
+        killall -9 com.apple.CoreSimulator.CoreSimulatorService >/dev/null 2>&1 || true
+    fi
 fi
 
-echo "🎉 Simulator cleanup finished."
+ok "Simulator cleanup finished"
 exit 0

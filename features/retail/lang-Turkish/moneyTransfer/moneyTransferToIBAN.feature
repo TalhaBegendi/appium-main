@@ -3,7 +3,7 @@ Feature: Money Transfer flows language Turkish
 
   Background:
     Given Login as "RETAIL" customer "ACCOUNT_USER" using "TURKISH" language
-    Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > IBAN" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > IBAN" from Menu
 
   Scenario: Kayıtlı İşlem ile Aynı Gün IBAN Transferinin Yapılması
     When Click the make from saved transactions button

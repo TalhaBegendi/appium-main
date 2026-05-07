@@ -152,7 +152,7 @@ public final class Config {
     // ==============================
     // Common Capabilities
     // ==============================
-    public static final int DEFAULT_WAIT = 15;
+    public static final int DEFAULT_WAIT = 3;
     public static final boolean APP_NO_RESET = envOrPropBool("APP_NO_RESET", "APP_NO_RESET", false);
     public static final boolean FULL_RESET = false;
 

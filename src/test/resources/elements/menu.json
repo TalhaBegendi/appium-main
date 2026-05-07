@@ -1,105 +1,105 @@
 [
   {
     "key": "menuItem",
-    "androidValue": "com.halkbank.mobil.dev:id/menuIcon",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/menuIcon",
     "androidType": "id",
     "iosValue": "BBarButton_Menu",
     "iosType": "accessibilityId"
   },
   {
     "key": "menuTitleItem",
-    "androidValue": "com.halkbank.mobil.dev:id/tvMenuName",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/tvMenuName",
     "androidType": "id",
     "iosValue": "BLeftMenuResourceComponent_resourceNameLabel",
     "iosType": "name"
   },
   {
     "key": "aboutMenuInfoItem",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "savedTransactionMenuInfoButtonItem",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "notificationsAndMessagesMenuInfoItem",
-    "androidValue": "com.halkbank.mobil.dev:id/buttonPanel",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/buttonPanel",
     "androidType": "id",
     "iosValue": "BAlertView_BImageView",
     "iosType": "accessibilityId"
   },
   {
     "key": "accountsTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "withdrawAndDepositTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "transferQRBodyMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "TopLabel",
     "iosType": "accessibilityId"
   },
   {
     "key": "currencyMetalsSellBodyTextMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/textViewMessage",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/textViewMessage",
     "androidType": "id",
     "iosValue": "",
     "iosType": "xpath"
   },
   {
     "key": "currencyMyForwardTransactionsTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "currencyMetalsSellTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "myCardApplicationTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "financingTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "letterOfGuaranteeTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "eGovernmentTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
@@ -113,77 +113,77 @@
   },
   {
     "key": "vehicleLoanApplicationTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "financialLimitAndRiskInformationTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "corporateTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "posTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "settingsTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "applicationsTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "closeButtonMenuItem",
-    "androidValue": "com.halkbank.mobil.dev:id/buttonCloseItem",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/buttonCloseItem",
     "androidType": "id",
     "iosValue": "BButton_0",
     "iosType": "accessibilityId"
   },
   {
     "key": "okPopupButtonMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/buttonCloseItem",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/buttonCloseItem",
     "androidType": "id",
     "iosValue": "BAlertView_BButton_Ok",
     "iosType": "accessibilityId"
   },
   {
     "key": "closePopupButtonMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/buttonCloseItem",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/buttonCloseItem",
     "androidType": "id",
     "iosValue": "BAlertView_BButton_Cancel",
     "iosType": "accessibilityId"
   },
   {
     "key": "myPortfolioTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "selectLanguageMenuText",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
@@ -197,35 +197,35 @@
   },
   {
     "key": "myCheckbooksTitleMenu",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "myDocumentsMenuText",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "moneyTransferMenuText",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "moneyTransferMyCardMenuText",
-    "androidValue": "com.halkbank.mobil.dev:id/toolbarTitle",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/toolbarTitle",
     "androidType": "id",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"
   },
   {
     "key": "moneyTransferMyCardOptionMenuText",
-    "androidValue": "//android.widget.HorizontalScrollView[@resource-id='com.halkbank.mobil.dev:id/tabLayout']/android.widget.LinearLayout/android.widget.LinearLayout",
+    "androidValue": "//android.widget.HorizontalScrollView[@resource-id='com.halkkatilim.mobilebanking.dev:id/tabLayout']/android.widget.LinearLayout/android.widget.LinearLayout",
     "androidType": "xpath",
     "iosValue": "XCUIElementTypeNavigationBar",
     "iosType": "class"

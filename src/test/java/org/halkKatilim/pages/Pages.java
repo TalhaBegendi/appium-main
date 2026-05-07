@@ -1,40 +1,38 @@
 package org.halkKatilim.pages;
 
-import lombok.Getter;
-import org.halkKatilim.pages.accountPage.AccountsPages;
-import org.halkKatilim.pages.corporate.CorporatePage;
-import org.halkKatilim.pages.currencyPreciousMetal.CurrencyPreciousMetalPages;
-import org.halkKatilim.pages.homePage.HomePages;
-import org.halkKatilim.pages.loginPage.LoginPages;
-import org.halkKatilim.pages.menu.MenuPages;
-import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountAccountPages;
-import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountIBANPages;
-import org.halkKatilim.pages.savedTransactions.SavedTransactions;
-import org.halkKatilim.pages.settingsPage.SettingsPages;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
+import java.util.HashMap;
+import java.util.Map;
 
-@Getter
 public class Pages {
-    private final LoginPages loginPage;
-    private final HomePages homePage;
-    private final MenuPages menuPage;
-    private final ToAnotherAccountIBANPages toAnotherAccountIbanPage;
-    private final ToAnotherAccountAccountPages toAnotherAccountAccountPage;
-    private final SavedTransactions savedTransactions;
-    private final CorporatePage corporatePage;
-    private final AccountsPages accountsPage;
-    private final CurrencyPreciousMetalPages currencyPreciousMetalPages;
-    private final SettingsPages settingsPages;
 
-    public Pages() {
-        this.loginPage = new LoginPages();
-        this.homePage = new HomePages();
-        this.menuPage = new MenuPages();
-        this.toAnotherAccountIbanPage = new ToAnotherAccountIBANPages();
-        this.toAnotherAccountAccountPage = new ToAnotherAccountAccountPages();
-        this.savedTransactions = new SavedTransactions();
-        this.corporatePage = new CorporatePage();
-        this.accountsPage = new AccountsPages();
-        this.currencyPreciousMetalPages = new CurrencyPreciousMetalPages();
-        this.settingsPages = new SettingsPages();
+    private final Map<Class<?>, Object> cache = new HashMap<>();
+    private final AppiumUtil util;
+
+    public Pages(AppiumUtil util) {
+        this.util = util;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T get(Class<T> pageClass) {
+        return (T) cache.computeIfAbsent(pageClass, this::createPage);
+    }
+
+    private <T> T createPage(Class<T> clazz) {
+        try {
+            return clazz.getDeclaredConstructor(AppiumUtil.class)
+                    .newInstance(util);
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Page oluşturulamadı: " + clazz.getSimpleName(),
+                    e
+            );
+        }
+    }
+
+    public void clear() {
+        cache.clear();
     }
 }
+

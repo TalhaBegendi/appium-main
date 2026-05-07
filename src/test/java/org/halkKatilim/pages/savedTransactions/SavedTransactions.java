@@ -1,21 +1,22 @@
 package org.halkKatilim.pages.savedTransactions;
-
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.*;
-import org.halkKatilim.pages.BasePages;
+import org.halkKatilim.interfaces.CustomerCapable;
 import org.halkKatilim.utility.Driver;
 import org.halkKatilim.utility.context.ScenarioRunContext;
 import org.openqa.selenium.WebElement;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-
 import static org.halkKatilim.pages.savedTransactions.SavedTransactionsText.*;
 import static org.testng.Assert.*;
 import static org.testng.AssertJUnit.assertEquals;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
-public class SavedTransactions extends BasePages {
+@RequiredArgsConstructor
+public class SavedTransactions  {
+    private final AppiumUtil appiumUtil;
 
     public void selectRandomSavedTransaction() {
         appiumUtil.safeFindElementsAndWait("savedTransactionsList").getFirst().click();
@@ -31,7 +32,7 @@ public class SavedTransactions extends BasePages {
     }
 
     public void enterAsNewSavedTransactionName(String tranName) {
-        appiumUtil.clearAndFillInputWithScroll("savedTransactionsNewTransactionNameField", tranName);
+        appiumUtil.fillInputKeyboard("savedTransactionsNewTransactionNameField", tranName, true, true);
     }
 
     public void selectAsTransactionType(String tranType) {
@@ -77,7 +78,7 @@ public class SavedTransactions extends BasePages {
             }
             case IOS -> {
                 appiumUtil.swipeLeftOnElementIOS(names.get(index));
-                List<WebElement> deleteButtons = appiumUtil.findElementsSilent("savedTransactionsDeleteButtonsAndroid");
+                List<WebElement> deleteButtons = appiumUtil.findElementsSilent("savedTransactionsDeleteButtonIos");
                 deleteButtons.get(index).click();
             }
         }
@@ -105,7 +106,7 @@ public class SavedTransactions extends BasePages {
 
     public void enterReceiverIBAN() {
         appiumUtil.waitBySecond(1)
-                .clearAndFillInputHideKeyboard("savedTransactionsIBANInputField", RETAIL_CUSTOMER_RECEIVER_IBAN);
+                .fillInputKeyboard("savedTransactionsIBANInputField", RETAIL_CUSTOMER_RECEIVER_IBAN, true, true);
     }
 
     public void selectRecipientBankAs(String bankingName) {
@@ -115,35 +116,44 @@ public class SavedTransactions extends BasePages {
     }
 
     public void enterReceiverAccountInfo() {
-        appiumUtil.clearAndFillInput("savedTransactionsReceiverAccountNumber", RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER)
-                .clearAndFillInputHideKeyboard("savedTransactionsReceiverAccountNumberSuffix", RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX);
+        appiumUtil.fillInputKeyboard("savedTransactionsReceiverAccountNumber", RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER, false, true)
+                .fillInputKeyboard("savedTransactionsReceiverAccountNumberSuffix", RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX, false, true);
     }
 
     public void intoSavedTransactionsSearchField() {
         String searchText = appiumUtil.findElementsSilent("savedTransactionsNameList").getFirst().getText();
-        appiumUtil.clearAndFillInput("savedTransactionsSearchBar", searchText)
+        Platform platform = Driver.getPlatformForThread();
+        if (platform == Platform.IOS){
+            appiumUtil.clickElement("savedTransactionsSearchBarForIOS");
+        }
+        appiumUtil.fillInputKeyboard("savedTransactionsSearchBar", searchText, false, false)
                 .waitBySecond(1);
-        runContext.setProperty("searchText", searchText);
+        ScenarioRunContext.set("searchText", searchText);
     }
 
     public void enterIntoSavedTransactionsSearchField(String searchText) {
-        appiumUtil.clearAndFillInput("savedTransactionsSearchBar", searchText)
+        Platform platform = Driver.getPlatformForThread();
+        if (platform == Platform.IOS){
+            appiumUtil.clickElement("savedTransactionsSearchBarForIOS");
+        }
+        appiumUtil.fillInputKeyboard("savedTransactionsSearchBar", searchText, false, false)
                 .waitBySecond(1);
     }
 
     public void allSavedTransactionsMatchingAreDisplayed() {
-        String expected = hardAssertion.normalizeText(runContext.getProperty("searchText"));
-        appiumUtil.findElementsSilent("savedTransactionsNameList")
+        String expected = appiumUtil.getAssertion().normalizeText(ScenarioRunContext.get("searchText"));
+        String actual = appiumUtil.findElementsSilent("savedTransactionsNameList")
                 .stream()
-                .map(e -> hardAssertion.normalizeText(e.getText()))
-                .filter(text -> !text.equals(expected))
+                .map(e -> appiumUtil.getAssertion().normalizeText(e.getText()))
                 .findFirst()
-                .ifPresent(text ->
-                        fail("""
-                                ❌ Arama sonucu uyuşmuyor
-                                Beklenen : "%s"
-                                Bulunan  : "%s"
-                                """.formatted(expected, text)));
+                .orElseThrow(() -> new AssertionError("❌ Hiç sonuç bulunamadı"));
+        if (!actual.equals(expected)) {
+            fail("""
+            ❌ İlk sonuç uyuşmuyor
+            Beklenen : "%s"
+            Bulunan  : "%s"
+            """.formatted(expected, actual));
+        }
     }
 
     public void noSearchResultsFoundMessageIsDisplayed() {
@@ -160,8 +170,10 @@ public class SavedTransactions extends BasePages {
     }
 
     public void enterOwnAccountInfoForReceiver() {
-        appiumUtil.clearAndFillInput("savedTransactionsReceiverAccountNumber", FUND_ACCOUNT_NUMBER)
-                .clearAndFillInputHideKeyboard("savedTransactionsReceiverAccountNumberSuffix", FUND_ACCOUNT_NUMBER_SUFFIX);
+        CustomerCapable customer = DeviceContext.getCurrentCustomer();
+        String customerKey = customer.getNumber();
+        appiumUtil.fillInputKeyboard("savedTransactionsReceiverAccountNumber", customerKey ,false, true)
+                .fillInputKeyboard("savedTransactionsReceiverAccountNumberSuffix", FUND_ACCOUNT_NUMBER_SUFFIX, false, true);
     }
 
     public void verifyFundAccountWarningErrorShouldBeDisplayed() {
@@ -211,8 +223,8 @@ public class SavedTransactions extends BasePages {
         String expectedMessage =
                 isTurkish
                         ? (isIOS
-                        ? TURKISH_SUCCESS_MESSAGE_IOS
-                        : TURKISH_SUCCESS_MESSAGE_AND)
+                           ? TURKISH_SUCCESS_MESSAGE_IOS
+                           : TURKISH_SUCCESS_MESSAGE_AND)
                         : (ENGLISH_SUCCESS_MESSAGE_AND);
         assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
@@ -226,7 +238,7 @@ public class SavedTransactions extends BasePages {
                     ? "savedTransactionContinueButtoniOSRetail"
                     : "moneyTransferContinueButtoniOS";
         };
-        appiumUtil.clickElementWithScroll(buttonKey);
+        appiumUtil.clickElement(buttonKey);
         if (platform == Platform.ANDROID) {
             appiumUtil.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER);
         }

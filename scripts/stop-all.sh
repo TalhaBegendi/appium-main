@@ -1,134 +1,144 @@
 #!/bin/bash
-# ==============================
-# Appium Unified Stopper (FINAL / FIXED)
-# Works for both GRID and LOCAL modes
-# ==============================
+# =========================================================
+# Appium Unified Stopper (FINAL / STABLE / NO-FAIL)
+# =========================================================
 
-set -uo pipefail
+set -euo pipefail
 
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROP_FILE="$BASE_DIR/../env/default/appium.properties"
 RUNTIME_DIR="$BASE_DIR/../target/runtime"
 
-GRID_MODE=$(grep "^GRID=" "$PROP_FILE" 2>/dev/null | cut -d'=' -f2 | tr '[:upper:]' '[:lower:]')
+# ---------------------------------------------------------
+# Config (safe)
+# ---------------------------------------------------------
+GRID_MODE=$(awk -F= '$1=="GRID"{print tolower($2)}' "$PROP_FILE")
+GRID_MODE=${GRID_MODE:-false}
 
 HUB_PID_FILE="$RUNTIME_DIR/hub.pid"
 NODE_PIDS_FILE="$RUNTIME_DIR/node.pids"
 APPIUM_PIDS_FILE="$RUNTIME_DIR/appium.pids"
 PORT_MAP_FILE="$RUNTIME_DIR/appium_ports.properties"
 
-# ------------------------------
+# ---------------------------------------------------------
+# Logging (minimal)
+# ---------------------------------------------------------
+log()  { echo "ℹ️ $*"; }
+ok()   { echo "✅ $*"; }
+warn() { echo "⚠️ $*"; }
+
+# ---------------------------------------------------------
 # Kill from PID file (safe)
-# ------------------------------
+# ---------------------------------------------------------
 stop_pid_file() {
   local FILE="$1"
   local NAME="$2"
   local COUNT=0
 
-  [ ! -f "$FILE" ] && { echo "ℹ️ $NAME PID file not found"; return 0; }
+  [ ! -f "$FILE" ] && return 0
 
   sort -u "$FILE" -o "$FILE"
 
-  while IFS= read -r PID; do
-    [[ -z "$PID" ]] && continue
+  while read -r PID; do
+    [ -z "$PID" ] && continue
+
     if kill -0 "$PID" 2>/dev/null; then
-      echo "🛑 Stopping $NAME (PID=$PID)"
       kill "$PID" 2>/dev/null || true
       sleep 1
+
       if kill -0 "$PID" 2>/dev/null; then
-        echo "⚠️ $NAME (PID=$PID) still alive, force killing..."
         kill -9 "$PID" 2>/dev/null || true
       fi
+
       COUNT=$((COUNT+1))
     fi
   done < "$FILE"
 
   rm -f "$FILE"
-  echo "✅ $NAME: $COUNT process(es) terminated"
+  [ "$COUNT" -gt 0 ] && ok "$NAME stopped ($COUNT)"
 }
 
-# ------------------------------
-# Kill by pattern (fallback safe)
-# ------------------------------
+# ---------------------------------------------------------
+# Kill by pattern (safe)
+# ---------------------------------------------------------
 stop_by_pattern() {
   local PATTERN="$1"
-  local NAME="$2"
-  local COUNT=0
 
-  pgrep -f "$PATTERN" 2>/dev/null | while read -r PID; do
-    if kill -0 "$PID" 2>/dev/null; then
-      echo "🛑 Killing stray $NAME (PID=$PID)"
-      kill -9 "$PID" 2>/dev/null || true
-      COUNT=$((COUNT+1))
-    fi
+  local PIDS
+  PIDS=$(pgrep -f "$PATTERN" 2>/dev/null || true)
+
+  for PID in $PIDS; do
+    kill -9 "$PID" 2>/dev/null || true
   done
-
-  [ "$COUNT" -gt 0 ] && echo "✅ $NAME: $COUNT stray process(es) killed" \
-                      || echo "ℹ️ No stray $NAME processes found"
 }
 
-# ==============================
+# ---------------------------------------------------------
 # Local Cleanup
-# ==============================
+# ---------------------------------------------------------
+kill_by_patterns() {
+  local label="$1"
+  shift
+  local patterns=("$@")
+
+  for pattern in "${patterns[@]}"; do
+    PIDS=$(pgrep -f "$pattern" 2>/dev/null || true)
+
+    while read -r PID; do
+      [ -z "$PID" ] && continue
+      warn "Killing $label PID=$PID"
+      kill -9 "$PID" 2>/dev/null || true
+    done <<< "$PIDS"
+  done
+}
+
 stop_local() {
-  echo "🛑 Stopping Appium (LOCAL mode)..."
+  log "Stopping LOCAL..."
 
-  stop_pid_file "$APPIUM_PIDS_FILE" "Appium Server"
+  stop_pid_file "$APPIUM_PIDS_FILE" "Appium"
 
-  [ -f "$PORT_MAP_FILE" ] && rm -f "$PORT_MAP_FILE" && echo "🧹 Port map cleared"
+  kill_by_patterns "Appium" "appium" "node.*appium"
+  kill_by_patterns "iOS" "WebDriverAgentRunner" "xctest"
+  kill_by_patterns "Emulator" "emulator.*-avd"
 
-  # iOS leftovers
-  pgrep -f "WebDriverAgentRunner|xctest" 2>/dev/null | while read -r PID; do
-    echo "🛑 Killing leftover WDA/XCTest PID=$PID"
-    kill -9 "$PID" 2>/dev/null || true
-  done
-
-  # Android leftovers
-  pgrep -f "emulator" 2>/dev/null | while read -r PID; do
-    echo "🛑 Killing emulator PID=$PID"
-    kill -9 "$PID" 2>/dev/null || true
-  done
+  rm -f "$PORT_MAP_FILE" 2>/dev/null || true
 
   adb kill-server >/dev/null 2>&1 || true
 
-  echo "🎉 Local cleanup finished."
+  ok "Local cleanup done"
 }
 
-# ==============================
-# Grid Cleanup
-# ==============================
 stop_grid() {
-  echo "🛑 Stopping Selenium Grid + Appium..."
+  log "Stopping GRID..."
 
-  stop_pid_file "$HUB_PID_FILE" "Selenium Grid Hub"
-  stop_pid_file "$NODE_PIDS_FILE" "Selenium Grid Node"
-  stop_pid_file "$APPIUM_PIDS_FILE" "Appium Server"
+  stop_pid_file "$HUB_PID_FILE" "Hub"
+  stop_pid_file "$NODE_PIDS_FILE" "Node"
+  stop_pid_file "$APPIUM_PIDS_FILE" "Appium"
 
-  stop_by_pattern "appium --" "Appium"
-  stop_by_pattern "selenium-server" "Selenium"
+  kill_by_patterns "Appium" "appium" "node.*appium"
+  kill_by_patterns "Selenium" "selenium-server"
 
-  rm -f "$RUNTIME_DIR/grid.lock" "$RUNTIME_DIR/cleanup.counter" 2>/dev/null || true
+  rm -f "$RUNTIME_DIR/grid.lock" 2>/dev/null || true
 
   adb kill-server >/dev/null 2>&1 || true
 
-  echo "🎉 Grid cleanup finished."
+  ok "Grid cleanup done"
 }
 
-# ==============================
+# ---------------------------------------------------------
 # Dispatcher
-# ==============================
+# ---------------------------------------------------------
 if [ "$GRID_MODE" = "true" ]; then
   stop_grid
 else
   stop_local
 fi
 
-# ==============================
-# Final cleanup
-# ==============================
+# ---------------------------------------------------------
+# Final cleanup (NEVER FAIL)
+# ---------------------------------------------------------
 rm -f "$RUNTIME_DIR"/*.pids \
       "$RUNTIME_DIR"/hub.pid \
       "$RUNTIME_DIR"/appium_ports.properties 2>/dev/null || true
 
-echo "✅ Stop-All completed successfully."
+ok "Stop-All completed"
 exit 0

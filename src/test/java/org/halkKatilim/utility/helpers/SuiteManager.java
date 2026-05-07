@@ -2,8 +2,6 @@ package org.halkKatilim.utility.helpers;
 
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.Platform;
-import org.halkKatilim.constant.Config;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;

@@ -3,7 +3,6 @@ package org.halkKatilim.pages.settingsPage;
 import lombok.extern.slf4j.Slf4j;
 import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.Platform;
-import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.utility.Driver;
 import org.openqa.selenium.WebElement;
 import java.util.Arrays;
@@ -12,12 +11,16 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 import static org.halkKatilim.pages.settingsPage.SettingsPageText.*;
 import static org.testng.Assert.assertTrue;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
 @Slf4j
-public class SettingsPages extends BasePages {
+@RequiredArgsConstructor
+public class SettingsPages  {
+    private final AppiumUtil appiumUtil;
 
     protected void clickSequence(String... keys) {
-        Arrays.stream(keys).forEach(appiumUtil::clickElement);
+        Arrays.stream(keys).forEach(key -> appiumUtil.clickElement(key));
     }
 
     protected void runByPlatform(Runnable android, Runnable ios) {
@@ -29,7 +32,7 @@ public class SettingsPages extends BasePages {
 
     protected void clickFirstAvailable(String... keys) {
         Arrays.stream(keys)
-                .map(appiumUtil::findElementSilent)
+                .map(key -> appiumUtil.findElementSilent(key))
                 .filter(Objects::nonNull)
                 .findFirst()
                 .ifPresent(WebElement::click);
@@ -91,7 +94,7 @@ public class SettingsPages extends BasePages {
     public void successSwitchToPermission() {
         appiumUtil.waitBySecond(1);
         List<WebElement> elements = appiumUtil.findElementsSilent("settingsSuccessSwitchPermission");
-        hardAssertion.hardAssertNotEmpty(elements, "❌ Permission elementi bulunamadı.");
+        appiumUtil.getAssertion().hardAssertNotEmpty(elements, "❌ Permission elementi bulunamadı.");
     }
 
     public void successMessageIsDisplayed() {
@@ -200,7 +203,7 @@ public class SettingsPages extends BasePages {
     private void updateEmailIOS() {
         appiumUtil.clickElement("settingsEmailButtonUpdate")
                 .clickElement("settingsEditButton")
-                .clearAndFillInput("settingsEditMailText", appiumUtil.generateNumber(4) + EMAIL_DATA)
+                .fillInputKeyboard("settingsEditMailText", appiumUtil.generateNumber(4) + EMAIL_DATA, false, false)
                 .clickElement("settingsApproveConfirmationButton");
     }
 

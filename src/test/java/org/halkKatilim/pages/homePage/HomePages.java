@@ -1,19 +1,19 @@
 package org.halkKatilim.pages.homePage;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.halkKatilim.enums.TextSource;
-import org.halkKatilim.pages.BasePages;
-
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 import static org.halkKatilim.pages.homePage.HomePageText.*;
-import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ACCOUNTS;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.LAST_TRANSACTIONS_SLIP;
-import static org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix.HOMEPAGE;
 
 @Slf4j
-public class HomePages extends BasePages {
+@RequiredArgsConstructor
+public class HomePages {
+    private final AppiumUtil appiumUtil;
 
     public void navigateToHomePageOption(String option) {
-        appiumUtil.navigate(option, "pageTitleHomepage", null, HOMEPAGE);
+        appiumUtil.navigate(option, "pageTitleHomepage");
         log.info(LOG_HOMEPAGE_NAVIGATE_OPTION, option);
     }
 

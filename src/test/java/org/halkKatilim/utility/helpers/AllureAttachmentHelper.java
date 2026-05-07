@@ -8,7 +8,6 @@ import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.deviceConfig.DeviceSpec;
 import org.halkKatilim.enums.Language;
 import static org.halkKatilim.constant.Config.ENABLE_REPORTING;
-
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;

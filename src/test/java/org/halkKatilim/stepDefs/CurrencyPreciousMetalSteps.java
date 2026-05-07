@@ -1,92 +1,88 @@
 package org.halkKatilim.stepDefs;
 
+import org.halkKatilim.utility.context.PageContext;
+import org.halkKatilim.pages.currencyPreciousMetal.CurrencyPreciousMetalPages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.halkKatilim.pages.Pages;
-
 import static org.halkKatilim.enums.TradeConfig.*;
 
 public class CurrencyPreciousMetalSteps {
 
-    Pages pages = new Pages();
-
-    // ---------------- ACTIONS ----------------
+    private CurrencyPreciousMetalPages currencyPreciousMetalPages() {
+        return PageContext.get().get(CurrencyPreciousMetalPages.class);
+    }
 
     @When("Click {string} sell button")
     public void clickSellButton(String currencyAction) {
-        pages.getCurrencyPreciousMetalPages().clickSellButton(currencyAction);
+        currencyPreciousMetalPages().clickSellButton(currencyAction);
     }
 
     @When("Click sell button")
     public void clickSellButton() {
-        pages.getCurrencyPreciousMetalPages().clickSellButton();
+        currencyPreciousMetalPages().clickSellButton();
     }
 
     @When("Click {string} buy button")
     public void clickBuyButton(String currencyAction) {
-        pages.getCurrencyPreciousMetalPages().clickBuyButton(currencyAction);
+        currencyPreciousMetalPages().clickBuyButton(currencyAction);
     }
 
     @When("Click buy button")
     public void clickBuyButton() {
-        pages.getCurrencyPreciousMetalPages().clickBuyButton();
+        currencyPreciousMetalPages().clickBuyButton();
     }
 
     @And("Click approve button")
     public void clickApproveButton() {
-        pages.getCurrencyPreciousMetalPages().clickApproveButton();
+        currencyPreciousMetalPages().clickApproveButton();
     }
 
     @When("Click the EUR Sell button for the {string} currency pair")
     public void clickTheEURSellButton(String currency) {
-        pages.getCurrencyPreciousMetalPages().clickTheEURSellButtonForTheEURUSDCurrencyPair();
+        currencyPreciousMetalPages().clickTheEURSellButtonForTheEURUSDCurrencyPair();
     }
 
     @When("Click the EUR Buy button for the {string} currency pair")
     public void clickTheEURBuyButton(String currency) {
-        pages.getCurrencyPreciousMetalPages().clickTheEURBuyButtonForTheCurrencyPair();
+        currencyPreciousMetalPages().clickTheEURBuyButtonForTheCurrencyPair();
     }
 
     // ---------------- INPUT ----------------
 
     @And("Enter amount for {string}")
-    public void enterAmountFor(String currency) {
-        pages.getCurrencyPreciousMetalPages().enterCurrencyAmount(currency);
+    public void enterAmountFor(String type) {
+        currencyPreciousMetalPages().enterCurrencyAmount(InputType.valueOf(type.toUpperCase()));
     }
 
     @And("Enter TL amount")
     public void enterTLAmount() {
-        pages.getCurrencyPreciousMetalPages().enterTLAmount();
+        currencyPreciousMetalPages().enterTLAmount();
     }
 
-    // ---------------- VERIFY (ENGINE MAPPING) ----------------
+    // ---------------- VERIFY ----------------
 
-    // SELL + FOREIGN
     @Then("Verify the {string} equivalent amount is correct")
     public void verifySellForeign(String currency) {
-        pages.getCurrencyPreciousMetalPages()
+        currencyPreciousMetalPages()
                 .verifyExchange(TradeType.SELL, InputType.FOREIGN, mapCurrency(currency), false);
     }
 
-    // SELL + TL
     @Then("Verify the TL equivalent amount is correct for {string}")
     public void verifySellTl(String currency) {
-        pages.getCurrencyPreciousMetalPages()
+        currencyPreciousMetalPages()
                 .verifyExchange(TradeType.SELL, InputType.TL, mapCurrency(currency), false);
     }
 
-    // BUY + FOREIGN
     @Then("Verify the {string} equivalent amount is correct for buy")
     public void verifyBuyForeign(String currency) {
-        pages.getCurrencyPreciousMetalPages()
+        currencyPreciousMetalPages()
                 .verifyExchange(TradeType.BUY, InputType.FOREIGN, mapCurrency(currency), true);
     }
 
-    // BUY + TL  🔥 (en kritik case)
     @Then("Verify the TL equivalent buy amount is correct for {string}")
     public void verifyBuyTl(String currency) {
-        pages.getCurrencyPreciousMetalPages()
+        currencyPreciousMetalPages()
                 .verifyExchange(TradeType.BUY, InputType.TL, mapCurrency(currency), false);
     }
 
@@ -94,7 +90,7 @@ public class CurrencyPreciousMetalSteps {
 
     @Then("Verify currency transaction success message is displayed")
     public void verifyCurrencyTransactionSuccessMessageIsDisplayed() {
-        pages.getCurrencyPreciousMetalPages().verifyCurrencyTransactionSuccessMessageIsDisplayed();
+        currencyPreciousMetalPages().verifyCurrencyTransactionSuccessMessageIsDisplayed();
     }
 
     // ---------------- MAPPER ----------------

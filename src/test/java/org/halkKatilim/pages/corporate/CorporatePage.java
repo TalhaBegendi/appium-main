@@ -1,6 +1,6 @@
 package org.halkKatilim.pages.corporate;
+import org.halkKatilim.utility.assertionUtil.types.HardAssertion;
 
-import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountIBANPages;
 import org.openqa.selenium.WebElement;
 
@@ -9,12 +9,17 @@ import java.util.Arrays;
 import static org.halkKatilim.pages.corporate.CorporatePageText.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
 
-public class CorporatePage extends BasePages {
+@RequiredArgsConstructor
+public class CorporatePage  {
 
-    ToAnotherAccountIBANPages toAnotherAccountIBANPages = new ToAnotherAccountIBANPages();
-    private IbanTransactionData expectedIbanTransferData;
+    private final AppiumUtil appiumUtil;
+
+    ToAnotherAccountIBANPages toAnotherAccountIBANPages;
+    IbanTransactionData expectedIbanTransferData;
 
     public void enterIbanTransferDetailsToSendApprovalForToday(String customerType) {
 
@@ -73,7 +78,7 @@ public class CorporatePage extends BasePages {
     public void rejectTheTransactionSentForApproval() {
         appiumUtil.clickElement("firstTransactionItem")
                 .clickElement("transactionRejectButton")
-                .clearAndFillInput("transactionRejectDescriptionField",REJECT_DESCRIPTION)
+                .fillInputKeyboard("transactionRejectDescriptionField",REJECT_DESCRIPTION,false,false)
                 .clickElement("transactionRejectDescriptionApproveButton");
     }
 

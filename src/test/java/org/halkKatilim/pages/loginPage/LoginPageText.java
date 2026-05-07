@@ -2,6 +2,7 @@ package org.halkKatilim.pages.loginPage;
 
 final class LoginPageText {
 
+
     static final String LOG_LOGIN_START = "Login started. UserType: {}, CustomerKey: {}, Language: {}";
     static final String LOG_LOGIN_RETAIL_FLOW = "Filling retail login credentials for: {}";
     static final String LOG_LOGIN_CORPORATE_FLOW = "Filling corporate login credentials for: {}";

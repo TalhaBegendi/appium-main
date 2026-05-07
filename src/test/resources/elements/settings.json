@@ -1,21 +1,21 @@
 [
   {
     "key": "settingsLanguageList",
-    "androidValue": "//android.widget.FrameLayout[@resource-id=\"com.halkbank.mobil.dev:id/layoutContent\"]/android.view.ViewGroup/android.widget.TextView",
+    "androidValue": "//android.widget.FrameLayout[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/layoutContent\"]/android.view.ViewGroup/android.widget.TextView",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeStaticText[@name=\"BSummaryComponent_BLabel\"]",
     "iosType": "xpath"
   },
   {
     "key": "settingsSelectLanguageSuccessMessage",
-    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/tvTitle\"]",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/tvTitle\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeStaticText[@name=\"My Accounts\"]",
     "iosType": "xpath"
   },
   {
     "key": "settingsInformationSharingSwitchFirst",
-    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkbank.mobil.dev:id/itemSwitch\"]",
+    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/itemSwitch\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent\"]",
     "iosType": "xpath"
@@ -50,7 +50,7 @@
   },
   {
     "key": "settingsPageTitle",
-    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/toolbarTitle\"]",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/toolbarTitle\"]",
     "androidType": "xpath",
     "iosValue": "(//XCUIElementTypeNavigationBar//XCUIElementTypeStaticText)[1]",
     "iosType": "xpath"
@@ -64,7 +64,7 @@
   },
   {
     "key": "settingsClickSwitchPermission",
-    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkbank.mobil.dev:id/switchIBranchPermissionItem\"]",
+    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/switchIBranchPermissionItem\"]",
     "androidType": "xpath",
     "iosValue": "  //XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent_pushActiveComponent\"]\n",
     "iosType": "xpath"
@@ -72,21 +72,21 @@
 
   {
     "key": "settingsSwitchChannelActiveManagement",
-    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkbank.mobil.dev:id/switchIBranchPermissionItem\"]",
+    "androidValue": "//android.widget.Switch[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/switchIBranchPermissionItem\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeButton[@name=\"BSwitchComponent_BSSwitch_BSwitchComponent_permissionSwitch\"]",
     "iosType": "xpath"
   },
   {
     "key": "settingsButtonAccountItem",
-    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkbank.mobil.dev:id/radioButtonAccountItem\"]",
+    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/radioButtonAccountItem\"]",
     "androidType": "xpath",
     "iosValue": "(//XCUIElementTypeStaticText)[1]",
     "iosType": "xpath"
   },
   {
     "key": "settingsButtonPaymentItem",
-    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkbank.mobil.dev:id/radioButtonPaymentItem\"]",
+    "androidValue": "//android.widget.RadioButton[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/radioButtonPaymentItem\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeButton[@name=\"iOS RadioButtonPassive\"]",
     "iosType": "xpath"
@@ -107,42 +107,42 @@
   },
   {
     "key": "settingsPhoneButtonUpdate",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonPhoneUpdate\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonPhoneUpdate\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeCell[@name=\"BOtherAppsComponent_telephoneComp\"]/XCUIElementTypeButton",
     "iosType": "xpath"
   },
   {
     "key": "settingsEmailButtonUpdate",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonEmailUpdate\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonEmailUpdate\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeCell[@name=\"BOtherAppsComponent_eMailComp\"]/XCUIElementTypeButton",
     "iosType": "xpath"
   },
   {
     "key": "settingsContinueButton",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/button\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/button\"]",
     "androidType": "xpath",
     "iosValue": "(//XCUIElementTypeStaticText)[1]",
     "iosType": "xpath"
   },
   {
     "key": "settingsSuccessPageMessage",
-    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView\"]",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/textView\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeCell[@name=\"BInformationImageComponent\"]",
     "iosType": "xpath"
   },
   {
     "key": "settingsApproveConfirmationButton",
-    "androidValue": " //android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApprove\"]",
+    "androidValue": " //android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonApprove\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeButton[@name=\"BBarButton_Done\"]",
     "iosType": "xpath"
   },
   {
     "key": "settingsAddressButtonUpdate",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonAddressUpdate\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonAddressUpdate\"]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeCell[@name=\"BOtherAppsComponent_addressComp\"]/XCUIElementTypeButton",
     "iosType": "xpath"
@@ -156,14 +156,14 @@
   },
   {
     "key": "settingsMyEmploymentDetails",
-    "androidValue": "(//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonImageViewEndIcon\"])[1]",
+    "androidValue": "(//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonImageViewEndIcon\"])[1]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeCell[@name=\"BTitleComponent_occupationComp\"]",
     "iosType": "xpath"
   },
   {
     "key": "settingsPlannedMonthlyTransactions",
-    "androidValue": "(//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonImageViewEndIcon\"])[2]",
+    "androidValue": "(//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonImageViewEndIcon\"])[2]",
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeStaticText[@name=\"BTitleComponent_PlannedMonthlyOperations\"]",
     "iosType": "xpath"

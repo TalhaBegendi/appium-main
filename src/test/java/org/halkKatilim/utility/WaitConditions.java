@@ -1,12 +1,11 @@
 package org.halkKatilim.utility;
 
+import org.halkKatilim.utility.context.ExecutionContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-
 import static org.halkKatilim.constant.Config.DEFAULT_WAIT;
 
 
@@ -14,7 +13,7 @@ public interface WaitConditions {
 
 
     static WebDriverWait getWebDriverWait(int time) {
-        return new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time));
+        return new WebDriverWait(ExecutionContext.getDriver(), Duration.ofSeconds(time));
     }
     private void waitUntil(Runnable waitRunnable) {
         try {

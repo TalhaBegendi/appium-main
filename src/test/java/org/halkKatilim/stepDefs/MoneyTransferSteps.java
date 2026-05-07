@@ -1,138 +1,141 @@
 package org.halkKatilim.stepDefs;
 
+import org.halkKatilim.utility.context.PageContext;
+import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountAccountPages;
+import org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountIBANPages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.halkKatilim.enums.ContinueButtonVariant;
-import org.halkKatilim.pages.Pages;
 
 public class MoneyTransferSteps {
 
-    Pages pages = new Pages();
+    private ToAnotherAccountIBANPages ibanPage() {
+        return PageContext.get().get(ToAnotherAccountIBANPages.class);
+    }
+
+    private ToAnotherAccountAccountPages accountPage() {
+        return PageContext.get().get(ToAnotherAccountAccountPages.class);
+    }
 
     @When("Click the make from saved transactions button")
     public void clickMakeFromSavedTransactionsButton() {
-        pages.getToAnotherAccountIbanPage().clickMakeFromSavedTransaction();
+        ibanPage().clickMakeFromSavedTransaction();
     }
 
     @And("Selects one of the saved transactions from the list")
     public void selectRandomSavedTransaction() {
-        pages.getToAnotherAccountIbanPage().selectRandomSavedTransaction();
-
+        ibanPage().selectRandomSavedTransaction();
     }
 
     @Then("The selected transaction details should be displayed correctly")
     public void verifyTransactionDetailsVisible() {
-        pages.getToAnotherAccountIbanPage().verifyTransactionDetailsVisible();
+        ibanPage().verifyTransactionDetailsVisible();
     }
-
 
     @When("Click continue button on the Another Account page")
     public void clickContinueButton() {
-        pages.getToAnotherAccountIbanPage().clickContinueButton(ContinueButtonVariant.DEFAULT);
+        ibanPage().clickContinueButton(ContinueButtonVariant.DEFAULT,false);
     }
 
     @When("Click money transfer case continue button on the Another Account page")
     public void clickTestContinueButton() {
-        pages.getToAnotherAccountIbanPage().clickContinueButton(ContinueButtonVariant.IOS_RETAIL_TEST);
+        ibanPage().clickContinueButton(ContinueButtonVariant.IOS_RETAIL_TEST,true);
     }
 
     @When("Enter {string} customer transaction details for today")
     public void enterCustomerTransactionDetailsForToday(String customerType) {
-        pages.getToAnotherAccountIbanPage().enterTransactionDetailsForToday(customerType);
+        ibanPage().enterTransactionDetailsForToday(customerType);
     }
 
     @Then("The transaction details should be displayed correctly on the Verification page")
     public void verifyOnVerificationPage() {
-        pages.getToAnotherAccountIbanPage().verifyTransactionDetailsOnTheConfirmationPage();
+        ibanPage().verifyTransactionDetailsOnTheConfirmationPage();
     }
 
     @When("Click confirm button on confirmation page")
     public void clickConfirmButton() {
-        pages.getToAnotherAccountIbanPage().clickConfirmButton();
+        ibanPage().clickConfirmButton();
     }
 
     @And("Enter the OTP code")
     public void enterOtpCode() {
-        pages.getToAnotherAccountIbanPage().confirmWithOtp();
+        ibanPage().confirmWithOtp();
     }
 
     @Then("The transaction should be completed successfully")
     public void verifyTransactionSuccess() {
-        pages.getToAnotherAccountIbanPage().verifyTransactionSuccess();
+        ibanPage().verifyTransactionSuccess();
     }
 
     @Then("The transaction should be for forward date completed successfully")
     public void verifyTransactionSuccessForwardDate() {
-        pages.getToAnotherAccountIbanPage().verifyTransactionSuccessForwardDate();
+        ibanPage().verifyTransactionSuccessForwardDate();
     }
 
     @Then("The transaction should be successfully sent for approval")
     public void verifyTransactionSentForApproval() {
-        pages.getToAnotherAccountIbanPage().verifyTransactionSentForApproval();
+        ibanPage().verifyTransactionSentForApproval();
     }
 
     @Then("The transaction should be successfully sent for approval and Account")
     public void verifyTransactionSentForApprovalAndAccount() {
-        pages.getToAnotherAccountAccountPage().verifyTransactionSentForApprovalTypeAccount();
+        accountPage().verifyTransactionSentForApprovalTypeAccount();
     }
 
     @When("Enter {string} customer transaction details with different currency for today")
     public void enterCustomerTransactionDetailsWithDifferentCurrencyForToday(String customerType) {
-        pages.getToAnotherAccountIbanPage().enterCustomerTransactionDetailsWithDifferentCurrencyForToday(customerType);
+        ibanPage().enterCustomerTransactionDetailsWithDifferentCurrencyForToday(customerType);
     }
 
     @Then("The different currency error message should be displayed")
     public void theDifferentCurrencyErrorMessageShouldBeDisplayed() {
-        pages.getToAnotherAccountIbanPage().theDifferentCurrencyErrorMessageShouldBeDisplayed();
+        ibanPage().theDifferentCurrencyErrorMessageShouldBeDisplayed();
     }
 
     @Given("Enter {string} transaction details to account for today")
     public void enterTransactionDetailsToAccountForToday(String customerType) {
-        pages.getToAnotherAccountAccountPage().enterTransactionDetailsToAccountForToday(customerType);
+        accountPage().enterTransactionDetailsToAccountForToday(customerType);
     }
-
 
     @When("Enter {string} customer transaction details for {string} days later")
     public void enterCustomerTransactionDetailsForDaysLater(String customerType, String nextDay) {
-        pages.getToAnotherAccountIbanPage().enterCustomerTransactionDetailsForDaysLater(customerType,nextDay);
+        ibanPage().enterCustomerTransactionDetailsForDaysLater(customerType, nextDay);
     }
 
     @And("Enter transaction amount as {string} TL and description")
     public void enterTransactionAmountAsAndDescription(String amount) {
-        pages.getToAnotherAccountIbanPage().enterTransactionAmountAndDescription(amount);
+        ibanPage().enterTransactionAmountAndDescription(amount);
     }
 
     @When("Enter fund transaction details for today")
     public void enterFundTransactionDetailsForToday() {
-        pages.getToAnotherAccountIbanPage().enterFundTransactionDetailsForToday();
+        ibanPage().enterFundTransactionDetailsForToday();
     }
 
     @When("Enter fund transaction details to account for today")
     public void enterFundTransactionDetailsToAccountForToday() {
-        pages.getToAnotherAccountIbanPage().enterFundTransactionDetailsToAccountForToday();
+        ibanPage().enterFundTransactionDetailsToAccountForToday();
     }
 
     @When("Enter {string} customer to account transaction details for {string} days later")
     public void enterCustomerToAccountTransactionDetailsForDaysLater(String customerType, String nextDay) {
-        pages.getToAnotherAccountAccountPage().enterTransactionDetailsForToday(customerType,nextDay);
-
+        accountPage().enterTransactionDetailsForToday(customerType, nextDay);
     }
 
     @Then("Verify fund warning error should be displayed")
     public void verifyFundWarningErrorShouldBeDisplayed() {
-        pages.getToAnotherAccountIbanPage().verifyFundWarningErrorAsIsDisplayed();
-
+        ibanPage().verifyFundWarningErrorAsIsDisplayed();
     }
 
     @And("Click account tab")
     public void clickAccountTab() {
-        pages.getToAnotherAccountAccountPage().clickAccountTab();
+        accountPage().clickAccountTab();
     }
 
     @When("Click close message button")
     public void clickCloseMessageButton() {
-        pages.getToAnotherAccountIbanPage().clickCloseMessageButton();
+        ibanPage().clickCloseMessageButton();
     }
 }

@@ -3,7 +3,7 @@ Feature: Money Transfer flows language Turkish
 
   Background:
     Given Login as "CORPORATE" customer "STANDARD_USER" using "ENGLISH" language
-    When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > IBAN" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    When Go to "Money Transfer > To Another Account (Wire Transfer / EFT / FAST) > IBAN" from Menu
 
   Scenario: Sending a Same-Day IBAN Transfer for Approval Using a Saved Transaction
     When Click the make from saved transactions button

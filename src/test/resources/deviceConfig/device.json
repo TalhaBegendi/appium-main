@@ -13,6 +13,9 @@
   },
 
   "groups": {
-    "mix1": ["pixel7", "16e"]
+    "mix1": ["pixel7", "16e"],
+    "mix2": ["pixel7", "13mini"],
+    "mix3": ["a34", "16e"],
+    "mix4": ["a34", "13mini"]
   }
 }

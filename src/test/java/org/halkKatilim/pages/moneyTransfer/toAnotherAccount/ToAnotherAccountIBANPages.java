@@ -4,31 +4,30 @@ import lombok.extern.slf4j.Slf4j;
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.*;
 import org.halkKatilim.interfaces.CustomerCapable;
-import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.testData.corporate.moneyTransfer.iban.IbanCustomerTransactionData;
 import org.halkKatilim.testData.corporate.moneyTransfer.iban.IbanSavedTransactionDetails;
 import org.halkKatilim.testData.corporate.moneyTransfer.iban.TransactionDetailsWithSenderInfo;
 import org.halkKatilim.testData.corporate.moneyTransfer.TransactionDetailsWithoutReceiverAndSender;
 import org.halkKatilim.utility.Driver;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
-
-import static org.halkKatilim.enums.Platform.ANDROID;
 import static org.halkKatilim.enums.Platform.IOS;
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.debug;
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
 @Slf4j
-public final class ToAnotherAccountIBANPages extends BasePages {
+@RequiredArgsConstructor
+public final class ToAnotherAccountIBANPages {
+
+    private final AppiumUtil appiumUtil;
 
     IbanSavedTransactionDetails ibanSavedTransactionDetails;
     TransactionDetailsWithSenderInfo ibanPageTransactionDetailsWithSenderInfo;
@@ -65,7 +64,7 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
 
-    public void clickContinueButton(ContinueButtonVariant variant) {
+    public void clickContinueButton(ContinueButtonVariant variant, boolean handleNavigationGates) {
         Platform platform = Driver.getPlatformForThread();
         boolean isRetail = DeviceContext.getCurrentUserType() == UserType.RETAIL;
         String buttonKey = switch (platform) {
@@ -73,12 +72,15 @@ public final class ToAnotherAccountIBANPages extends BasePages {
             case IOS -> switch (variant) {
                 case IOS_RETAIL_TEST -> "moneyTransferContinueButtoniOSRetailFutureDated";
                 case DEFAULT -> isRetail
-                                ? "moneyTransferContinueButtoniOSRetail"
-                                : "moneyTransferContinueButtoniOS";
+                        ? "moneyTransferContinueButtoniOSRetail"
+                        : "moneyTransferContinueButtoniOS";
             };
         };
 
-        appiumUtil.clickElementWithScroll(buttonKey);
+        var action = appiumUtil.clickElementWithScroll(buttonKey);
+        if (handleNavigationGates) {
+            action.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER_DIFFERENT_IBAN);
+        }
 
         if (platform == Platform.ANDROID) {
             appiumUtil.autoHandleNavigationGates(
@@ -194,7 +196,7 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         CustomerCapable customer = DeviceContext.getCustomer(DeviceContext.getCurrentUserType());
         appiumUtil
                 .waitUntilElementLoad("inputSmsOtp")
-                .clearAndFillInputWithScroll("inputSmsOtp", customer.getSmsCode())
+                .fillInputKeyboard("inputSmsOtp", customer.getSmsCode(), true, true)
                 .clickElement("smsOtpButtonSendItem");
         givePermissionForSameDayTransaction();
     }
@@ -231,6 +233,7 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         IbanCustomerTransactionData data = getCustomerTransactionData(accountType);
         fillTransactionFields(data);
     }
+
     private IbanCustomerTransactionData getCustomerTransactionData(UserType accountType) {
         return switch (accountType) {
             case RETAIL -> new IbanCustomerTransactionData(
@@ -241,9 +244,9 @@ public final class ToAnotherAccountIBANPages extends BasePages {
     }
 
     private void fillTransactionFields(IbanCustomerTransactionData data) {
-        appiumUtil.clearAndFillInputWithScroll("ibanPageReceiverIbanInputField", data.iban())
-                .clearAndFillInputWithScroll("ibanPageTransactionAmount", data.amount())
-                .clearAndFillInputWithScroll("ibanPageTransactionDescription", data.description());
+        appiumUtil.fillInputKeyboard("ibanPageReceiverIbanInputField", data.iban(), true, true)
+                .fillInputKeyboard("ibanPageTransactionAmount", data.amount(), true, true)
+                .fillInputKeyboard("ibanPageTransactionDescription", data.description(), true, true);
     }
 
     public void verifyTransactionSuccessForwardDate() {
@@ -255,15 +258,15 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         String expectedMessage =
                 isRetail
                         ? (isTurkish
-                        ? (isIOS
-                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL_IOS
-                        : TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL)
-                        : (isIOS
-                        ? ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL_IOS
-                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL))
+                           ? (isIOS
+                              ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL_IOS
+                              : TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL)
+                           : (isIOS
+                              ? ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL_IOS
+                              : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL))
                         : (isTurkish
-                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
-                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
+                           ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
+                           : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
         assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
 
@@ -274,11 +277,11 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         String expectedMessage =
                 isRetail
                         ? (isTurkish
-                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_RETAIL
-                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_RETAIL)
+                           ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_RETAIL
+                           : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_RETAIL)
                         : (isTurkish
-                        ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
-                        : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
+                           ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
+                           : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
         assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
 
@@ -294,11 +297,11 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         String message =
                 isTurkish
                         ? (platform == Platform.ANDROID
-                        ? TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE
-                        : TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS)
+                           ? TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE
+                           : TURKISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS)
                         : (platform == Platform.ANDROID
-                        ? ENGLISH_DIFFERENT_CURRENCY_ERROR_MESSAGE
-                        : ENGLISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS);
+                           ? ENGLISH_DIFFERENT_CURRENCY_ERROR_MESSAGE
+                           : ENGLISH_DIFFERENT_CURRENCY_ERROR_MESSAGE_IOS);
         assertEquals(message, appiumUtil.findElementSilent("differentCurrencyErrorMessage").getText());
     }
 
@@ -417,8 +420,8 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         if (platform == Platform.IOS) {
             appiumUtil.waitUntilElementLoad("ibanPageTransactionAmount");
         }
-        appiumUtil.clearAndFillInputWithScroll("ibanPageTransactionAmount", amount)
-                .clearAndFillInputWithScroll("ibanPageTransactionDescription", TRANSACTION_DESCRIPTION);
+        appiumUtil.fillInputKeyboard("ibanPageTransactionAmount", amount, true, true)
+                .fillInputKeyboard("ibanPageTransactionDescription", TRANSACTION_DESCRIPTION, true, true);
     }
 
     public void enterFundTransactionDetailsForToday() {
@@ -426,12 +429,8 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         String ibanValue = isRetail
                 ? RETAIL_FUND_CUSTOMER_RECEIVER_IBAN
                 : CORPORATE_FUND_CUSTOMER_RECEIVER_IBAN;
-        Platform platform = Driver.getPlatformForThread();
-        BiConsumer<String, String> fillAction =
-                (platform == Platform.ANDROID)
-                        ? appiumUtil::clearAndFillInput
-                        : appiumUtil::clearAndFillInputWithScroll;
-        fillAction.accept("ibanPageReceiverIbanInputField", ibanValue);
+        boolean isIOS = Driver.getPlatformForThread() == Platform.IOS;
+        appiumUtil.fillInputKeyboard("ibanPageReceiverIbanInputField", ibanValue, isIOS, isIOS);
     }
 
     public void verifyFundWarningErrorAsIsDisplayed() {
@@ -440,16 +439,16 @@ public final class ToAnotherAccountIBANPages extends BasePages {
         String errorMessage =
                 isTurkish
                         ? (platform == Platform.ANDROID
-                        ? TURKISH_FUND_WARNING_ERROR_MESSAGE
-                        : TURKISH_FUND_WARNING_ERROR_MESSAGE_IOS)
+                           ? TURKISH_FUND_WARNING_ERROR_MESSAGE
+                           : TURKISH_FUND_WARNING_ERROR_MESSAGE_IOS)
                         : (platform == Platform.ANDROID
-                        ? ENGLISH_FUND_WARNING_ERROR_MESSAGE
-                        : ENGLISH_FUND_WARNING_ERROR_MESSAGE_IOS);
+                           ? ENGLISH_FUND_WARNING_ERROR_MESSAGE
+                           : ENGLISH_FUND_WARNING_ERROR_MESSAGE_IOS);
         assertEquals(appiumUtil.findElementSilent("moneyTransferFundWarningPopupMessage").getText(), errorMessage);
     }
 
     public void enterFundTransactionDetailsToAccountForToday() {
-        appiumUtil.clearAndFillInputWithScroll("moneyTransferFundWarningPopupMessage", FUND_ACCOUNT_NUMBER);
+        appiumUtil.fillInputKeyboard("moneyTransferFundWarningPopupMessage", FUND_ACCOUNT_NUMBER, true, true);
     }
 
     private void assertElementTextContainsAny(WebElement element, String... expectedParts) {

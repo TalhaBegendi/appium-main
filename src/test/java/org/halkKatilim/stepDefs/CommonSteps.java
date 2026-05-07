@@ -1,13 +1,15 @@
 package org.halkKatilim.stepDefs;
 
 import io.cucumber.java.en.When;
-import org.halkKatilim.pages.BasePages;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
-public class CommonSteps extends BasePages {
+public class CommonSteps {
+
+    private final AppiumUtil appiumUtil = new AppiumUtil();
 
     @When("I enter username {string}")
     public void iEnterUsername(String username) {
-        appiumUtil.clearAndFillInputWithScroll("usernameTxtFld", username);
+        appiumUtil.fillInputKeyboard("usernameTxtFld", username, true, true);
     }
 
     @When("Click element {string}")
@@ -17,7 +19,7 @@ public class CommonSteps extends BasePages {
 
     @When("Fill {string} field with {string}")
     public void clearAndFillInput(String key, String text) {
-        appiumUtil.clearAndFillInputWithScroll(key, text);
+        appiumUtil.fillInputKeyboard(key, text, true, true);
     }
 
     @When("Wait {int} seconds")
@@ -26,8 +28,7 @@ public class CommonSteps extends BasePages {
     }
 
     @When("Click element by {string} with text {string}")
-    public void clickByText(String key,String text) {
+    public void clickByText(String key, String text) {
         appiumUtil.clickByText(key, text);
     }
-
 }

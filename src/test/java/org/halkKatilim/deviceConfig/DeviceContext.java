@@ -63,6 +63,13 @@ public final class DeviceContext {
         return (T) CUSTOMER_CONTEXT.get().get(type);
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T getCurrentCustomer() {
+        UserType type = CURRENT_USER_TYPE.get();
+        if (type == null) throw new IllegalStateException("Current UserType is not set.");
+        return (T) CUSTOMER_CONTEXT.get().get(type);
+    }
+
     public static void clear() {
         DEVICE.remove();
         LANGUAGE.remove();

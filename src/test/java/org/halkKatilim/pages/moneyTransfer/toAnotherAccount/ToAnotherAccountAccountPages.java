@@ -2,16 +2,19 @@ package org.halkKatilim.pages.moneyTransfer.toAnotherAccount;
 
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.enums.Platform;
-import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.utility.Driver;
 import org.openqa.selenium.WebElement;
-
 import static org.halkKatilim.pages.moneyTransfer.toAnotherAccount.ToAnotherAccountText.*;
 import static org.testng.AssertJUnit.assertEquals;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
-public final class ToAnotherAccountAccountPages extends BasePages {
+@RequiredArgsConstructor
+public final class ToAnotherAccountAccountPages {
 
-    ToAnotherAccountIBANPages toAnotherAccountIBANPage = new ToAnotherAccountIBANPages();
+    private final AppiumUtil appiumUtil;
+
+    ToAnotherAccountIBANPages toAnotherAccountIBANPage;
 
     public void enterTransactionDetailsToAccountForToday(String customerType) {
         boolean isCorporate = "CORPORATE".equalsIgnoreCase(customerType);
@@ -25,17 +28,17 @@ public final class ToAnotherAccountAccountPages extends BasePages {
     }
 
     private void fillTransactionForm(String accountNumber, String suffix) {
-        appiumUtil.clearAndFillInputWithScroll("moneyTransferReceiverAccountNumberInputField", accountNumber)
-        .clearAndFillInputWithScroll("moneyTransferReceiverAccountNumberSuffixInputField", suffix)
-        .clearAndFillInputWithScroll("moneyTransferToAccountAmountField", TRANSACTION_AMOUNT)
-        .clearAndFillInputWithScroll("moneyTransferToAccountDescriptionField", TRANSACTION_DESCRIPTION);
+        appiumUtil.fillInputKeyboard("moneyTransferReceiverAccountNumberInputField", accountNumber, true, true)
+        .fillInputKeyboard("moneyTransferReceiverAccountNumberSuffixInputField", suffix, true, true)
+        .fillInputKeyboard("moneyTransferToAccountAmountField", TRANSACTION_AMOUNT, true, true)
+        .fillInputKeyboard("moneyTransferToAccountDescriptionField", TRANSACTION_DESCRIPTION, true, true);
     }
 
     public void enterTransactionDetailsForToday(String customerType, String nextDay) {
-        appiumUtil.clearAndFillInputWithScroll("moneyTransferReceiverAccountNumberInputField", CORPORATE_CUSTOMER_RECEIVER_ACCOUNT_NUMBER)
-        .clearAndFillInputWithScroll("moneyTransferReceiverAccountNumberSuffixInputField", CORPORATE_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX)
-        .clearAndFillInputWithScroll("moneyTransferToAccountAmountField", TRANSACTION_AMOUNT)
-        .clearAndFillInputWithScroll("moneyTransferToAccountDescriptionField", TRANSACTION_DESCRIPTION);
+        appiumUtil.fillInputKeyboard("moneyTransferReceiverAccountNumberInputField", CORPORATE_CUSTOMER_RECEIVER_ACCOUNT_NUMBER, true, true)
+        .fillInputKeyboard("moneyTransferReceiverAccountNumberSuffixInputField", CORPORATE_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX, true, true)
+        .fillInputKeyboard("moneyTransferToAccountAmountField", TRANSACTION_AMOUNT, true, true)
+        .fillInputKeyboard("moneyTransferToAccountDescriptionField", TRANSACTION_DESCRIPTION, true, true);
         WebElement tranDateElement = appiumUtil.findElementSilent("ibanPageTransactionDate");
         toAnotherAccountIBANPage.selectTransactionDate(tranDateElement,nextDay);
         appiumUtil.findElementSilent("moneyTransferDatePickerOkButton").click();

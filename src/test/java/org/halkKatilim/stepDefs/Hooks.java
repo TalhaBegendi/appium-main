@@ -1,76 +1,47 @@
 package org.halkKatilim.stepDefs;
 
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import org.halkKatilim.constant.SelectorType;
+import io.appium.java_client.AppiumDriver;
+import io.cucumber.java.*;
 import org.halkKatilim.deviceConfig.DeviceContext;
 import org.halkKatilim.deviceConfig.DeviceSpec;
-import org.halkKatilim.enums.Platform;
-import org.halkKatilim.pages.BasePages;
-import org.halkKatilim.selector.SelectorFactory;
-import org.halkKatilim.utility.Driver;
-import org.halkKatilim.utility.appiumUtil.AppiumUtil;
-import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
-import org.halkKatilim.utility.assertionUtil.types.HardAssertion;
-import org.halkKatilim.utility.helpers.AllureAttachmentHelper;
-import org.halkKatilim.utility.helpers.AppUtils;
-import org.halkKatilim.utility.helpers.DeviceManager;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.ui.FluentWait;
-
-import java.time.Duration;
-
+import org.halkKatilim.utility.context.ContextLifecycleManager;
+import org.halkKatilim.utility.context.ExecutionContext;
+import org.halkKatilim.utility.helpers.*;
 import static org.halkKatilim.constant.Config.ENABLE_REPORTING;
 import static org.halkKatilim.utility.Driver.quitDriver;
 import static org.halkKatilim.utility.Driver.setUpByConfig;
 
-public class Hooks extends BasePages {
+public class Hooks {
+
     @Before
     public void beforeScenario(Scenario scenario) {
         DeviceSpec device = DeviceContext.get();
         DeviceManager.prepare(device.device(), device.platform());
         setUpByConfig();
-        appiumDriver = Driver.getDriver();
-        AppUtils.ensureAppInstalled(appiumDriver);
-        initSelectorAndWait();
-        appiumUtil = new AppiumUtil();
-        hardAssertion = new HardAssertion(appiumUtil);
-        for (AssertionKey k : AssertionKey.values()) {
-            k.bind(hardAssertion);
-        }
+        AppiumDriver driver = ExecutionContext.getDriver();
+        ContextLifecycleManager.start(driver);
+        AppUtils.ensureAppInstalled(driver);
     }
 
     @AfterStep
     public void afterStep(Scenario scenario) {
         if (ENABLE_REPORTING) {
-            AllureAttachmentHelper.attachAllureHierarchy(scenario);
             AllureAttachmentHelper.attachDeviceMetadata();
+            AllureAttachmentHelper.attachAllureHierarchy(scenario);
             if (scenario.isFailed()) {
-                AllureAttachmentHelper.attachScreenshot(appiumDriver, "Failure Screenshot");
+                AllureAttachmentHelper.attachScreenshot(
+                        ExecutionContext.getDriver(),
+                        "Failure Screenshot"
+                );
             }
         }
     }
 
     @After
     public void afterScenario() {
-        AppUtils.handleTestEndAppTermination(appiumDriver);
+        AppiumDriver driver = ExecutionContext.getDriver();
+        AppUtils.handleTestEndAppTermination(driver);
         quitDriver();
-        DeviceContext.clear();
-    }
-
-    private void initSelectorAndWait() {
-
-        selector = SelectorFactory.createElementHelper(
-                Driver.getPlatformForThread() == Platform.ANDROID
-                        ? SelectorType.ANDROID
-                        : SelectorType.IOS
-        );
-
-        appiumFluentWait = new FluentWait<>(appiumDriver)
-                .withTimeout(Duration.ofSeconds(4))
-                .pollingEvery(Duration.ofMillis(250))
-                .ignoring(NoSuchElementException.class);
+        ContextLifecycleManager.clearAll();
     }
 }

@@ -1,43 +1,102 @@
 package org.halkKatilim.utility.appiumUtil;
 
-
-import lombok.NoArgsConstructor;
+import io.appium.java_client.AppiumDriver;
 import org.halkKatilim.constant.SelectorInfo;
 import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.Platform;
-import org.halkKatilim.enums.SwipeDirection;
 import org.halkKatilim.enums.TextSource;
-import org.halkKatilim.pages.BasePages;
+import org.halkKatilim.selector.Selector;
 import org.halkKatilim.utility.Driver;
-import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
-import org.halkKatilim.utility.assertionUtil.enums.AssertionPrefix;
+import org.halkKatilim.utility.assertionUtil.types.HardAssertion;
+import org.halkKatilim.utility.context.ExecutionContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Pause;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.RemoteWebElement;
-
+import org.openqa.selenium.support.ui.FluentWait;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.ELEMENT_LIST_NOT_FOUND;
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.ELEMENT_NOT_FOUND;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
 
-@NoArgsConstructor
-public class AppiumUtilHelper extends BasePages {
+
+public class AppiumUtilHelper {
+
+    AppiumDriver driver() { return ExecutionContext.getDriver();}
+
+    Selector selector() {
+        return ExecutionContext.getSelector();
+    }
+
+    FluentWait<AppiumDriver> waits() { return ExecutionContext.getFluentWait();}
+
+    HardAssertion getAssertion() {
+        return ExecutionContext.getAssertion();
+    }
+
+    By getElementInfoToBy(String key) {
+        return BY_CACHE.computeIfAbsent(key, k -> selector().getSelectorInfo(k).getBy());
+    }
+
+    public void hideKeyboard(Platform platform) {
+        try {
+            switch (platform) {
+                case ANDROID -> driver().executeScript("mobile: hideKeyboard");
+                case IOS -> driver().executeScript("mobile: tap", Map.of("x", 11, "y", 476));
+            }
+        } catch (Exception e) {
+            debug("⚠️ Keyboard gizlenemedi: " + e.getMessage());
+        }
+    }
+
+    private final Map<String, By> BY_CACHE = new ConcurrentHashMap<>(256);
+
+    static final TextSource[] DEFAULT_TEXT_ORDER = {
+            TextSource.TEXT, TextSource.LABEL, TextSource.NAME, TextSource.CONTENT_DESC
+    };
+
+    String resolveText(WebElement e, TextSource source) {
+        Platform platform = Driver.getPlatformForThread();
+        try {
+            if (platform == Platform.ANDROID) {
+                if (source == TextSource.TEXT) return e.getAttribute("text");
+                if (source == TextSource.CONTENT_DESC) return e.getAttribute("content-desc");
+                return null;
+            } else {
+                if (source == TextSource.LABEL) return e.getAttribute("label");
+                if (source == TextSource.NAME) return e.getAttribute("name");
+                if (source == TextSource.TEXT) return e.getAttribute("value");
+                return null;
+            }
+        } catch (Exception ignored) { return null; }
+    }
+
+    String getElementTextSmart(WebElement e, TextSource... order) {
+        TextSource[] effectiveOrder = (order == null || order.length == 0) ? DEFAULT_TEXT_ORDER : order;
+        return Arrays.stream(effectiveOrder)
+                .map(source -> resolveText(e, source))
+                .filter(value -> value != null && !value.isBlank())
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    List<WebElement> resolveElements(String key) {
+        try {
+            return driver().findElements(getElementInfoToBy(key));
+        } catch (Exception e) {
+            return List.of();
+        }
+    }
+
 
     <T> T handleWait(Supplier<T> action, Predicate<T> validator, String errorMessage) {
         try {
@@ -52,7 +111,7 @@ public class AppiumUtilHelper extends BasePages {
 
     <T> T handleFind(Function<By, T> finder, String key) {
         try {
-            return Optional.ofNullable(selector.getSelectorInfo(key))
+            return Optional.ofNullable(selector().getSelectorInfo(key))
                     .map(SelectorInfo::getBy)
                     .map(finder)
                     .orElseThrow(() -> new NoSuchElementException("⚠️ Element bulunamadı: " + key));
@@ -62,142 +121,50 @@ public class AppiumUtilHelper extends BasePages {
         }
     }
 
-    void scrollDown() {
-        if (Driver.getPlatformForThread() == Platform.ANDROID) {
-            scrollDownAndroid();
-        } else {
-            scrollDownIOS();
-        }
+    public WebElement findElement(By by) {
+        return handleWait(
+                () -> waits().until(d -> {
+                    try {
+                        WebElement el = d.findElement(by);
+                        return el.isDisplayed() ? el : null;
+                    } catch (Exception e) {
+                        return null;
+                    }
+                }),
+                el -> el.isDisplayed() && el.isEnabled(),
+                ELEMENT_NOT_FOUND.formatted(by)
+        );
     }
 
-    private void scrollDownAndroid() {
-        Dimension size = appiumDriver.manage().window().getSize();
-        appiumDriver.executeScript("mobile: scrollGesture", Map.of("left", size.width / 4, "top", size.height / 4, "width", size.width / 2, "height", size.height / 2, "direction", "down", "percent", 0.85));
-    }
-
-    private void scrollDownIOS() {
-        appiumDriver.executeScript("mobile: swipe", Map.of("direction", "up"));
-    }
-
-    void swipeLeftAndroid(WebElement element) {
-        Rectangle r = element.getRect();
-        appiumDriver.executeScript("mobile: swipeGesture", Map.of("left", r.getX(), "top", r.getY(), "width", r.getWidth(), "height", r.getHeight(), "direction", "left", "percent", 0.85));
-    }
-
-    void swipeLeftIOS(WebElement cell) {
-
-        Rectangle rect = cell.getRect();
-
-        int y = rect.y + rect.height / 2;
-        int startX = rect.x + rect.width - 30;
-        int endX = rect.x + 40;
-
-        PointerInput finger =
-                new PointerInput(PointerInput.Kind.TOUCH, "finger");
-
-        Sequence seq = new Sequence(finger, 1);
-
-        // parmak koy
-        seq.addAction(finger.createPointerMove(
-                Duration.ZERO,
-                PointerInput.Origin.viewport(),
-                startX, y));
-
-        seq.addAction(finger.createPointerDown(
-                PointerInput.MouseButton.LEFT.asArg()));
-
-        // 🔥 KRİTİK — hafif bekle
-        seq.addAction(new Pause(finger, Duration.ofMillis(180)));
-
-        // yavaş çek
-        seq.addAction(finger.createPointerMove(
-                Duration.ofMillis(200),
-                PointerInput.Origin.viewport(),
-                endX, y));
-
-        seq.addAction(finger.createPointerUp(
-                PointerInput.MouseButton.LEFT.asArg()));
-
-        appiumDriver.perform(List.of(seq));
-    }
-
-
-    static final TextSource[] DEFAULT_TEXT_ORDER = {TextSource.TEXT, TextSource.LABEL, TextSource.NAME, TextSource.CONTENT_DESC};
-
-    String resolveText(WebElement e, TextSource source) {
+    public List<WebElement> findElements(By by) {
         try {
-            return switch (source) {
-                case TEXT -> e.getAttribute("text");
-                case LABEL -> e.getAttribute("label");
-                case NAME -> e.getAttribute("name");
-                case CONTENT_DESC -> e.getAttribute("content-desc");
-            };
-        } catch (Exception ignored) {
-            return null;
-        }
-    }
-
-    private final Map<String, By> byCache = new ConcurrentHashMap<>(128);
-
-    List<WebElement> resolveElements(String key) {
-        By by = byCache.computeIfAbsent(key, k -> selector.getSelectorInfo(k).getBy());
-        try {
-            return appiumDriver.findElements(by);
+            return driver().findElements(by).stream().limit(20).toList();
         } catch (Exception e) {
             return List.of();
         }
     }
 
-    Optional<WebElement> findMatchingElement(List<WebElement> elements, String expected, TextSource... order) {
-        return elements.stream()
-                .filter(e -> {
-                    String actual = getElementTextSmart(e, order);
-                    return actual != null &&
-                            expected.equalsIgnoreCase(hardAssertion.normalizeText(actual));
-                })
-                .findFirst();
+    WebElement findElementSilent(String key) {
+        By by = selector().getElementInfoToBy(key);
+        List<WebElement> elements = driver().findElements(by);
+        return elements.isEmpty() ? null : elements.getFirst();
     }
 
-    String getLastVisibleText(List<WebElement> elements, TextSource... order) {
-        return IntStream.range(0, elements.size())
-                .mapToObj(i -> elements.get(elements.size() - 1 - i))
-                .map(e -> getElementTextSmart(e, order))
-                .filter(text -> text != null && !text.isBlank())
-                .map(hardAssertion::normalizeText)
-                .findFirst()
-                .orElse(null);
-    }
-
-    String getElementTextSmart(WebElement e, TextSource... order) {
-        TextSource[] effectiveOrder = (order == null || order.length == 0) ? DEFAULT_TEXT_ORDER : order;
-
-        return Arrays.stream(effectiveOrder)
-                .map(source -> resolveText(e, source))
-                .filter(value -> value != null && !value.isBlank())
-                .findFirst()
-                .orElse(null);
-    }
-
-    AssertionKey parseKey(String rawKey) {
-        String key = rawKey.trim();
+    List<WebElement> findElementsSilent(String key) {
         try {
-            return AssertionKey.valueOf(key);
+            return driver().findElements(selector().getElementInfoToBy(key));
         } catch (Exception e) {
-            return null;
-            //throw new IllegalArgumentException("❌ Unknown assertion key: " + key);
+            return List.of();
         }
     }
 
-    boolean hasProgress(Set<String> previous, Set<String> current) {
-        return previous.isEmpty() || !previous.equals(current);
-    }
-
-    Set<String> snapshotOf(List<WebElement> elements, TextSource... order) {
-        return elements.stream()
-                .map(e -> getElementTextSmart(e, order))
-                .filter(Objects::nonNull)
-                .map(hardAssertion::normalizeText)
-                .collect(Collectors.toSet());
+    List<WebElement> safeFindElementsAndWait(String key) {
+        return waits().until(driver -> {
+            List<WebElement> list = handleFind(this::findElements, key);
+            return (list != null && !list.isEmpty())
+                    ? list
+                    : null;
+        });
     }
 
     WebElement pickRandomElement(String key) {
@@ -212,55 +179,123 @@ public class AppiumUtilHelper extends BasePages {
         }
     }
 
-    void navigatePath(List<String> steps, String clickKey, String contextKey, AssertionPrefix prefix) {
-        AtomicBoolean first = new AtomicBoolean(true);
-        steps.forEach(option -> {
-            navigateSingle(clickKey, contextKey, prefix, option, first.getAndSet(false));
-            log("📌", "%s seçildi.", option);
-        });
 
-        log("📌", "Navigasyon tamamlandı: %s", String.join(" -> ", steps));
-        autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
+    <T> T withTempImplicit(Duration tempWait, Supplier<T> action) {
+        Duration original = driver().manage().timeouts().getImplicitWaitTimeout();
+        try {
+            driver().manage().timeouts().implicitlyWait(tempWait);
+            return action.get();
+        } finally {
+            driver().manage().timeouts().implicitlyWait(original);
+        }
+    }
+
+    void withTempImplicit(Duration tempWait, Runnable action) {
+        withTempImplicit(tempWait, () -> { action.run(); return null; });
+    }
+
+    void scrollDown() {
+        if (Driver.getPlatformForThread() == Platform.ANDROID) {
+            scrollDownAndroid();
+        } else {
+            scrollDownIOS();
+        }
+    }
+
+    private void scrollDownAndroid() {
+        Dimension size = driver().manage().window().getSize();
+        driver().executeScript("mobile: scrollGesture", Map.of(
+                "left", size.width / 4,
+                "top", size.height / 4,
+                "width", size.width / 2,
+                "height", size.height / 2,
+                "direction", "down",
+                "percent", 0.85
+        ));
+    }
+
+    private void scrollDownIOS() {
+        driver().executeScript("mobile: swipe", Map.of("direction", "up"));
+    }
+
+    WebElement scrollUntilVisible(String key, int maxScroll) {
+        return IntStream.range(0, maxScroll)
+                .mapToObj(i -> Optional.ofNullable(findElementSilent(key))
+                        .orElseGet(() -> { scrollDown(); return null; }))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    WebElement scrollUntilTextVisible(String key, String targetText, int maxScroll) {
+        return IntStream.range(0, maxScroll)
+                .mapToObj(i -> {
+                    Optional<WebElement> match = findElementsSilent(key).stream()
+                            .filter(e -> targetText.equals(e.getText()))
+                            .findFirst();
+                    if (match.isPresent()) {
+                        try {
+                            if (match.get().isDisplayed()) return match.get();
+                        } catch (Exception ignored) {}
+                    }
+                    scrollDown();
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    void swipeLeftAndroid(WebElement element) {
+        Rectangle r = element.getRect();
+        driver().executeScript("mobile: swipeGesture", Map.of(
+                "left", r.getX(),
+                "top", r.getY(),
+                "width", r.getWidth(),
+                "height", r.getHeight(),
+                "direction", "left",
+                "percent", 0.85
+        ));
+    }
+
+    void swipeLeftIOS(WebElement element) {
+        driver().executeScript("mobile: swipe", Map.of(
+                "element", ((RemoteWebElement) element).getId(),
+                "direction", "left"
+        ));
     }
 
     void autoHandleNavigationGates(NavigationGates.Context context) {
-        EnumSet<NavigationGates.Gate> gates = context.getGates();
-        withTempImplicitWait(Duration.ofMillis(2550), () -> {
-            boolean gateFound = gates.stream()
-                    .map(g -> selector.getElementInfoToBy(g.getKey()))
-                    .filter(Objects::nonNull)
-                    .anyMatch(by -> !appiumDriver.findElements(by).isEmpty());
-
-            if (gateFound) {
-                handleNavigationGates(gates);
-            }
-        });
-    }
-
-    void navigateSingle(String clickKey, String contextKey, AssertionPrefix prefix, String option, boolean doAssert) {
-        performNavigation(clickKey, contextKey, prefix, option, doAssert);
-    }
-
-    void performNavigation(String clickKey, String contextKey, AssertionPrefix prefix, String option, boolean doAssert) {
-        clickByText(clickKey, option);
-        Optional.ofNullable(contextKey)
-                .ifPresent(key -> runContext.setProperty(key, option));
-        if (doAssert) {
-            AssertionKey.resolve(prefix, option).runAssertion();
-        }
-
-        log("🟢", "%s sayfasına başarıyla geçildi.", option);
+        List<NavigationGates.Gate> gates = context.getGates()
+                .stream()
+                .toList();
+        withTempImplicit(Duration.ZERO, () -> {
+            long end = System.currentTimeMillis() + 2550;
+            while (System.currentTimeMillis() < end) {
+                Optional<NavigationGates.Gate> foundGate = gates.stream()
+                        .filter(gate -> {
+                            By by = selector().getElementInfoToBy(gate.getKey());
+                            return by != null && !driver().findElements(by).isEmpty();
+                        })
+                        .findFirst();
+                if (foundGate.isPresent()) {
+                    handleNavigationGates(EnumSet.of(foundGate.get()));
+                    return;
+                }
+                sleep(250);
+            }});
     }
 
     void handleNavigationGates(EnumSet<NavigationGates.Gate> gates) {
-        withTempImplicitWait(Duration.ZERO, () ->
+        withTempImplicit(Duration.ZERO, () ->
                 waitUntilTimeout(3050, () -> tryHandleAnyGate(gates))
         );
     }
 
     private void waitUntilTimeout(long timeoutMs, Supplier<Boolean> action) {
         long end = System.currentTimeMillis() + timeoutMs;
-
         while (System.currentTimeMillis() < end) {
             if (action.get()) return;
             sleep(120);
@@ -272,16 +307,13 @@ public class AppiumUtilHelper extends BasePages {
     }
 
     private boolean tryHandleGate(NavigationGates.Gate gate) {
-
-        return Optional.ofNullable(selector.getElementInfoToBy(gate.getKey()))
+        return Optional.ofNullable(getElementInfoToBy(gate.getKey()))
                 .map(by -> clickIfPresent(by, gate.name()))
                 .orElse(false);
     }
 
-
     private boolean clickIfPresent(By by, String gateName) {
-
-        return appiumDriver.findElements(by).stream()
+        return driver().findElements(by).stream()
                 .findFirst()
                 .map(el -> {
                     el.click();
@@ -299,82 +331,8 @@ public class AppiumUtilHelper extends BasePages {
         }
     }
 
-
-    void withTempImplicitWait(Duration tempWait, Runnable action) {
-        Duration original = appiumDriver.manage().timeouts().getImplicitWaitTimeout();
-        try {
-            appiumDriver.manage().timeouts().implicitlyWait(tempWait);
-            action.run();
-        } finally {
-            appiumDriver.manage().timeouts().implicitlyWait(original);
-        }
-    }
-
-    <T> T withTempImplicitWaitResult(Duration tempWait, Supplier<T> action) {
-        Duration original = appiumDriver.manage().timeouts().getImplicitWaitTimeout();
-        try {
-            appiumDriver.manage().timeouts().implicitlyWait(tempWait);
-            return action.get();
-        } finally {
-            appiumDriver.manage().timeouts().implicitlyWait(original);
-        }
-    }
-
-    WebElement scrollUntilVisible(String key, int maxScroll) {
-        return IntStream.range(0, maxScroll)
-                .mapToObj(i -> Optional.ofNullable(findElementSilent(key))
-                        .orElseGet(() -> {
-                            scrollDown();
-                            return null;
-                        }))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
-    }
-
-    WebElement scrollUntilTextVisible(String key, String targetText, int maxScroll) {
-        return IntStream.range(0, maxScroll)
-                .mapToObj(i -> {
-                    List<WebElement> elements = appiumUtil.safeFindElementsAndWait(key);
-                    Optional<WebElement> match = elements.stream()
-                            .filter(e -> targetText.equals(e.getText()))
-                            .findFirst();
-                    if (match.isPresent()) {
-                        try {
-                            if (match.get().isDisplayed()) {
-                                return match.get();
-                            }
-                        } catch (Exception ignored) {}
-                    }
-                    scrollDown();
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
-    }
-
-    static BigDecimal toBigDecimal(String value) {
-        if (value == null || value.isBlank()) {
-            return BigDecimal.ZERO;
-        }
-        int cutIndex = -1;
-        for (int i = value.length() - 1; i >= 0; i--) {
-            char c = value.charAt(i);
-            if (c == '.' || c == ',') {
-                cutIndex = i;
-                break;
-            }
-        }
-        StringBuilder digits = new StringBuilder();
-        int limit = cutIndex == -1 ? value.length() : cutIndex;
-        for (int i = 0; i < limit; i++) {
-            char c = value.charAt(i);
-            if (c >= '0' && c <= '9') {
-                digits.append(c);
-            }
-        }
-        return digits.isEmpty() ? BigDecimal.ZERO : new BigDecimal(digits.toString());
+    boolean hasProgress(Set<String> previous, Set<String> current) {
+        return previous.isEmpty() || !previous.equals(current);
     }
 
     List<String> parseSteps(String path) {
@@ -383,106 +341,76 @@ public class AppiumUtilHelper extends BasePages {
                 .toList();
     }
 
-    WebElement findElementByKeyWithoutAssert(String key) {
-        SelectorInfo selectorInfo = selector.getSelectorInfo(key);
-        return selectorInfo.getIndex() > 0 ? findElements(selectorInfo.getBy()).get(selectorInfo.getIndex()) : findElement(selectorInfo.getBy());
-    }
-
-    public WebElement findElement(By by) {
-        return handleWait(() -> appiumFluentWait.until(appiumDriver -> {
-            try {
-                WebElement el = appiumDriver.findElement(by);
-                return el.isDisplayed() ? el : null;
-            } catch (Exception e) {
-                return null;
-            }
-        }), el -> el.isDisplayed() && el.isEnabled(), ELEMENT_NOT_FOUND.formatted(by));
-    }
-
-    public List<WebElement> findElements(By by) {
-        try {
-            return appiumDriver.findElements(by).stream().limit(20).toList();
-        } catch (Exception e) {
-            return List.of();
-        }
-    }
-
-    public AssertionKey parseAssertion(String value) {
-        if (value == null || value.isBlank()) throw new IllegalArgumentException("❌ Assertion value cannot be empty");
-        return parseKey(value);
-    }
-
-    public List<AssertionKey> parseAssertions(String value) {
-        if (value == null || value.isBlank()) return List.of();
-        String[] parts = value.split(",");
-        List<AssertionKey> keys = new ArrayList<>(parts.length);
-        for (String part : parts) {
-            keys.add(parseKey(part));
-        }
-        return keys;
-    }
-
-    WebElement findElementSilent(String key) {
-        By by = selector.getElementInfoToBy(key);
-        List<WebElement> elements = appiumDriver.findElements(by);
-        return elements.isEmpty() ? null : elements.getFirst();
-    }
-
-    List<WebElement> findElementsSilent(String key) {
-        try {
-            return appiumDriver.findElements(selector.getElementInfoToBy(key));
-        } catch (Exception e) {
-            return List.of();
-        }
-    }
-
-    List<WebElement> safeFindElementsAndWait(String key) {
-        return handleWait(() -> handleFind(this::findElements, key), list -> list != null
-                && !list.isEmpty(), ELEMENT_LIST_NOT_FOUND.formatted(key));
-    }
 
     void clickByText(String key, String text) {
-        String expected = hardAssertion.normalizeText(text);
+        String expected = getAssertion().normalizeText(text);
         Set<String> previousSnapshot = Set.of();
         String lastEdgeText = null;
         while (true) {
             List<WebElement> elements = resolveElements(key);
+            if (elements.isEmpty()) {
+                logErrorAndFail("❌ Element list empty: " + key);
+                return;
+            }
             Optional<WebElement> match = findMatchingElement(elements, expected);
             if (match.isPresent()) {
                 match.get().click();
                 log("✅ Clicked by text → " + text);
-                break;
+                return;
             }
-            String currentEdgeText = getLastVisibleText(elements);
+            List<String> texts = extractNormalizedTexts(elements);
+            String currentEdgeText = texts.isEmpty()
+                    ? null
+                    : texts.getLast();
             if (Objects.equals(lastEdgeText, currentEdgeText)) {
                 logErrorAndFail("❌ Reached end, text not found: " + text);
-                break;
+                return;
             }
             lastEdgeText = currentEdgeText;
-            Set<String> currentSnapshot = snapshotOf(elements);
+            Set<String> currentSnapshot = new HashSet<>(texts);
             if (!hasProgress(previousSnapshot, currentSnapshot)) {
-                logErrorAndFail("❌ Text not found: " + text);
-                break;
+                logErrorAndFail("❌ Text not found (no progress): " + text);
+                return;
             }
             previousSnapshot = currentSnapshot;
             scrollDown();
         }
     }
 
-    void swipeOnElementAndroid(WebElement element, SwipeDirection direction) {
+    private List<String> extractNormalizedTexts(List<WebElement> elements) {
+        List<String> texts = new ArrayList<>(elements.size());
+        for (WebElement element : elements) {
+            String text = getElementTextSmart(element);
+            if (text == null || text.isBlank()) {
+                continue;
+            }
+            texts.add(getAssertion().normalizeText(text));
+        }
+        return texts;
+    }
 
-        Rectangle r = element.getRect();
+    private Optional<WebElement> findMatchingElement(List<WebElement> elements, String expected) {
+        for (WebElement element : elements) {
+            String text = getElementTextSmart(element);
+            if (text == null || text.isBlank()) {
+                continue;
+            }
+            String normalized = getAssertion().normalizeText(text);
+            if (expected.equals(normalized)) {
+                return Optional.of(element);
+            }
+        }
+        return Optional.empty();
+    }
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("left", r.getX());
-        params.put("top", r.getY());
-        params.put("width", r.getWidth());
-        params.put("height", r.getHeight());
-        params.put("direction", direction.name().toLowerCase());
-        params.put("percent", 0.75);
-
-        appiumDriver.executeScript("mobile: swipeGesture", params);
-
-        info("👉 Swipe " + direction + " executed via mobile: swipeGesture");
+    static BigDecimal toBigDecimal(String value) {
+        if (value == null || value.isBlank()) return BigDecimal.ZERO;
+        String digitsOnly = value.replaceAll("[^0-9.,]", "");
+        int lastDot   = digitsOnly.lastIndexOf('.');
+        int lastComma = digitsOnly.lastIndexOf(',');
+        int decIdx    = Math.max(lastDot, lastComma);
+        String intPart = (decIdx == -1 ? digitsOnly : digitsOnly.substring(0, decIdx))
+                .replaceAll("[^0-9]", "");
+        return intPart.isEmpty() ? BigDecimal.ZERO : new BigDecimal(intPart);
     }
 }

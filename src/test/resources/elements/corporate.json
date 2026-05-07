@@ -1,90 +1,90 @@
 [
   {
     "key": "tabItems",
-    "androidValue": "//android.widget.HorizontalScrollView[@resource-id=\"com.halkbank.mobil.dev:id/tabLayoutImage\"]//android.widget.LinearLayout//android.widget.LinearLayout",
+    "androidValue": "//android.widget.HorizontalScrollView[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/tabLayoutImage\"]//android.widget.LinearLayout//android.widget.LinearLayout",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },{
     "key": "firstTransactionItem",
-    "androidValue": "//androidx.viewpager.widget.ViewPager[@resource-id=\"com.halkbank.mobil.dev:id/viewPagerViewCorporateFragment\"]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]",
+    "androidValue": "//androidx.viewpager.widget.ViewPager[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/viewPagerViewCorporateFragment\"]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionItemList",
-    "androidValue": "//androidx.viewpager.widget.ViewPager[@resource-id=\"com.halkbank.mobil.dev:id/viewPagerViewCorporateFragment\"]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup",
+    "androidValue": "//androidx.viewpager.widget.ViewPager[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/viewPagerViewCorporateFragment\"]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "backButton",
-    "androidValue": "//android.view.ViewGroup[@resource-id=\"com.halkbank.mobil.dev:id/toolbar\"]//android.widget.ImageButton",
+    "androidValue": "//android.view.ViewGroup[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/toolbar\"]//android.widget.ImageButton",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "firstTransactionDate",
-    "androidValue": "(//android.widget.LinearLayout[@resource-id=\"com.halkbank.mobil.dev:id/linearLayout1\"]//android.widget.TextView)[1]",
+    "androidValue": "(//android.widget.LinearLayout[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/linearLayout1\"]//android.widget.TextView)[1]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "firstTransactionAmount",
-    "androidValue": "(//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textAmount\"])[1]",
+    "androidValue": "(//android.widget.TextView[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/textAmount\"])[1]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "firstTransactionReceiverAccountIdentifier",
-    "androidValue": "(//android.widget.LinearLayout[@resource-id=\"com.halkbank.mobil.dev:id/linearLayout1\"]//android.widget.TextView)[3]",
+    "androidValue": "(//android.widget.LinearLayout[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/linearLayout1\"]//android.widget.TextView)[3]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionDeleteButton",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/deleteItem\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/deleteItem\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionApproveButton",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/approveItem\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/approveItem\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionRejectButton",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/rejectItem\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/rejectItem\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionRejectDescriptionField",
-    "androidValue": "//android.widget.EditText[@resource-id=\"com.halkbank.mobil.dev:id/editText\"]",
+    "androidValue": "//android.widget.EditText[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/editText\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionRejectDescriptionApproveButton",
-    "androidValue": "//android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApproveItem\"]",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonApproveItem\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
   },
   {
     "key": "transactionApproveConfirmationButton",
-    "androidValue": " //android.widget.Button[@resource-id=\"com.halkbank.mobil.dev:id/buttonApprove\"]",
+    "androidValue": " //android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonApprove\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""
@@ -98,7 +98,7 @@
   },
   {
     "key": "transactionSuccessMessage",
-    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkbank.mobil.dev:id/textView\"]",
+    "androidValue": "//android.widget.TextView[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/textView\"]",
     "androidType": "xpath",
     "iosValue": "",
     "iosType": ""

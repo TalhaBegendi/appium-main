@@ -8,13 +8,11 @@ import org.halkKatilim.enums.Platform;
 import org.halkKatilim.utility.helpers.CapabilityFactory;
 import org.halkKatilim.utility.helpers.DevicePoolManager;
 import org.halkKatilim.utility.helpers.FrameworkLogger;
-
 import java.net.URL;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
-
 import static org.halkKatilim.constant.Config.*;
 
 public final class Driver {

@@ -28,6 +28,8 @@ public final class NavigationGates {
 
         MONEY_TRANSFER(EnumSet.of(Gate.OK_INFO)),
 
+        MONEY_TRANSFER_DIFFERENT_IBAN(EnumSet.of(Gate.OK_POPUP)),
+
         DEFAULT(EnumSet.of(
                 Gate.CLOSE_POPUP,
                 Gate.OK_POPUP,

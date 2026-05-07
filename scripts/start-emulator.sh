@@ -1,61 +1,47 @@
 #!/bin/bash
-# start-emulator.sh (clean, stable, no redundant logs)
+# =========================================================
+# Start Emulator (Stable / Deterministic / Appium-Ready)
+# =========================================================
 
 set -euo pipefail
-
-adb start-server >/dev/null 2>&1
-sleep 1
 
 BOOT_TIMEOUT=180
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONFIG_FILE="$BASE_DIR/../src/test/resources/deviceConfig/android.json"
+
 DEVICE_TAG=$(echo "${1:-}" | tr '[:upper:]' '[:lower:]')
 
-if [ -z "$DEVICE_TAG" ]; then
-    jq -r '.[].tag' "$CONFIG_FILE" | sed 's/^/  - /'
-    exit 1
-fi
+log()  { echo "ℹ️ $*" >&2; }
+ok()   { echo "✅ $*" >&2; }
+err()  { echo "❌ $*" >&2; }
 
-DEVICE=$(jq -c --arg TAG "$DEVICE_TAG" '.[] | select(.tag==$TAG)' "$CONFIG_FILE")
-if [ -z "$DEVICE" ]; then
-    jq -r '.[].tag' "$CONFIG_FILE" | sed 's/^/  - /'
-    exit 1
-fi
+# --------------------------------------------------------
+# Validate input
+# --------------------------------------------------------
+
+[ -z "$DEVICE_TAG" ] && {
+  err "Missing device tag"
+  jq -r '.[].tag' "$CONFIG_FILE"
+  exit 1
+}
+
+DEVICE=$(jq -c --arg TAG "$DEVICE_TAG" '
+  .[] | select((.tag | ascii_downcase) == $TAG)
+' "$CONFIG_FILE")
+
+[ -z "$(echo "$DEVICE" | tr -d '[:space:]')" ] && {
+  err "Device not found: $DEVICE_TAG"
+  exit 1
+}
 
 AVD_NAME=$(echo "$DEVICE" | jq -r '."appium:deviceName"')
-echo "📱 Preparing AVD: $AVD_NAME"
 
-normalize() { echo "$1" | tr '[:upper:]' '[:lower:]' | tr -d '_ '; }
+# --------------------------------------------------------
+# Helpers
+# --------------------------------------------------------
 
-is_emulator_process_running() {
-  pgrep -f "emulator.*-avd $AVD_NAME" >/dev/null
-}
-
-wait_for_adb_online() {
-  local udid="$1"
-  local retries=10
-  local attempt=1
-
-  while (( attempt <= retries )); do
-    state=$(adb devices | awk -v u="$udid" '$1==u {print $2}')
-
-    if [ "$state" = "device" ]; then
-      echo "   ✅ adb online ($udid)"
-      sleep 3
-      return 0
-    fi
-
-    echo "   ⏳ adb state=$state (attempt $attempt/$retries)"
-    sleep 3
-    ((attempt++))
-  done
-
-  echo "❌ adb never became online for $udid"
-  return 1
-}
-
-list_running_devices() {
-  adb_devices_safe | awk 'NR>1 && $1 ~ /emulator-/ {print $1}'
+normalize() {
+  echo "$1" | tr '[:upper:]' '[:lower:]' | tr -d '_ '
 }
 
 adb_devices_safe() {
@@ -65,110 +51,145 @@ adb_devices_safe() {
   }
 }
 
-dynamic_wait_until() {
-  local condition="$1"
-  local label="$2"
-  local timeout=$3
-  local attempt=0
-  local elapsed=0
+list_running_devices() {
+  adb_devices_safe | awk 'NR>1 && $1 ~ /emulator-/ {print $1}'
+}
 
-  while [ $elapsed -lt $timeout ]; do
-    if eval "$condition"; then
+get_avd_name_by_udid() {
+  local udid="$1"
+  adb -s "$udid" emu avd name 2>/dev/null \
+    | tr -d '\r\n' | sed 's/OK$//' | xargs
+}
+
+find_udid_by_avd() {
+  local target="$1"
+
+  for d in $(list_running_devices); do
+    local avd
+    avd=$(get_avd_name_by_udid "$d")
+
+    if [ "$(normalize "$avd")" = "$(normalize "$target")" ]; then
+      echo "$d"
       return 0
     fi
-    local wait=$((2**attempt))
-    [ $wait -gt 5 ] && wait=5
-    sleep $wait
-    elapsed=$((elapsed+wait))
-    attempt=$((attempt+1))
   done
+
+  echo ""
+}
+
+wait_until_udid_found() {
+  local avd="$1"
+  local timeout="$2"
+  local elapsed=0
+
+  while [ "$elapsed" -lt "$timeout" ]; do
+    local udid
+    udid=$(find_udid_by_avd "$avd")
+
+    if [ -n "$udid" ]; then
+      echo "$udid"
+      return 0
+    fi
+
+    sleep 2
+    elapsed=$((elapsed + 2))
+  done
+
   return 1
 }
 
-# --------------------------------------------------------
-# Partner setting injection (clean)
-# --------------------------------------------------------
-enable_partner_setting() {
-  local name="$1"
-  local value="$2"
+wait_for_adb_fully_ready() {
+  local udid="$1"
+  local timeout=60
+  local elapsed=0
 
-  adb -s "$FOUND_UDID" root >/dev/null 2>&1 || true
-  adb -s "$FOUND_UDID" shell "content insert \
-        --uri content://com.google.settings/partner \
-        --bind name:s:${name} \
-        --bind value:i:${value}" >/dev/null 2>&1 || true
+  while [ "$elapsed" -lt "$timeout" ]; do
+
+    # 1. boot tamam mı
+    if adb -s "$udid" shell getprop sys.boot_completed 2>/dev/null | grep -q "1"; then
+
+      # 2. adb çalışıyor mu
+      if adb -s "$udid" shell echo "ping" >/dev/null 2>&1; then
+
+        # 3. UI hazır mı (EN GÜVENLİ)
+        if adb -s "$udid" shell dumpsys window 2>/dev/null | grep -q "mCurrentFocus"; then
+          ok "Device ready ($udid)"
+          return 0
+        fi
+
+      fi
+    fi
+
+    sleep 2
+    elapsed=$((elapsed + 2))
+  done
+
+  err "Device not ready: $udid"
+  return 1
 }
+
+start_emulator_if_needed() {
+  local avd="$1"
+
+  if pgrep -f "emulator.*-avd[[:space:]]$avd" >/dev/null; then
+    return 0
+  fi
+
+  log "Starting emulator: $avd"
+
+  nohup emulator -avd "$avd" \
+    -no-snapshot-save \
+    -no-boot-anim \
+    -gpu swiftshader_indirect \
+    -netdelay none \
+    -netspeed full \
+    >/dev/null 2>&1 &
+}
+
+apply_network_fixes() {
+  local udid="$1"
+
+  adb -s "$udid" shell settings put global captive_portal_detection_enabled 0 || true
+  adb -s "$udid" shell settings put global private_dns_mode off || true
+
+  adb -s "$udid" shell svc wifi disable || true
+  sleep 1
+  adb -s "$udid" shell svc wifi enable || true
+}
+
+enable_partner_setting() {
+  local udid="$1"
+
+  adb -s "$udid" root >/dev/null 2>&1 || true
+
+  adb -s "$udid" shell "content insert \
+    --uri content://com.google.settings/partner \
+    --bind name:s:network_location_opt_in \
+    --bind value:i:1" >/dev/null 2>&1 || true
+}
+
+# --------------------------------------------------------
+# FLOW
 # --------------------------------------------------------
 
-FOUND_UDID=""
-for d in $(list_running_devices); do
-  avd=$(adb -s "$d" emu avd name 2>/dev/null | tr -d '\r\n' | sed 's/OK$//' | xargs)
-  if [ "$(normalize "$avd")" = "$(normalize "$AVD_NAME")" ]; then
-    FOUND_UDID=$d
-    break
-  fi
-done
+adb start-server >/dev/null 2>&1
 
-if [ -z "$FOUND_UDID" ]; then
-  if ! is_emulator_process_running; then
-    BEFORE_COUNT=$(list_running_devices | wc -l | tr -d ' ')
-    nohup emulator -avd "$AVD_NAME" -no-snapshot-save -no-boot-anim -gpu swiftshader_indirect -netdelay none -netspeed full >/dev/null 2>&1 &
-    dynamic_wait_until \
-      "[ \$(list_running_devices | wc -l | tr -d ' ') -gt $BEFORE_COUNT ]" \
-      "$AVD_NAME (adb detect)" $BOOT_TIMEOUT
-  else
-    echo "ℹ️ Emulator process already running, waiting for adb..."
-  fi
+UDID=$(find_udid_by_avd "$AVD_NAME")
+
+if [ -z "$UDID" ]; then
+  start_emulator_if_needed "$AVD_NAME"
+
+  UDID=$(wait_until_udid_found "$AVD_NAME" "$BOOT_TIMEOUT") || {
+    err "Emulator not detected"
+    exit 1
+  }
 fi
 
-FOUND_UDID=""
-for d in $(list_running_devices); do
-  avd=$(adb -s "$d" emu avd name 2>/dev/null | tr -d '\r\n' | sed 's/OK$//' | xargs)
-  if [ "$(normalize "$avd")" = "$(normalize "$AVD_NAME")" ]; then
-    FOUND_UDID=$d
-    break
-  fi
-done
+wait_for_adb_fully_ready "$UDID"
+apply_network_fixes "$UDID"
+enable_partner_setting "$UDID"
 
-[ -z "$FOUND_UDID" ] && exit 1
+MODEL=$(adb -s "$UDID" shell getprop ro.product.model | tr -d '\r')
+ANDROID_VER=$(adb -s "$UDID" shell getprop ro.build.version.release | tr -d '\r')
 
-wait_for_adb_online "$FOUND_UDID" || exit 1
-dynamic_wait_until "adb -s $FOUND_UDID shell getprop sys.boot_completed | grep -q '1'" \
-  "$AVD_NAME boot" $BOOT_TIMEOUT
-
-wait_for_emulator_ready() {
-    local udid="$1"
-    local timeout="${2:-30}"
-    local interval=2
-    local elapsed=0
-
-    while (( elapsed < timeout )); do
-      local focus
-      focus=$(adb -s "$udid" shell dumpsys window | grep -E 'mCurrentFocus' 2>/dev/null || true)
-      if [[ "$focus" =~ launcher|Launcher ]]; then
-        return 0
-      fi
-      sleep "$interval"
-      ((elapsed += interval))
-    done
-    return 1
-}
-
-wait_for_emulator_ready "$FOUND_UDID" 40
-
-adb -s "$FOUND_UDID" shell settings put global captive_portal_detection_enabled 0
-adb -s "$FOUND_UDID" shell settings put global private_dns_mode off
-adb -s "$FOUND_UDID" shell svc wifi disable
-sleep 1
-adb -s "$FOUND_UDID" shell svc wifi enable
-
-# --------------------------------------------------------
-# Apply Google Partner flag (logsuz)
-# --------------------------------------------------------
-enable_partner_setting "network_location_opt_in" 1
-# --------------------------------------------------------
-
-MODEL=$(adb -s "$FOUND_UDID" shell getprop ro.product.model | tr -d '\r')
-ANDROID_VER=$(adb -s "$FOUND_UDID" shell getprop ro.build.version.release | tr -d '\r')
-
-echo "✅ Ready: $MODEL (AVD=$AVD_NAME, UDID=$FOUND_UDID, Android $ANDROID_VER)"
+ok "Ready: $MODEL (AVD=$AVD_NAME, UDID=$UDID, Android $ANDROID_VER)"

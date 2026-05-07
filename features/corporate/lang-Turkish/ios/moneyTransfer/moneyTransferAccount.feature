@@ -3,7 +3,7 @@ Feature: Money Transfer to account flows language Turkish - IOS - CORPORATE
 
   Background:
     Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language
-    Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > Hesap" from Menu with assertion "MONEY_TRANSFER_TITLE_MENU_ITEM" of type "EQUAL" using "NAME"
+    Given Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > Hesap" from Menu
 
   Scenario: CORPORATE - Kayıtlı İşlem ile Aynı Gün Hesap Numarasına Transferinin Onaya Gönderilmesi
     When Click the make from saved transactions button

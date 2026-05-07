@@ -1,11 +1,8 @@
 package org.halkKatilim.pages.currencyPreciousMetal;
 
-import org.halkKatilim.enums.NavigationGates;
 import org.halkKatilim.enums.Platform;
-import org.halkKatilim.pages.BasePages;
 import org.halkKatilim.utility.Driver;
 import org.openqa.selenium.WebElement;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -13,15 +10,17 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
 import static org.halkKatilim.enums.TradeConfig.*;
 import static org.halkKatilim.pages.currencyPreciousMetal.CurrencyPreciousMetalPagesText.*;
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
+import lombok.RequiredArgsConstructor;
+import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
-public class CurrencyPreciousMetalPages extends BasePages {
+@RequiredArgsConstructor
+public class CurrencyPreciousMetalPages  {
 
-    // ---------------- ACTIONS ----------------
+    private final AppiumUtil appiumUtil;
 
     public void clickSellButton(String currencyAction) {
         appiumUtil.clickElementTextWithScroll("currencyPreciousMetalSellButtonList", currencyAction);
@@ -53,19 +52,30 @@ public class CurrencyPreciousMetalPages extends BasePages {
 
     // ---------------- INPUT ----------------
 
-    public void enterCurrencyAmount(String currency) {
-        int amount = currency.equals(CURRENCY_TEXT)
-                ? CURRENCY_AMOUNT
-                : PRECIOUS_METAL_AMOUNT;
-
-        fillAmountWithPlatformCheck("currencyPreciousMetalCurrencyInputField", amount);
+    public void enterCurrencyAmount(InputType type) {
+        boolean isTL = type == InputType.TL;
+        fillAmountWithPlatformCheck(
+                isTL
+                        ? "currencyPreciousMetalTLInputField"
+                        : "currencyPreciousMetalCurrencyInputField",
+                isTL
+                        ? TL_CURRENCY_AMOUNT
+                        : FOREIGN_CURRENCY_AMOUNT);
     }
 
     public void enterTLAmount() {
-        fillAmountWithPlatformCheck("currencyPreciousMetalTLInputField", TL_AMOUNT);
+            String digits = appiumUtil
+                    .safeFindElementAndWait("currencyPreciousMetalBuyAmount")
+                    .getText()
+                    .replaceAll("[^0-9]", "");
+            String firstFive = digits.length() > 3
+                    ? digits.substring(0, 3)
+                    : digits;
+        int amount = Integer.parseInt(firstFive) + 1;
+        fillAmountWithPlatformCheck("currencyPreciousMetalTLInputField", amount);
     }
 
-    private void fillAmountWithPlatformCheck(String inputKey, int amount) {
+    private void fillAmountWithPlatformCheck(String inputKey, double amount) {
         if (Driver.getPlatformForThread() == Platform.IOS) {
             fill(inputKey, amount);
             return;
@@ -78,12 +88,12 @@ public class CurrencyPreciousMetalPages extends BasePages {
         throw new RuntimeException("❌ Expected exactly 1 element but found: " + elements.size());
     }
 
-    private void fill(String key, int amount) {
-        appiumUtil.clearAndFillInputHideKeyboard(key, String.valueOf(amount));
+    private void fill(String key, double amount) {
+        appiumUtil.fillInputKeyboard(key, String.valueOf(amount), false, true);
     }
 
     private List<WebElement> retryFindElements(String key) {
-        List<WebElement> elements = appiumUtil.findElementsSilent(key);
+        List<WebElement> elements = appiumUtil.safeFindElementsAndWait(key);
         return (elements == null || elements.isEmpty())
                 ? appiumUtil.findElementsSilent(key)
                 : elements;

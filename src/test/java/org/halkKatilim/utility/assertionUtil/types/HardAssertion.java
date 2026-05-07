@@ -2,12 +2,10 @@ package org.halkKatilim.utility.assertionUtil.types;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.halkKatilim.enums.TextSource;
 import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 import org.halkKatilim.utility.assertionUtil.enums.AssertionKey;
 import org.openqa.selenium.WebElement;
 import java.util.*;
-import java.util.stream.Collectors;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.error;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.info;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.log;
@@ -56,11 +54,9 @@ public class HardAssertion {
             throw e;
         }
     }
-
-    public static void hardAssertTrue(boolean condition) {
+    public void hardAssertTrue(boolean condition) {
         hardAssertTrue(condition, ASSERT_TRUE_DEFAULT_MESSAGE);
     }
-
     public static void hardAssertTrue(boolean condition, String message) {
         info(format(ASSERT_CONDITION_LOG, message, condition));
         try {
@@ -155,24 +151,6 @@ public class HardAssertion {
         }
     }
 
-    public static void hardAssertNotEmpty(String str) {
-        hardAssertNotEmpty(str, ASSERT_NOT_EMPTY_STRING_LOG);
-    }
-
-    public static void hardAssertNotEmpty(String str, String message) {
-        info(format(ASSERT_NOT_EMPTY_STRING_LOG, message, str));
-        try {
-            assertTrue(str != null && !str.isEmpty(), message);
-        } catch (AssertionError e) {
-            error(format(ASSERT_NOT_EMPTY_STRING_LOG, message, str));
-            throw e;
-        }
-    }
-
-    public static void hardAssertNotEmpty(Collection<?> collection) {
-        hardAssertNotEmpty(collection, ASSERT_NOT_EMPTY_COLLECTION_LOG);
-    }
-
     public static void hardAssertNotEmpty(Collection<?> collection, String message) {
         info(format(ASSERT_NOT_EMPTY_COLLECTION_LOG, message, collection));
         try {
@@ -181,10 +159,6 @@ public class HardAssertion {
             error(format(ASSERT_NOT_EMPTY_COLLECTION_LOG, message, collection));
             throw e;
         }
-    }
-
-    public boolean assertElementExistsSilent(String key) {
-        return appiumUtil.elementExistsSilent(key);
     }
 
     public void assertElementsExists(String key) {
@@ -201,28 +175,6 @@ public class HardAssertion {
 
     public void assertElementsNotExists(String key) {
         appiumUtil.elementsNotExists(key);
-    }
-
-    public void verifyText(List<String> steps, AssertionKey key, TextSource... order) {
-        Set<String> expected = steps.stream().map(this::normalizeText).filter(Objects::nonNull).collect(Collectors.toSet());
-        Set<String> actual = appiumUtil.getTextElements(key.getElementKey(), order).stream().map(this::normalizeText).filter(Objects::nonNull).collect(Collectors.toSet());
-        Set<String> intersection = new HashSet<>(actual);
-        intersection.retainAll(expected);
-        if (!intersection.isEmpty()) return;
-        if (actual.stream().anyMatch(text -> matchesDisplayText(text, key))) return;
-        AssertionKey fallback = key.getFallback();
-        if (fallback != null) {
-            Set<String> fallbackActual = appiumUtil.getTextElements(fallback.getElementKey(), order).stream().map(this::normalizeText).filter(Objects::nonNull).collect(Collectors.toSet());
-            if (fallbackActual.stream().anyMatch(text -> matchesDisplayText(text, fallback))) return;
-        }
-        logErrorAndFail("❌ TEXT assertion failed → expected ANY of: %s → actual: %s".formatted(expected, actual));
-    }
-
-    private boolean matchesDisplayText(String actual, AssertionKey key) {
-        if (key.getDisplayText() == null || key.getDisplayText().getTexts() == null) return false;
-        return Arrays.stream(key.getDisplayText().getTexts())
-                .map(this::normalizeText)
-                .anyMatch(t -> t.equalsIgnoreCase(actual));
     }
 
     public void assertTextInDisplayTexts(String actual, AssertionKey key) {
