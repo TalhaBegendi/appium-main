@@ -27,7 +27,7 @@ final class ToAnotherAccountText {
     static final String RETAIL_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX ="1";
     static final String CORPORATE_CUSTOMER_RECEIVER_ACCOUNT_NUMBER ="1229";
     static final String CORPORATE_CUSTOMER_RECEIVER_ACCOUNT_NUMBER_SUFFIX ="4";
-    static final String CORPORATE_FUND_CUSTOMER_RECEIVER_IBAN ="TR930021400000000119700001";
+    static final String CORPORATE_FUND_CUSTOMER_RECEIVER_IBAN ="TR080021400000010025306514";
     static final String RETAIL_FUND_CUSTOMER_RECEIVER_IBAN = "TR790021400000000106400001";
     static final String FUND_ACCOUNT_NUMBER ="1296";
     static final String TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL ="İşleminiz hesap bakiyesinin yeterli olması durumunda belirtilen tarihte gerçekleştirilecektir.";

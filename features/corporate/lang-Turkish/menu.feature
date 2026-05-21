@@ -109,9 +109,6 @@ Feature: Menu Language Turkish - ANDROID - CORPORATE
   Scenario: CORPORATE - Para Transferi > Başka Hesaba > TR Karekod
     When Go to "Para Transferi > Başka Hesaba (Havale / EFT / FAST) > TR Karekod" from Menu
 
-  Scenario: CORPORATE - Para Transferi > Karta > Kartıma
-    When Go to "Para Transferi > Karta > Kartıma" from Menu
-
   Scenario: CORPORATE - Para Transferi > Karta > Başka Karta
     When Go to "Para Transferi > Karta > Başka Karta" from Menu
 
@@ -217,9 +214,6 @@ Feature: Menu Language Turkish - ANDROID - CORPORATE
   Scenario: CORPORATE - Ayarlar > İzin Tercihleri > Bilgi Paylaşım Seçenekleri
     When Go to "Ayarlar > İzin Tercihleri > Bilgi Paylaşım Seçenekleri" from Menu
 
-  Scenario: CORPORATE - Ayarlar > Güvenlik Ayarları > Giriş Kayıtları
-    When Go to "Ayarlar > Güvenlik Ayarları > Giriş Kayıtları" from Menu
-
   Scenario: CORPORATE - Ayarlar > Güvenlik Ayarları > Kısıtlar > Finansman
     When Go to "Ayarlar > Güvenlik Ayarları > Kısıtlar > Finansman" from Menu
 
@@ -232,26 +226,14 @@ Feature: Menu Language Turkish - ANDROID - CORPORATE
   Scenario: CORPORATE - Ayarlar > Şifre Ayarları > SIM Bloke Kaldır
     When Go to "Ayarlar > Şifre Ayarları > SIM Bloke Kaldır" from Menu
 
-  Scenario: CORPORATE - Ayarlar > Şifre Ayarları > Biyometrik Doğrulama
-    When Go to "Ayarlar > Şifre Ayarları > Biyometrik Doğrulama" from Menu
-
   Scenario: CORPORATE - Ayarlar > Profil Bilgileri > Kurumsal Profil
-    When Go to "Ayarlar > Profil Bilgileri > Kurumsal Profil" from Menu
+    When Go to "Ayarlar > Profil bilgileri > Kurumsal Profil" from Menu
 
   Scenario: CORPORATE - Ayarlar > Profil Bilgileri > Profilim
-    When Go to "Ayarlar > Profil Bilgileri > Profilim" from Menu
+    When Go to "Ayarlar > Profil bilgileri > Profilim" from Menu
 
   Scenario: CORPORATE - Ayarlar > Bildirim Ayarları
     When Go to "Ayarlar > Bildirim Ayarları" from Menu
-
-  Scenario: CORPORATE - Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık Kanalı
-    When Go to "Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık Kanalı" from Menu
-
-  Scenario: CORPORATE - Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık İzinlerim
-    When Go to "Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık İzinlerim" from Menu
-
-  Scenario: CORPORATE - Ayarlar > Ödeme İsteği Tercihleri
-    When Go to "Ayarlar > Ödeme İsteği Tercihleri" from Menu
 
   Scenario: CORPORATE - Başvurular > Kart Başvurusu
     When Go to "Başvurular > Kart Başvurusu" from Menu
@@ -270,3 +252,27 @@ Feature: Menu Language Turkish - ANDROID - CORPORATE
 
   Scenario: CORPORATE - Başvurular > Kart Başvurularım
     When Go to "Başvurular > Kart Başvurularım" from Menu
+
+  @devices=pixel7
+  Scenario: CORPORATE - Ayarlar > Şifre Ayarları > Biyometrik Doğrulama
+    When Go to "Ayarlar > Şifre Ayarları > Biyometrik Doğrulama" from Menu
+
+  @devices=pixel7
+  Scenario: CORPORATE - Ayarlar > Güvenlik Ayarları > Giriş Kayıtları
+    When Go to "Ayarlar > Güvenlik Ayarları > Giriş Kayıtları" from Menu
+
+  @devices=pixel7
+  Scenario: CORPORATE - Para Transferi > Karta > Kendi Kartıma
+    When Go to "Para Transferi > Karta > Kendi Kartıma" from Menu
+
+  @devices=13mini
+  Scenario: CORPORATE - Ayarlar > Şifre Ayarları > Face ID / Touch ID ile Doğrula
+    When Go to "Ayarlar > Şifre Ayarları > Face ID / Touch ID ile Doğrula" from Menu
+
+  @devices=13mini
+  Scenario: CORPORATE - Ayarlar > Güvenlik Ayarları > Başarısız Giriş Denemeleri
+    When Go to "Ayarlar > Güvenlik Ayarları > Başarısız Giriş Denemeleri" from Menu
+
+  @devices=13mini
+  Scenario: CORPORATE - Ayarlar > Güvenlik Ayarları > Başarılı Girişler
+    When Go to "Ayarlar > Güvenlik Ayarları > Başarılı Girişler" from Menu

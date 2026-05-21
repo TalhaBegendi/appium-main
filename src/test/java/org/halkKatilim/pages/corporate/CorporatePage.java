@@ -22,9 +22,8 @@ public class CorporatePage  {
     IbanTransactionData expectedIbanTransferData;
 
     public void enterIbanTransferDetailsToSendApprovalForToday(String customerType) {
-
+        toAnotherAccountIBANPages = new ToAnotherAccountIBANPages(appiumUtil);
         toAnotherAccountIBANPages.prepareAndFillTransactionFields(customerType);
-
         String receiverIban = appiumUtil.findElementSilent("ibanPageReceiverIbanInputField").getText().replace(" ", "");
         String amount = appiumUtil.findElementSilent("ibanPageTransactionAmount").getText();
         String tranDate = appiumUtil.findElementSilent("ibanPageTransactionDate").getText();

@@ -23,22 +23,16 @@ public class Hooks {
         AppUtils.ensureAppInstalled(driver);
     }
 
-    @AfterStep
-    public void afterStep(Scenario scenario) {
+    @After
+    public void afterScenario(Scenario scenario) {
         if (ENABLE_REPORTING) {
-            AllureAttachmentHelper.attachDeviceMetadata();
             AllureAttachmentHelper.attachAllureHierarchy(scenario);
             if (scenario.isFailed()) {
                 AllureAttachmentHelper.attachScreenshot(
                         ExecutionContext.getDriver(),
-                        "Failure Screenshot"
-                );
+                        "Failure Screenshot");
             }
         }
-    }
-
-    @After
-    public void afterScenario() {
         AppiumDriver driver = ExecutionContext.getDriver();
         AppUtils.handleTestEndAppTermination(driver);
         quitDriver();

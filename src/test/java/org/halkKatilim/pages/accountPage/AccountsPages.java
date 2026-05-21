@@ -122,6 +122,7 @@ public class AccountsPages {
     }
 
     public void verifySuccessMessage() {
+        appiumUtil.waitUntilElementLoad("verifySuccessAccounts");
         String actual = appiumUtil.getTextElement("verifySuccessAccounts");
         appiumUtil.getAssertion().assertTextInDisplayTexts(actual, SUCCESS_ACCOUNTS);
     }

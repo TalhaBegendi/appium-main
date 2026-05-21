@@ -1,5 +1,5 @@
-@devices=15
-Feature: Approver Account flows language Turkish - IOS- CORPORATE
+@devices=pixel7
+Feature: Approver Account flows language Turkish - ANDROID- CORPORATE
 
   Background:
     Given Login as "CORPORATE" customer "NEW_ACCOUNT" using "TURKISH" language
@@ -78,6 +78,26 @@ Feature: Approver Account flows language Turkish - IOS- CORPORATE
     When Go to "Hesaplar > Hesaplarım" from Menu
     And Click open account button
     When Opens a "Dijital Katılma Hesabı" account with "Yakut" currency and "Kırık Vadeli" maturity date
+
+  Scenario: Hesaplarım > Yatırım Hesabı Aç - Türk Lirası
+    When Go to "Hesaplar > Hesaplarım" from Menu
+    When Click element "openAccountButtonAccounts"
+    When Opens a "Yatırım Hesabı" account with "Türk Lirası" currency
+
+  Scenario: Hesaplarım > Yatırım Hesabı Aç  - Amerikan Doları
+    When Go to "Hesaplar > Hesaplarım" from Menu
+    When Click element "openAccountButtonAccounts"
+    When Opens a "Yatırım Hesabı" account with "Amerikan Doları" currency
+
+  Scenario: Hesaplarım > Yatırım Hesabı Aç  - Euro
+    When Go to "Hesaplar > Hesaplarım" from Menu
+    When Click element "openAccountButtonAccounts"
+    When Opens a "Yatırım Hesabı" account with "Euro" currency
+
+  Scenario: Hesaplarım > Yatırım Hesabı Aç  - Yakut
+    When Go to "Hesaplar > Hesaplarım" from Menu
+    When Click element "openAccountButtonAccounts"
+    When Opens a "Yatırım Hesabı" account with "Yakut" currency
 
   Scenario: Hesaplarım > Hesap Aç - Cari Hesap - Türk Lirası
     When Go to "Hesaplar > Hesap Aç" from Menu

@@ -17,7 +17,7 @@ import org.halkKatilim.utility.appiumUtil.AppiumUtil;
 
 @Slf4j
 @RequiredArgsConstructor
-public class LoginPages  {
+public class LoginPages {
 
     private final AppiumUtil appiumUtil;
 
@@ -74,7 +74,7 @@ public class LoginPages  {
         log.info(LOG_LOGIN_RETAIL_FLOW, customer.name());
         appiumUtil
                 .fillInputKeyboard("inputCustomerNumber", customer.getNumber(), true, true)
-                .fillInputKeyboard("inputPassword", customer.getPassword()  , true, true);
+                .fillInputKeyboard("inputPassword", customer.getPassword(), true, true);
     }
 
     private void fillCorporateCredentials(CorporateCustomer customer) {
@@ -95,8 +95,7 @@ public class LoginPages  {
                 .fillInputKeyboard("inputSmsOtp", smsCode, true, true)
                 .clickElement("smsOtpButtonSendItem")
                 .sleep(300)
-                .autoHandleNavigationGates(NavigationGates.Context.LOGIN)
-                .sleep(400);
+                .autoHandleNavigationGates(NavigationGates.Context.LOGIN);
         LOGIN.runAssertion();
         log.info(LOG_OTP_FLOW_COMPLETED);
     }

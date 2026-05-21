@@ -1,5 +1,5 @@
-@devices=15
-Feature: Settings Flows Language Turkish - IOS - CORPORATE
+@devices=pixel7
+Feature: Settings Flows Language Turkish - ANDROID - CORPORATE
 
   Background:
     Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language
@@ -13,12 +13,8 @@ Feature: Settings Flows Language Turkish - IOS - CORPORATE
     When Go to "Ayarlar > İzin Tercihleri > Bilgi Paylaşım Seçenekleri" from Menu
     And Switch options Information Sharing Options
 
-  Scenario: Güvenlik Ayarları > Başarılı Girişler
-    When Go to "Ayarlar > Güvenlik Ayarları > Başarılı Girişler" from Menu
-    Then Pages should be opened successfully
-
-  Scenario: Güvenlik Ayarları > Başarısız Giriş Denemeleri
-    When Go to "Ayarlar > Güvenlik Ayarları > Başarısız Giriş Denemeleri" from Menu
+  Scenario: Güvenlik Ayarları > Giriş Kayıtları
+    When Go to "Ayarlar > Güvenlik Ayarları > Giriş Kayıtları" from Menu
     Then Pages should be opened successfully
 
   Scenario: Güvenlik Ayarları > Kısıtlar > Finansman
@@ -37,10 +33,6 @@ Feature: Settings Flows Language Turkish - IOS - CORPORATE
     When Go to "Ayarlar > Şifre Ayarları > SIM Bloke Kaldır" from Menu
     Then Pages should be opened successfully
 
-  Scenario: Şifre Ayarları > Face ID / Touch ID ile Doğrula
-    When Go to "Ayarlar > Şifre Ayarları > Face ID / Touch ID ile Doğrula" from Menu
-    Then Pages should be opened successfully
-
   Scenario: Ayarlar > Profil bilgileri > Profilim
     When Go to "Ayarlar > Profil bilgileri > Profilim" from Menu
     Then Pages should be opened successfully
@@ -54,17 +46,22 @@ Feature: Settings Flows Language Turkish - IOS - CORPORATE
     And Switch to Permission
     Then Success Switch to Permission
 
-  Scenario: Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık Kanalı
-    When Go to "Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık Kanalı" from Menu
-    And Switch to Permission
+  @devices=pixel7
+  Scenario: Şifre Ayarları > Biyometrik Doğrulama
+    When Go to "Ayarlar > Şifre Ayarları > Biyometrik Doğrulama" from Menu
     Then Pages should be opened successfully
 
-  Scenario: Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık İzinlerim
-    When Go to "Ayarlar > Açık Bankacılık Ayarları > Açık Bankacılık İzinlerim" from Menu
-    Then Open Banking Permission steps
+  @devices=13mini
+  Scenario: Şifre Ayarları > Face ID / Touch ID ile Doğrula
+    When Go to "Ayarlar > Şifre Ayarları > Face ID / Touch ID ile Doğrula" from Menu
     Then Pages should be opened successfully
 
-  Scenario: Ödeme İsteği Tercihleri Degistirme
-    When Go to "Ayarlar > Ödeme İsteği Tercihleri" from Menu
-    And Switch to Permission
+  @devices=13mini
+  Scenario: Güvenlik Ayarları > Başarısız Giriş Denemeleri
+    When Go to "Ayarlar > Güvenlik Ayarları > Başarısız Giriş Denemeleri" from Menu
+    Then Pages should be opened successfully
+
+  @devices=13mini
+  Scenario: Güvenlik Ayarları > Başarılı Girişler
+    When Go to "Ayarlar > Güvenlik Ayarları > Başarılı Girişler" from Menu
     Then Pages should be opened successfully

@@ -14,7 +14,7 @@ import java.util.List;
 
 @CucumberOptions(
         features = "featureTest",
-       // name = "Kartlar > Borç Öde > Kendi Kartıma",
+         name = "CORPORATE - Bireysel Müşteri için Aynı Gün Onaya Gönderilen IBAN Transferinin Onaylanması",
         glue = {
                 "org.halkKatilim.stepDefs",
                 "org.halkKatilim.hooks"

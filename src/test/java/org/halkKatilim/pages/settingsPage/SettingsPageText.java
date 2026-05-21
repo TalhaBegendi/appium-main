@@ -5,6 +5,7 @@ final class SettingsPageText {
     static final String TURKISH_SELECT_LANGUAGE_SUCCESS_MESSAGE = "My Accounts";
     static final String TURKISH_FINANCE_SUCCESS_MESSAGE_TITLE = "Finansman";
     static final String TURKISH_CREDIT_CARD_SUCCESS_MESSAGE_TITLE = "Kart Kısıtları";
+    static final String TURKISH_CREDIT_CARD_SUCCESS_MESSAGE_IOS_TITLE = "Kredi Kartı Kısıtları";
     static final String TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_TITLE = "Menü Kısıtla";
     static final String TURKISH_SAVED_DEVICES_SUCCESS_MESSAGE_TITLE = "Kayıtlı Cihazlar";
     static final String TURKISH_SAVED_LOGIN_SUCCESS_MESSAGE_TITLE = "Giriş Kayıtları";

@@ -50,14 +50,6 @@ public final class AllureAttachmentHelper {
         });
     }
 
-    public static void attachDeviceMetadata() {
-        if (!ENABLE_REPORTING) return;
-        if (!DeviceContext.isSet()) return;
-        DeviceSpec device = DeviceContext.get();
-        String metadata = "Device: " + device.device() + "\n" + "Platform: " + device.platform();
-        Allure.addAttachment("Device Info", "text/plain", metadata);
-    }
-
     public static void attachScreenshot(AppiumDriver driver, String name) {
         if (!ENABLE_REPORTING) return;
         try {

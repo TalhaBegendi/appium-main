@@ -16,7 +16,7 @@ import static org.halkKatilim.utility.assertionUtil.enums.AssertionType.*;
 public enum AssertionKey {
 
     // ---------- LOGIN ----------
-    LOGIN(null,"pageTitleHomepage",EXISTS),
+    LOGIN(null,"successLoginPage",EXISTS),
     BUTTON_LOGIN_ITEM(null,"buttonLoginItem",SINGLE),
 
     // ---------- HOMEPAGE/ACCOUNT ----------

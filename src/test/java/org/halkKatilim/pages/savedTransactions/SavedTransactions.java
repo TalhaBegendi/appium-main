@@ -78,8 +78,8 @@ public class SavedTransactions  {
             }
             case IOS -> {
                 appiumUtil.swipeLeftOnElementIOS(names.get(index));
-                List<WebElement> deleteButtons = appiumUtil.findElementsSilent("savedTransactionsDeleteButtonIos");
-                deleteButtons.get(index).click();
+                WebElement deleteButtons = appiumUtil.safeFindElementAndWait("savedTransactionsDeleteButtonIos");
+                deleteButtons.click();
             }
         }
     }
@@ -172,7 +172,8 @@ public class SavedTransactions  {
     public void enterOwnAccountInfoForReceiver() {
         CustomerCapable customer = DeviceContext.getCurrentCustomer();
         String customerKey = customer.getNumber();
-        appiumUtil.fillInputKeyboard("savedTransactionsReceiverAccountNumber", customerKey ,false, true)
+        appiumUtil.waitUntilElementLoad("savedTransactionsReceiverAccountNumber")
+        .fillInputKeyboard("savedTransactionsReceiverAccountNumber", customerKey ,false, true)
                 .fillInputKeyboard("savedTransactionsReceiverAccountNumberSuffix", FUND_ACCOUNT_NUMBER_SUFFIX, false, true);
     }
 
@@ -236,7 +237,7 @@ public class SavedTransactions  {
             case ANDROID -> "moneyTransferContinueButton";
             case IOS -> isRetail
                     ? "savedTransactionContinueButtoniOSRetail"
-                    : "moneyTransferContinueButtoniOS";
+                    : "savedTransactionsContinueButtoniOSCorporate";
         };
         appiumUtil.clickElement(buttonKey);
         if (platform == Platform.ANDROID) {

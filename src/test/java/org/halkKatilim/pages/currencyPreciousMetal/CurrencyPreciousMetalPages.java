@@ -54,13 +54,17 @@ public class CurrencyPreciousMetalPages  {
 
     public void enterCurrencyAmount(InputType type) {
         boolean isTL = type == InputType.TL;
+        String inputKey = isTL
+                ? "currencyPreciousMetalTLInputField"
+                : "currencyPreciousMetalCurrencyInputField";
+
+        appiumUtil.waitUntilElementLoad(inputKey);
         fillAmountWithPlatformCheck(
-                isTL
-                        ? "currencyPreciousMetalTLInputField"
-                        : "currencyPreciousMetalCurrencyInputField",
+                inputKey,
                 isTL
                         ? TL_CURRENCY_AMOUNT
-                        : FOREIGN_CURRENCY_AMOUNT);
+                        : FOREIGN_CURRENCY_AMOUNT
+        );
     }
 
     public void enterTLAmount() {
@@ -68,8 +72,8 @@ public class CurrencyPreciousMetalPages  {
                     .safeFindElementAndWait("currencyPreciousMetalBuyAmount")
                     .getText()
                     .replaceAll("[^0-9]", "");
-            String firstFive = digits.length() > 3
-                    ? digits.substring(0, 3)
+            String firstFive = digits.length() > 4
+                    ? digits.substring(0, 4)
                     : digits;
         int amount = Integer.parseInt(firstFive) + 1;
         fillAmountWithPlatformCheck("currencyPreciousMetalTLInputField", amount);

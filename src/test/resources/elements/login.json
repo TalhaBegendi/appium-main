@@ -1,5 +1,12 @@
 [
   {
+    "key": "successLoginPage",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/expandableViewHeader",
+    "androidType": "id",
+    "iosValue": "  (//XCUIElementTypeButton[@name=\"DashBoardCardHeaderView_HeaderViewTouchButton_\"])[1]",
+    "iosType": "xpath"
+  },
+  {
     "key": "buttonLanguageItem",
     "androidValue": "com.halkkatilim.mobilebanking.dev:id/buttonLanguageItem",
     "androidType": "id",

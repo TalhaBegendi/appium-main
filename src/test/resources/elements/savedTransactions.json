@@ -171,6 +171,13 @@
     "androidType": "xpath",
     "iosValue": "//XCUIElementTypeCell[@name=\"BEmptyViewComponent\"]",
     "iosType": "xpath"
+  },
+  {
+    "key": "savedTransactionsContinueButtoniOSCorporate",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BActionButtonComponent_nextButton",
+    "iosType": "accessibilityId"
   }
 ]
 

@@ -1,5 +1,5 @@
-@devices=15
-Feature: Money Transfer to account flows language Turkish - IOS - CORPORATE
+@devices=pixel7
+Feature: Money Transfer to account flows language Turkish - ANDROID - CORPORATE
 
   Background:
     Given Login as "CORPORATE" customer "STANDARD_USER" using "TURKISH" language

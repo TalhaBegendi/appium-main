@@ -23,9 +23,9 @@ final class SavedTransactionsText {
     static final String TURKISH_SEARCH_ERROR_MESSAGE = "için sonuç bulunamadı.";
     static final String ENGLISH_SEARCH_ERROR_MESSAGE = "No result was found for";
     static final String ENGLISH_SEARCH_ERROR_MESSAGE_IOS = "No results for";
-    static final String FUND_CUSTOMER_RECEIVER_IBAN_CORPORATE = "TR930021400000000119700001";
+    static final String FUND_CUSTOMER_RECEIVER_IBAN_CORPORATE = "TR950021400000010025300001";
     static final String FUND_CUSTOMER_RECEIVER_IBAN_RETAIL = "TR790021400000000106400001";
-    static final String FUND_ACCOUNT_NUMBER_SUFFIX = "5";
+    static final String FUND_ACCOUNT_NUMBER_SUFFIX = "2";
     static final String TURKISH_FUND_ACCOUNT_NUMBER_ERROR_MESSAGE = "Sadece başka Halk Katılım hesabına para transferi yapılabilmektedir.";
     static final String ENGLISH_FUND_ACCOUNT_NUMBER_ERROR_MESSAGE = "The recipient account is closed or could not be found.";
     static final String TURKISH_FUND_IBAN_ERROR_MESSAGE_ANDROID = "Girdiğiniz IBAN size aittir. Kontrol ederek, tekrar deneyiniz.";

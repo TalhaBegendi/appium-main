@@ -38,9 +38,9 @@ public final class ToAnotherAccountIBANPages {
     }
 
     public void selectRandomSavedTransaction() {
-        List<WebElement> rows = appiumUtil.findElementsSilent("savedTransactionsList");
-        List<WebElement> names = appiumUtil.findElementsSilent("savedTransactionsReceiverNameList");
-        List<WebElement> iban = appiumUtil.findElementsSilent("savedTransactionsReceiverAccountNumberList");
+        List<WebElement> rows = appiumUtil.safeFindElementsAndWait("savedTransactionsList");
+        List<WebElement> names = appiumUtil.safeFindElementsAndWait("savedTransactionsReceiverNameList");
+        List<WebElement> iban = appiumUtil.safeFindElementsAndWait("savedTransactionsReceiverAccountNumberList");
         int index = new Random().nextInt(
                 Math.min(rows.size(), Math.min(names.size(), iban.size())));
         WebElement savedTransactionReceiverName = names.get(index);
@@ -66,14 +66,11 @@ public final class ToAnotherAccountIBANPages {
 
     public void clickContinueButton(ContinueButtonVariant variant, boolean handleNavigationGates) {
         Platform platform = Driver.getPlatformForThread();
-        boolean isRetail = DeviceContext.getCurrentUserType() == UserType.RETAIL;
         String buttonKey = switch (platform) {
             case ANDROID -> "moneyTransferContinueButton";
             case IOS -> switch (variant) {
                 case IOS_RETAIL_TEST -> "moneyTransferContinueButtoniOSRetailFutureDated";
-                case DEFAULT -> isRetail
-                        ? "moneyTransferContinueButtoniOSRetail"
-                        : "moneyTransferContinueButtoniOS";
+                case DEFAULT -> "moneyTransferContinueButtoniOSRetail";
             };
         };
 
@@ -86,6 +83,7 @@ public final class ToAnotherAccountIBANPages {
             appiumUtil.autoHandleNavigationGates(
                     NavigationGates.Context.MONEY_TRANSFER);
         }
+        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.MONEY_TRANSFER_DIFFERENT_IBAN);
     }
 
     public void verifyTransactionDetailsVisible() {
@@ -265,8 +263,8 @@ public final class ToAnotherAccountIBANPages {
                               ? ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL_IOS
                               : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL))
                         : (isTurkish
-                           ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE
-                           : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_CORPORATE);
+                           ? TURKISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL
+                           : ENGLISH_MONEY_TRANSFER_SENT_FOR_APPROVAL_INFO_TEXT_FORWARD_DATE_RETAIL);
         assertEquals(expectedMessage, appiumUtil.findElementSilent("moneyTransferSentForApprovalInfoText").getText());
     }
 
