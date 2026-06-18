@@ -14,7 +14,7 @@ Feature: Saved Transactions flows language Turkish
     And Select one own account as receiver
     And Click save button for saved transaction
     And Click confirm button on confirmation page for Saved Transaction
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Saved transfer should be created successfully
 
   Scenario: Kayıtlı Bir İşlem Üzerinden Para Transferi Talimatı Oluşturulması
@@ -22,7 +22,7 @@ Feature: Saved Transactions flows language Turkish
     And Enter transaction amount as "5" TL and description
     When Click continue button on the Another Saved Transaction page
     And Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval and Saved Transaction
 
   Scenario: Hesaplarım Arasındaki Kayıtlı Transferin Silinmesi
@@ -41,7 +41,7 @@ Feature: Saved Transactions flows language Turkish
     And Enter receiver IBAN
     And Click save button for saved transaction
     And Click confirm button on confirmation page for Saved Transaction
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Saved transfer should be created successfully
 
   Scenario: IBAN’a Kayıtlı Transferin Silinmesi
@@ -61,7 +61,7 @@ Feature: Saved Transactions flows language Turkish
     And Enter receiver account info
     And Click save button for saved transaction
     And Click confirm button on confirmation page for Saved Transaction
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Saved transfer should be created successfully
 
   Scenario: Hesap Numarasına Kayıtlı Transferin Silinmesi

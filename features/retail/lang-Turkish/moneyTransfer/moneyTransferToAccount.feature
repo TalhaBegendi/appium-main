@@ -11,20 +11,20 @@ Feature: Money Transfer flows language Turkish
     And Enter transaction amount as "2" TL and description
     When Click money transfer case continue button on the Another Account page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval and Account
 
   Scenario: Bireysel Müşteri için Aynı Gün Hesaba Transferinin Yapılması
     When Enter "RETAIL" transaction details to account for today
     When Click money transfer case continue button on the Another Account page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval and Account
 
   Scenario: Kurumsal Müşteri için Aynı Gün Hesaba Transferinin Yapılması
     When Enter "CORPORATE" transaction details to account for today
     When Click money transfer case continue button on the Another Account page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval and Account
 

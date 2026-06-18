@@ -42,12 +42,6 @@ public class SettingsPages  {
         appiumUtil.scrollToBottom(scroll).clickElement(key);
     }
 
-    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
-        String actualText = element.getText().trim();
-        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
-                "Actual text [" + actualText + "] does not contain any expected values");
-    }
-
     public void selectAsLanguageOption(String language) {
         appiumUtil.selectFromListByText("settingsLanguageList", language);
     }
@@ -98,14 +92,14 @@ public class SettingsPages  {
     }
 
     public void successMessageIsDisplayed() {
-        assertElementTextContainsAny(
+        appiumUtil.assertElementTextContainsAny(
                 appiumUtil.safeFindElementAndWait("settingsSelectLanguageSuccessMessage"),
                 TURKISH_SELECT_LANGUAGE_SUCCESS_MESSAGE);
     }
 
     public void successPageTitleIsDisplayed() {
         appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
-        assertElementTextContainsAny(
+        appiumUtil.assertElementTextContainsAny(
                 appiumUtil.safeFindElementAndWait("settingsPageTitle"),
                 TURKISH_FINANCE_SUCCESS_MESSAGE_TITLE,
                 TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_TITLE,
@@ -133,8 +127,8 @@ public class SettingsPages  {
     }
 
     public void successProfilePageTitleIsDisplayed() {
-        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
-        assertElementTextContainsAny(
+        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT)
+        .assertElementTextContainsAny(
                 appiumUtil.safeFindElementAndWait("settingsPageTitleMyEmployeeInfo"),
                 TURKISH_MY_EMPLOYMENT_DETAILS_SUCCESS_MESSAGE_TITLE,
                 TURKISH_PLANNED_MONTHLY_TRANSACTIONS_SUCCESS_MESSAGE_TITLE
@@ -142,8 +136,8 @@ public class SettingsPages  {
     }
 
     public void successPageMessagesIsDisplayed() {
-        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT);
-        assertElementTextContainsAny(
+        appiumUtil.autoHandleNavigationGates(NavigationGates.Context.DEFAULT)
+        .assertElementTextContainsAny(
                 appiumUtil.safeFindElementAndWait("settingsSuccessPageMessage"),
                 TURKISH_EMAIL_UPDATE_SUCCESS_MESSAGE,
                 TURKISH_ADDRESS_UPDATE_SUCCESS_MESSAGE);

@@ -196,15 +196,9 @@ public class CurrencyPreciousMetalPages  {
     // ---------------- ASSERTIONS ----------------
 
     public void verifyCurrencyTransactionSuccessMessageIsDisplayed() {
-        assertElementTextContainsAny(
+        appiumUtil.assertElementTextContainsAny(
                 appiumUtil.findElementSilent("currencyPreciousSuccessMessage"),
                 TURKISH_CURRENCY_SUCCESS_MESSAGE
         );
-    }
-
-    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
-        String actualText = element.getText().trim();
-        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
-                "Actual text [" + actualText + "] does not contain any expected values");
     }
 }

@@ -13,7 +13,8 @@ public class MenuPages  {
     private final AppiumUtil appiumUtil;
 
     public void openMainMenu() {
-        appiumUtil.clickElement("menuItem");
+        appiumUtil.waitUntilElementLoad("menuItem")
+        .clickElement("menuItem");
         MAIN_MENU.runAssertion();
         log.info(LOG_MENU_OPENED);
     }

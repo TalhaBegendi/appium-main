@@ -12,10 +12,12 @@ import java.time.Duration;
 import java.util.*;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 import static org.halkKatilim.utility.appiumUtil.AppiumUtilText.*;
 import static org.halkKatilim.utility.assertionUtil.enums.AssertionKey.ASSETS;
 import static org.halkKatilim.utility.helpers.FrameworkLogger.*;
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 @RequiredArgsConstructor
@@ -29,6 +31,12 @@ public class AppiumUtil implements WaitConditions {
 
     public HardAssertion getAssertion() {
         return helper.getAssertion();
+    }
+
+    public void assertElementTextContainsAny(WebElement element, String... expectedParts) {
+        String actualText = element.getText().trim();
+        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
+                "Actual text [" + actualText + "] does not contain any expected values");
     }
 
     public void navigate(String path, String clickKey) {
@@ -183,12 +191,24 @@ public class AppiumUtil implements WaitConditions {
     }
 
     public AppiumUtil selectFromListByText(String listKey, String expectedText) {
-        this.safeFindElementsAndWait(listKey)
+        return selectFromList(listKey, expectedText, WebElement::getText);
+    }
+
+    public AppiumUtil selectFromListByLabel(String listKey, String expectedName) {
+        return selectFromList(listKey, expectedName, element -> element.getAttribute("label"));
+    }
+
+    private AppiumUtil selectFromList(String listKey, String expectedValue, Function<WebElement, String> valueProvider) {
+        safeFindElementsAndWait(listKey)
                 .stream()
-                .filter(e -> expectedText.equalsIgnoreCase(e.getText()))
+                .filter(item -> normalize(valueProvider.apply(item)).equalsIgnoreCase(expectedValue))
                 .findFirst()
                 .ifPresent(WebElement::click);
         return this;
+    }
+
+    private String normalize(String value) {
+        return value == null ? "" : value.replace('\u00A0', ' ').trim();
     }
 
     public AppiumUtil fillInputKeyboard(String key, String text, boolean scroll, boolean hideKeyboard) {

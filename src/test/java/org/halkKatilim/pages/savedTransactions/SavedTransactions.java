@@ -27,7 +27,7 @@ public class SavedTransactions  {
     }
 
     public void verifyAddNewSavedTransactionScreenIsVisible() {
-        assertElementTextContainsAny(appiumUtil.safeFindElementAndWait("savedTransactionsAddNewTransactionPageTitle"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.safeFindElementAndWait("savedTransactionsAddNewTransactionPageTitle"),
                 TURKISH_NEW_SAVED_TRANSACTION_PAGE_TITLE, ENGLISH_NEW_SAVED_TRANSACTION_PAGE_TITLE, ENGLISH_NEW_SAVED_TRANSACTION_PAGE_TITLE_IOS);
     }
 
@@ -62,7 +62,7 @@ public class SavedTransactions  {
     }
 
     public void successMessageIsDisplayed() {
-        assertElementTextContainsAny(appiumUtil.findElementSilent("savedTransactionsSuccessMessage"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.findElementSilent("savedTransactionsSuccessMessage"),
                 ENGLISH_SUCCESS_MESSAGE, TURKISH_SUCCESS_MESSAGE);
     }
 
@@ -100,7 +100,7 @@ public class SavedTransactions  {
     }
 
     public void verifySavedTransactionIsDeletedSuccessfully() {
-        assertElementTextContainsAny(appiumUtil.findElementSilent("savedTransactionsDeleteTransactionSuccessMessage"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.findElementSilent("savedTransactionsDeleteTransactionSuccessMessage"),
                 TURKISH_DELETE_TRANSACTION_SUCCESS_MESSAGE, ENGLISH_DELETE_TRANSACTION_SUCCESS_MESSAGE);
     }
 
@@ -157,7 +157,7 @@ public class SavedTransactions  {
     }
 
     public void noSearchResultsFoundMessageIsDisplayed() {
-        assertElementTextContainsAny(appiumUtil.safeFindElementAndWait("savedTransactionsSearchErrorMessage"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.safeFindElementAndWait("savedTransactionsSearchErrorMessage"),
                 TURKISH_SEARCH_ERROR_MESSAGE, ENGLISH_SEARCH_ERROR_MESSAGE, ENGLISH_SEARCH_ERROR_MESSAGE_IOS);
     }
 
@@ -178,7 +178,7 @@ public class SavedTransactions  {
     }
 
     public void verifyFundAccountWarningErrorShouldBeDisplayed() {
-        assertElementTextContainsAny(appiumUtil.findElementSilent("moneyTransferFundWarningPopupMessage"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.findElementSilent("moneyTransferFundWarningPopupMessage"),
                 TURKISH_FUND_ACCOUNT_NUMBER_ERROR_MESSAGE, ENGLISH_FUND_ACCOUNT_NUMBER_ERROR_MESSAGE);
     }
 
@@ -188,12 +188,6 @@ public class SavedTransactions  {
                 .getText()
                 .contains(expectedMessage)
         );
-    }
-
-    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
-        String actualText = element.getText().trim();
-        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
-                "Actual text [" + actualText + "] does not contain any expected values");
     }
 
     public String resolveFundIbanErrorMessage() {

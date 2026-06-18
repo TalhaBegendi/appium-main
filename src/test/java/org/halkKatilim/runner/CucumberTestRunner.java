@@ -6,7 +6,6 @@ import org.halkKatilim.constant.Config;
 import org.halkKatilim.deviceConfig.*;
 import org.halkKatilim.utility.helpers.SuiteManager;
 import org.testng.annotations.*;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @CucumberOptions(
         features = "featureTest",
-         name = "CORPORATE - Bireysel Müşteri için Aynı Gün Onaya Gönderilen IBAN Transferinin Onaylanması",
+        name = "Apply the Classic Card",
         glue = {
                 "org.halkKatilim.stepDefs",
                 "org.halkKatilim.hooks"

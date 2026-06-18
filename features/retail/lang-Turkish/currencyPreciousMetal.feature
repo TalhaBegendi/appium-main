@@ -11,7 +11,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent buy amount is correct for "CURRENCY"
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Euro - Dolar Dönüşümü - Euro Satma
@@ -20,7 +20,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "CURRENCY"
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Dolar Alma - TL Girerek
@@ -29,7 +29,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "CURRENCY" equivalent amount is correct for buy
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Dolar Alma - Dolar Girerek
@@ -38,7 +38,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent buy amount is correct for "CURRENCY"
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Dolar Satma Senaryosu - TL Girerek
@@ -47,7 +47,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "CURRENCY"
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Dolar Satma Senaryosu - Dolar Girerek
@@ -56,7 +56,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "CURRENCY" equivalent amount is correct
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Euro Alma - Euro Girerek
@@ -65,7 +65,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "CURRENCY" equivalent amount is correct for buy
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Euro Alma - TL Girerek
@@ -74,7 +74,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "CURRENCY"
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Euro Satma Senaryosu
@@ -83,7 +83,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "CURRENCY" equivalent amount is correct
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Euro Satma Senaryosu - TL Girerek
@@ -92,7 +92,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "CURRENCY"
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Gram Altın Alma - Gram Altın Girerek
@@ -101,7 +101,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "PRECIOUS METAL" equivalent amount is correct for buy
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Gram Altın Alma - TL Girerek
@@ -110,7 +110,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "PRECIOUS METAL"
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Gram Altın Satma Senaryosu - Gram Altın girerek
@@ -119,7 +119,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "PRECIOUS METAL" equivalent amount is correct
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Gram Altın Satma Senaryosu - Tl girerek
@@ -128,7 +128,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "PRECIOUS_METAL"
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Sterlin Satma Senaryosu - TL Girerek
@@ -137,7 +137,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "CURRENCY"
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Çeyrek Altın Alma - TL Girerek
@@ -146,7 +146,7 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the TL equivalent amount is correct for "PRECIOUS_METAL"
     When Click buy button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed
 
   Scenario: Suudi Arabistan Riyali Satma Senaryosu - Suudi Arabistan Riyali Girerek
@@ -155,5 +155,5 @@ Feature: Currency/Precious Metal Language Turkish
     Then Verify the "CURRENCY" equivalent amount is correct
     When Click sell button
     And Click approve button
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then Verify currency transaction success message is displayed

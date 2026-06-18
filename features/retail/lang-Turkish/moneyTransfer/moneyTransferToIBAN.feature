@@ -13,7 +13,7 @@ Feature: Money Transfer flows language Turkish
     When Click continue button on the Another Account page
     Then The transaction details should be displayed correctly on the Verification page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval
 
   Scenario: Bireysel Müşteri için Aynı Gün IBAN Transferinin Yapılması
@@ -21,7 +21,7 @@ Feature: Money Transfer flows language Turkish
     When Click continue button on the Another Account page
     Then The transaction details should be displayed correctly on the Verification page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval
 
   Scenario: Kurumsal Müşteri için Aynı Gün IBAN Transferinin Yapılması
@@ -29,14 +29,14 @@ Feature: Money Transfer flows language Turkish
     When Click continue button on the Another Account page
     Then The transaction details should be displayed correctly on the Verification page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be successfully sent for approval
 
   Scenario: Bireysel Müşteri için İleri Tarihli IBAN Transferinin Yapılması
     When Enter "RETAIL" customer transaction details for "9" days later
     When Click continue button on the Another Account page
     When Click confirm button on confirmation page
-    And Enter the OTP code
+    And Enter the OTP code with give permission
     Then The transaction should be for forward date completed successfully
 
   Scenario: Bireysel Müşteride Farklı Para Birimi Transferinin Engellenmesi

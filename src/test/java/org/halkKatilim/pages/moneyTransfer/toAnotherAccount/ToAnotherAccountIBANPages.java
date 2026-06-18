@@ -191,17 +191,27 @@ public final class ToAnotherAccountIBANPages {
     }
 
     public void confirmWithOtp() {
+        confirmWithOtp(false);
+    }
+
+    public void confirmWithOtpAndSameDayPermission() {
+        confirmWithOtp(true);
+    }
+
+    private void confirmWithOtp(boolean handleSameDayPermission) {
         CustomerCapable customer = DeviceContext.getCustomer(DeviceContext.getCurrentUserType());
         appiumUtil
                 .waitUntilElementLoad("inputSmsOtp")
                 .fillInputKeyboard("inputSmsOtp", customer.getSmsCode(), true, true)
                 .clickElement("smsOtpButtonSendItem");
-        givePermissionForSameDayTransaction();
+        if (handleSameDayPermission) {
+            givePermissionForSameDayTransaction();
+        }
     }
 
     public void verifyTransactionSuccess() {
-        appiumUtil.waitUntilElementLoad("moneyTransferSuccessMessage");
-        assertElementTextContainsAny(appiumUtil.findElementSilent("moneyTransferSuccessMessage"),
+        appiumUtil.waitUntilElementLoad("moneyTransferSuccessMessage")
+        .assertElementTextContainsAny(appiumUtil.findElementSilent("moneyTransferSuccessMessage"),
                 TURKISH_MONEY_TRANSFER_SUCCESS_MESSAGE_CORPORATE, ENGLISH_MONEY_TRANSFER_SUCCESS_MESSAGE_CORPORATE);
     }
 
@@ -447,13 +457,6 @@ public final class ToAnotherAccountIBANPages {
 
     public void enterFundTransactionDetailsToAccountForToday() {
         appiumUtil.fillInputKeyboard("moneyTransferFundWarningPopupMessage", FUND_ACCOUNT_NUMBER, true, true);
-    }
-
-    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
-        String actualText = element.getText().trim();
-
-        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
-                "Actual text [" + actualText + "] does not contain any expected values");
     }
 
     public void clickCloseMessageButton() {

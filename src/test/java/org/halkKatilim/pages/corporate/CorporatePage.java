@@ -48,12 +48,6 @@ public class CorporatePage  {
                 .clickElement("transactionDeletePopupApproveButton");
     }
 
-    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
-        String actualText = element.getText().trim();
-        assertTrue(Arrays.stream(expectedParts).anyMatch(actualText::contains),
-                "Actual text [" + actualText + "] does not contain any expected values");
-    }
-
     public void approveTheTransactionSentForApproval() {
         appiumUtil.clickElement("firstTransactionItem")
                 .clickElement("transactionApproveButton")
@@ -61,7 +55,7 @@ public class CorporatePage  {
     }
 
     public void verifyTransactionSuccessMessageIsDisplayed() {
-        assertElementTextContainsAny(appiumUtil.findElementSilent("transactionSuccessMessage"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.findElementSilent("transactionSuccessMessage"),
                 TURKISH_APPROVE_SUCCESS_MESSAGE);
     }
 
@@ -82,7 +76,7 @@ public class CorporatePage  {
     }
 
     public void verifyTransactionRejectionMessageIsDisplayed() {
-        assertElementTextContainsAny(appiumUtil.findElementSilent("transactionSuccessMessage"),
+        appiumUtil.assertElementTextContainsAny(appiumUtil.findElementSilent("transactionSuccessMessage"),
                 TURKISH_REJECT_SUCCESS_MESSAGE);
     }
 }

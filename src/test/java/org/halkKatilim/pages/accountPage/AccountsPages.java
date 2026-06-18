@@ -127,17 +127,8 @@ public class AccountsPages {
         appiumUtil.getAssertion().assertTextInDisplayTexts(actual, SUCCESS_ACCOUNTS);
     }
 
-    private void assertElementTextContainsAny(WebElement element, String... expectedParts) {
-        String actualText = element.getText().trim();
-
-        assertTrue(
-                Arrays.stream(expectedParts).anyMatch(actualText::contains),
-                "Actual text [" + actualText + "] does not contain any expected values"
-        );
-    }
-
     public void verifyCorporateRoleAuthorizationErrorMessage() {
-        assertElementTextContainsAny(
+        appiumUtil.assertElementTextContainsAny(
                 appiumUtil.findElementSilent("corporateRoleAuthorizationError"),
                 CORPORATE_ROLE_AUTHORIZATION_ERROR_TURKISH,
                 CORPORATE_ROLE_AUTHORIZATION_ERROR_ENGLISH

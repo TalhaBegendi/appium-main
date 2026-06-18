@@ -3,7 +3,7 @@
 build_wda_bundle() {
   local tag="$1"
   local counter="$2"
-  echo "com.mycompany.WebDriverAgentRunner.${tag}.${counter}"
+  echo "com.mycompany.WebDriverAgentRunner.${tag}"
 }
 
 build_appium_default_caps() {

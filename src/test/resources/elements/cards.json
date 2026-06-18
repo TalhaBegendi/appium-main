@@ -1,0 +1,72 @@
+[
+  {
+    "key": "applyForCardButton",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BPermanentButton_PermanentButton",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "cardTypesList",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BMenuItemComponent\"]",
+    "iosType": "xpath"
+  },
+  {
+    "key": "continueApplyCardButton",
+    "androidValue": "//android.widget.Button[@resource-id=\"com.halkkatilim.mobilebanking.dev:id/buttonSend\"]",
+    "androidType": "xpath",
+    "iosValue": "//XCUIElementTypeCell[@name=\"BActionButtonComponent\"]/XCUIElementTypeButton",
+    "iosType": "xpath"
+  },
+  {
+    "key": "firstOptionButton",
+    "androidValue": "",
+    "androidType": "xpath",
+    "iosValue": "SegmentedControl_0",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "secondOptionButton",
+    "androidValue": "",
+    "androidType": "xpath",
+    "iosValue": "SegmentedControl_1",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "inputAmountMyCard",
+    "androidValue": "",
+    "androidType": "xpath",
+    "iosValue": "BTextFieldComponents_BTextField_ownCard",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "inputAmountOtherCard",
+    "androidValue": "",
+    "androidType": "xpath",
+    "iosValue": "BTextFieldComponents_BTextField_n2",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "payDebtMyCardContinueButton",
+    "androidValue": "com.halkkatilim.mobilebanking.dev:id/buttonConfirmItem",
+    "androidType": "id",
+    "iosValue": "BActionButtonComponent_nextButton",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "otherCardNumber",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BTextFieldComponents_BTextField_card",
+    "iosType": "accessibilityId"
+  },
+  {
+    "key": "otherCardOwnerName",
+    "androidValue": "",
+    "androidType": "",
+    "iosValue": "BTextFieldComponents_BTextField_standart",
+    "iosType": "accessibilityId"
+  }
+]

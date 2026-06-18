@@ -30,9 +30,5 @@ public class Pages {
             );
         }
     }
-
-    public void clear() {
-        cache.clear();
-    }
 }
 

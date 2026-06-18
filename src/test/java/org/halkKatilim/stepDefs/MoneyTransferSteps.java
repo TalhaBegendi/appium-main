@@ -64,6 +64,11 @@ public class MoneyTransferSteps {
         ibanPage().confirmWithOtp();
     }
 
+    @And("Enter the OTP code with give permission")
+    public void confirmWithOtpAndSameDayPermission() {
+        ibanPage().confirmWithOtpAndSameDayPermission();
+    }
+
     @Then("The transaction should be completed successfully")
     public void verifyTransactionSuccess() {
         ibanPage().verifyTransactionSuccess();
